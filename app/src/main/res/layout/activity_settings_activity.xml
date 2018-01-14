@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.deuce.me.matura.settings_activity">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/settingsact_description_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:maxLines="7"
+                android:minLines="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_aboutme_textview" />
+
+            <Spinner
+                android:id="@+id/settingsact_school_spinner"
+                android:layout_width="226dp"
+                android:layout_height="34dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_school_textview"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_school_textview" />
+
+            <EditText
+                android:id="@+id/settingsact_email_edittext"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView6"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/email_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_name_edittext" />
+
+            <TextView
+                android:id="@+id/settingsact_settings_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/settings_string"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/settingsact_firstname_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/surname_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_profile_textview" />
+
+            <EditText
+                android:id="@+id/settingsact_firstname_edittext"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_firstname_textview"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_firstname_textview" />
+
+            <TextView
+                android:id="@+id/settingsact_name_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/name_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_firstname_edittext" />
+
+            <EditText
+                android:id="@+id/settingsact_name_edittext"
+                android:layout_width="194dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_name_textview"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_name_textview" />
+
+            <ImageView
+                android:id="@+id/settingsact_profilepic_imageview"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="@+id/settingsact_name_edittext"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/settingsact_firstname_edittext"
+                app:layout_constraintTop_toTopOf="@+id/settingsact_firstname_edittext"
+                app:srcCompat="@mipmap/ic_launcher_round" />
+
+            <TextView
+                android:id="@+id/settingsact_school_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/school_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_email_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_email_edittext" />
+
+            <TextView
+                android:id="@+id/settingsact_profile_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/profile_string"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_settings_textview" />
+
+            <TextView
+                android:id="@+id/settingsact_subjects_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/subjectsicanassistothersin_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_school_spinner" />
+
+            <CheckBox
+                android:id="@+id/settingsact_german_checkbox"
+                android:layout_width="94dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/german_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_subjects_textview" />
+
+            <CheckBox
+                android:id="@+id/settingsact_french_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/french_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_german_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_german_checkbox" />
+
+            <CheckBox
+                android:id="@+id/settingsact_music_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/music_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_french_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_french_checkbox" />
+
+            <CheckBox
+                android:id="@+id/settingsact_maths_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/maths_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_biology_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_biology_checkbox" />
+
+            <CheckBox
+                android:id="@+id/settingsact_biology_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/biology_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_spanish_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_spanish_checkbox" />
+
+            <CheckBox
+                android:id="@+id/settingsact_spanish_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/spanish_string"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_german_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_subjects_textview" />
+
+            <CheckBox
+                android:id="@+id/settingsact_english_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/english_string"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_subjects_textview" />
+
+            <CheckBox
+                android:id="@+id/settingsact_chemics_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/chemics"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_english_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_english_checkbox" />
+
+            <CheckBox
+                android:id="@+id/settingsact_physics_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/physics_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_chemics_checkbox"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_chemics_checkbox" />
+
+            <Space
+                android:id="@+id/space2"
+                android:layout_width="313dp"
+                android:layout_height="43dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_description_edittext" />
+
+            <TextView
+                android:id="@+id/settingsact_security_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/security_string"
+                app:layout_constraintEnd_toEndOf="@+id/space2"
+                app:layout_constraintStart_toStartOf="@+id/space2"
+                app:layout_constraintTop_toBottomOf="@+id/space2" />
+
+            <TextView
+                android:id="@+id/settingsact_password_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/password_string"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_security_checkbox" />
+
+            <EditText
+                android:id="@+id/settingsact_oldpassword_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:ems="10"
+                android:hint="@string/oldpassword_string"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_password_textview" />
+
+            <EditText
+                android:id="@+id/settingsact_newpassword_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/newpassword_string"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_oldpassword_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_oldpassword_edittext" />
+
+            <EditText
+                android:id="@+id/settingsact_confnewpassword_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:hint="@string/confnewpassword"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_newpassword_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_newpassword_edittext" />
+
+            <Button
+                android:id="@+id/settingsact_savechanges_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/savechanges_string"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_confnewpassword_edittext" />
+
+            <TextView
+                android:id="@+id/settingsact_aboutme_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/aboutme_string"
+                app:layout_constraintStart_toStartOf="@+id/settingsact_email_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/settingsact_maths_checkbox" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

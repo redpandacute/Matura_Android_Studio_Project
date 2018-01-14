@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Matura</string>
+    <string name="registerhere_string">Don\'t have an account yet? Sign up <font fgcolor="#9a1d1d">here</font>!</string>
+    <string name="signin_string">Sign in</string>
+    <string name="password_string">Password</string>
+    <string name="username_string">Username</string>
+    <string name="surname_string">Firstname</string>
+    <string name="name_string">Name</string>
+    <string name="signup_string">Sign up</string>
+    <string name="confirmpassword_string">Confirm password</string>
+    <string name="email_string">E-mail</string>
+    <string name="aboutme_string">About me</string>
+    <string name="searchhint_string">Search</string>
+    <string name="school_string">School</string>
+    <string name="settings_string">Settings</string>
+    <string name="profile_string">Profile</string>
+    <string name="security_string">Security</string>
+    <string name="oldpassword_string">Old password</string>
+    <string name="newpassword_string">New password</string>
+    <string name="confnewpassword">Confirm new password</string>
+    <string name="savechanges_string">Save changes</string>
+    <string name="subjectsicanassistothersin_string">Subjects I can assist others in:</string>
+    <string name="german_string">German</string>
+    <string name="spanish_string">Spanish</string>
+    <string name="english_string">English</string>
+    <string name="french_string">French</string>
+    <string name="biology_string">Biology</string>
+    <string name="chemics">Chemics</string>
+    <string name="physics_string">Physics</string>
+    <string name="maths_string">Maths</string>
+    <string name="music_string">Music</string>
+</resources>

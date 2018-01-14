@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="child_content" type="id">child_text_placeholder</item>
+</resources>
