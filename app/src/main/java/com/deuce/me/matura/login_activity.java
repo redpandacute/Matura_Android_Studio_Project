@@ -100,6 +100,7 @@ public class login_activity extends AppCompatActivity {
 
                     try {
                         user_description = json_response.getString("user_description");
+                        System.out.println("desc: " + user_description);
                     } catch (Exception e) {
                         e.printStackTrace();
                         System.out.println("Warning: No Description");

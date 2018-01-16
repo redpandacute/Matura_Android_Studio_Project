@@ -56,7 +56,7 @@ public class settings_activity extends AppCompatActivity {
         if(!extras_bundle.get("user_id").toString().isEmpty()) {
 
             id = Integer.parseInt(extras_bundle.getString("user_id"));
-            
+
             System.out.println("id" + id);
             firstname_et.setText(extras_bundle.getString("user_firstname"));
             name_et.setText(extras_bundle.getString("user_name"));
