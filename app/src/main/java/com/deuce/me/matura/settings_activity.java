@@ -51,15 +51,17 @@ public class settings_activity extends AppCompatActivity {
         //Getting Extras ----------------
         Bundle extras_bundle = getIntent().getExtras();
 
-        final int id;
+        int id = 0;
 
         if(!extras_bundle.get("user_id").toString().isEmpty()) {
-            id = (int) extras_bundle.get("user_id");
+
+            id = Integer.parseInt(extras_bundle.getString("user_id"));
+            
             System.out.println("id" + id);
-            firstname_et.setText(extras_bundle.get("user_firstname").toString());
-            name_et.setText(extras_bundle.get("user_name").toString());
-            email_et.setText(extras_bundle.get("user_email").toString());
-            description_et.setText(extras_bundle.get("user_description").toString());
+            firstname_et.setText(extras_bundle.getString("user_firstname"));
+            name_et.setText(extras_bundle.getString("user_name"));
+            email_et.setText(extras_bundle.getString("user_email"));
+            description_et.setText(extras_bundle.getString("user_description"));
 
             //TODO
             //setting school -----------------
@@ -80,14 +82,14 @@ public class settings_activity extends AppCompatActivity {
             savechanges_bt.setOnClickListener(new onSaveListener());
         } else {
             //Error with extras
-            id = 0;
         }
     }
 
     class onSaveListener implements View.OnClickListener {
 
         Bundle extras_bundle = getIntent().getExtras();
-        int id = (int) extras_bundle.get("user_id");
+
+        int id = Integer.parseInt((extras_bundle.getString("user_id")));
 
         final EditText firstname_et = (EditText) findViewById(R.id.settingsact_firstname_edittext);
         final EditText name_et = (EditText) findViewById(R.id.settingsact_name_edittext);

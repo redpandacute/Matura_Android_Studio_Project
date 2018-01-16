@@ -10,6 +10,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 public class mainpage_activity extends AppCompatActivity {
 
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -24,59 +29,22 @@ public class mainpage_activity extends AppCompatActivity {
         setContentView(R.layout.activity_mainpage_activity);
 
 
-        final TextView nameandsurname_tv = findViewById(R.id.userprofileact_name_textview);
+        final TextView nameandfirstname_tv = findViewById(R.id.userprofileact_name_textview);
         final TextView description_tv = findViewById(R.id.userprofileact_description_textview);
         final TextView school_tv = findViewById(R.id.userprofileact_school_textview);
         final TextView userid_tv = findViewById(R.id.userprofileact_userid_textview);
 
         final ImageButton settings_bt = findViewById(R.id.mainpageact_settingsbutton_imagebutton);
 
+        Map<String, String> params = getInfo();
 
-        //Retreiving Extras
-        Bundle extras_bundle = getIntent().getExtras();
-
-        final int user_id;
-        final int user_yearofbirth;
-        final String user_username;
-        final String user_name;
-        final String user_school;
-        final String user_firstname;
-        final String user_description;
-        final String user_email;
+        nameandfirstname_tv.setText(params.get("user_name") + " " + params.get("user_firstname"));
+        description_tv.setText(params.get("user_description"));
+        school_tv.setText(params.get("user_school"));
+        userid_tv.setText(params.get("user_id"));
 
 
-        if(!extras_bundle.get("user_name").toString().isEmpty()) {
-            user_id = (int) extras_bundle.get("user_id");
-            user_yearofbirth = (int) extras_bundle.get("user_yearofbirth");
-
-            user_username = (String) extras_bundle.get("user_username");
-            user_name = (String) extras_bundle.get("user_name");
-            user_firstname = (String) extras_bundle.get("user_firstname");
-            user_school = (String) extras_bundle.get("user_school");
-            user_description = (String) extras_bundle.get("user_description");
-            user_email = (String) extras_bundle.get("user_email");
-            nameandsurname_tv.setText(user_firstname + " " + user_name);
-            school_tv.setText(user_school);
-            description_tv.setText(user_description);
-            userid_tv.setText("#" + user_id);
-
-        } else {
-            //TODO:
-            //get data from online
-
-            user_id = 0;
-            user_yearofbirth = 0;
-            user_username = "";
-            user_name = "";
-            user_school = "";
-            user_firstname = "";
-            user_description = "";
-            user_email = "";
-
-        }
-
-
-//SubjectMedals
+//SubjectMedals *PLACEHOLDER*
 // -------------------------------------------------------------------------------------------------
         ImageView math_medal = findViewById(R.id.mainpageact_math_imageview);
         if(math == false) {
@@ -118,50 +86,91 @@ public class mainpage_activity extends AppCompatActivity {
         mBottomSheetBehavior.setPeekHeight((getWindowManager().getDefaultDisplay().getHeight())/20);  //Setting height for BottomSheet
 
         //Expanding or Collapsing BottomSheet
-
-        expandbut.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                } else {
-                    mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-                }
-            }
-        });
+        expandbut.setOnClickListener(new onExpandListener());
 
         //Actionlistener for settings Button
-        settings_bt.setOnClickListener(new View.OnClickListener() {
+        settings_bt.setOnClickListener(new onSettingsListener());
 
-            @Override
-            public void onClick(View view) {
 
-                Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
-                settings_intent.putExtra("user_id", user_id);
-                settings_intent.putExtra("user_username", user_username);
-                settings_intent.putExtra("user_name", user_name);
-                settings_intent.putExtra("user_firstname", user_firstname);
-                settings_intent.putExtra("user_username", user_name);
-                settings_intent.putExtra("user_school", user_school);
-                settings_intent.putExtra("user_email", user_email);
-                settings_intent.putExtra("user_description", user_description);
+    }
 
-                settings_intent.putExtra("subj_german", true);
-                settings_intent.putExtra("subj_spanish", true);
-                settings_intent.putExtra("subj_french", true);
-                settings_intent.putExtra("subj_english", true);
-                settings_intent.putExtra("subj_maths", true);
-                settings_intent.putExtra("subj_physics", true);
-                settings_intent.putExtra("subj_chemics", true);
-                settings_intent.putExtra("subj_biology", true);
-                settings_intent.putExtra("subj_music", false);
+    class onExpandListener implements View.OnClickListener {
 
-                startActivity(settings_intent);
+        @Override
+        public void onClick(View view) {
 
+            if(mBottomSheetBehavior.getState() == BottomSheetBehavior.STATE_COLLAPSED) {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            } else {
+                mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
-        });
+
+        }
+    }
+
+    class onSettingsListener implements View.OnClickListener  {
 
 
+        @Override
+        public void onClick(View view) {
+            Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
+
+            Map<String, String> params = getInfo();
+
+            settings_intent.putExtra("user_id", params.get("user_id") + "");
+            settings_intent.putExtra("user_username", params.get("user_username"));
+            settings_intent.putExtra("user_name", params.get("user_name"));
+            settings_intent.putExtra("user_firstname", params.get("user_firstname"));
+            settings_intent.putExtra("user_school", params.get("user_school"));
+            settings_intent.putExtra("user_email", params.get("user_email"));
+            settings_intent.putExtra("user_description", params.get("user_description"));
+
+
+            //Placeholder ------------------------------------------------------
+            settings_intent.putExtra("subj_german", true);
+            settings_intent.putExtra("subj_spanish", true);
+            settings_intent.putExtra("subj_french", true);
+            settings_intent.putExtra("subj_english", true);
+            settings_intent.putExtra("subj_maths", true);
+            settings_intent.putExtra("subj_physics", true);
+            settings_intent.putExtra("subj_chemics", true);
+            settings_intent.putExtra("subj_biology", true);
+            settings_intent.putExtra("subj_music", false);
+
+            startActivity(settings_intent);
+        }
+    }
+
+    private Map<String, String> getInfo() {
+
+        Bundle extras_bundle = getIntent().getExtras();
+        Map<String, String> Map = new HashMap<>();
+
+        if (!extras_bundle.get("user_name").toString().isEmpty()) {
+            Map.put("user_id", extras_bundle.get("user_id") + "");
+            Map.put("user_username", extras_bundle.getString("user_username"));
+            Map.put("user_name", extras_bundle.getString("user_name"));
+            Map.put("user_firstname", extras_bundle.getString("user_firstname"));
+            Map.put("user_school", extras_bundle.getString("user_school"));
+            Map.put("user_yearofbirth", extras_bundle.get("user_yearofbirth") + "");
+            Map.put("user_description", extras_bundle.getString("user_description"));
+            Map.put("user_email", extras_bundle.getString("user_email"));
+
+        } else {
+
+            //TODO: There was an issue, try again
+
+            Map.put("user_id", "0");
+            Map.put("user_username", "");
+            Map.put("user_name", "");
+            Map.put("user_surname", "");
+            Map.put("user_school", "");
+            Map.put("user_yearofbirth", "0");
+            Map.put("user_description", "");
+            Map.put("user_email", "");
+
+        }
+
+        return Map;
     }
 }
