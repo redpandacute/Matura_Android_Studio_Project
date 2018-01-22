@@ -25,8 +25,11 @@
     <string name="english_string">English</string>
     <string name="french_string">French</string>
     <string name="biology_string">Biology</string>
-    <string name="chemics">Chemics</string>
+    <string name="chemics">Chemistry</string>
     <string name="physics_string">Physics</string>
     <string name="maths_string">Maths</string>
     <string name="music_string">Music</string>
+    <string name="filterbysubject_string">Filter by subject:</string>
+    <string name="filterbyschool_string">Filter by school:</string>
+    <string name="searchforname_string">Search for a name:</string>
 </resources>

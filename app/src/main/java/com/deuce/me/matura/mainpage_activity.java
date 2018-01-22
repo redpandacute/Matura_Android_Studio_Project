@@ -10,8 +10,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +19,7 @@ public class mainpage_activity extends AppCompatActivity {
 
 
 
-    boolean math = true, spanish = false, biology = false, chemics = true, physics = true, german = true; //Boolean for subjects :: Values are for testing prpses
+    boolean math = true, spanish = false, biology = false, chemistry = true, physics = true, german = true; //Boolean for subjects :: Values are for testing prpses
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,7 @@ public class mainpage_activity extends AppCompatActivity {
         userid_tv.setText(params.get("user_id"));
 
 
-//SubjectMedals *PLACEHOLDER*
+//SubjectMedals *PLACEHOLDER* TODO make it dynamic and from the passed data
 // -------------------------------------------------------------------------------------------------
         ImageView math_medal = findViewById(R.id.mainpageact_math_imageview);
         if(math == false) {
@@ -71,9 +69,9 @@ public class mainpage_activity extends AppCompatActivity {
             biology_medal.setVisibility(View.GONE);
         }
 
-        ImageView chemics_medal = findViewById(R.id.mainpageact_chemics_imageview);
-        if(chemics == false) {
-            chemics_medal.setVisibility(View.GONE);
+        ImageView chemistry_medal = findViewById(R.id.mainpageact_chemics_imageview);
+        if(chemistry == false) {
+            chemistry_medal.setVisibility(View.GONE);
         }
 
 
@@ -133,7 +131,7 @@ public class mainpage_activity extends AppCompatActivity {
             settings_intent.putExtra("subj_english", true);
             settings_intent.putExtra("subj_maths", true);
             settings_intent.putExtra("subj_physics", true);
-            settings_intent.putExtra("subj_chemics", true);
+            settings_intent.putExtra("subj_chemistry", true);
             settings_intent.putExtra("subj_biology", true);
             settings_intent.putExtra("subj_music", false);
 

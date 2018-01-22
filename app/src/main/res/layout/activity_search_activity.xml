@@ -1,6 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <CheckBox
+        android:id="@+id/searchactivity_biology_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/biology_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_maths_checkbox"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_maths_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_maths_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/maths_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_searchbutton_imagebutton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/searchactivity_searchbutton_imagebutton"
+        android:layout_width="98dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.93"
+        app:srcCompat="@android:drawable/ic_menu_compass" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_spanish_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/spanish_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_biology_checkbox"
+        app:layout_constraintEnd_toEndOf="@+id/searchactivity_biology_checkbox"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_biology_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_german_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="@string/german_string"
+        app:layout_constraintEnd_toStartOf="@+id/searchactivity_spanish_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/searchactivity_spanish_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_french_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/french_string"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_german_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/searchactivity_german_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_music_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/music_string"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_french_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/searchactivity_french_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_english_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/english_string"
+        app:layout_constraintStart_toEndOf="@+id/searchactivity_spanish_checkbox"
+        app:layout_constraintTop_toTopOf="@+id/searchactivity_spanish_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_chemics_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chemics"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_english_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/searchactivity_english_checkbox" />
+
+    <CheckBox
+        android:id="@+id/searchactivity_physics_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/physics_string"
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_chemics_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/searchactivity_chemics_checkbox" />
+
+    <TextView
+        android:id="@+id/searchactivity_filterbysubject_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/filterbysubject_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_spanish_checkbox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Spinner
+        android:id="@+id/searchactivity_filterbyschool_spinner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_filterbysubject_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/searchactivity_filterbyschool_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/filterbyschool_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_filterbyschool_spinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/searchactivity_searchforname_edittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_filterbyschool_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/searchactivity_searchforname_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="@string/searchforname_string"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_searchforname_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/searchactivity_searchicon_imageview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/searchactivity_searchforname_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/ic_launcher_round" />
 
 </android.support.constraint.ConstraintLayout>

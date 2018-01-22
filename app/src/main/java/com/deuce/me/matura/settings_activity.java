@@ -40,7 +40,7 @@ public class settings_activity extends AppCompatActivity {
         final CheckBox french_cb = (CheckBox) findViewById(R.id.settingsact_french_checkbox);
         final CheckBox biology_cb = (CheckBox) findViewById(R.id.settingsact_biology_checkbox);
         final CheckBox music_cb = (CheckBox) findViewById(R.id.settingsact_music_checkbox);
-        final CheckBox chemics_cb = (CheckBox) findViewById(R.id.settingsact_chemics_checkbox);
+        final CheckBox chemistry_cb = (CheckBox) findViewById(R.id.settingsact_chemics_checkbox);
         final CheckBox maths_cb = (CheckBox) findViewById(R.id.settingsact_maths_checkbox);
         final CheckBox physics_cb = (CheckBox) findViewById(R.id.settingsact_physics_checkbox);
 
@@ -76,7 +76,7 @@ public class settings_activity extends AppCompatActivity {
             maths_cb.setChecked((boolean) extras_bundle.get("subj_maths"));
             biology_cb.setChecked((boolean) extras_bundle.get("subj_biology"));
             music_cb.setChecked((boolean) extras_bundle.get("subj_music"));
-            chemics_cb.setChecked((boolean) extras_bundle.get("subj_chemics"));
+            chemistry_cb.setChecked((boolean) extras_bundle.get("subj_chemics"));
             physics_cb.setChecked((boolean) extras_bundle.get("subj_physics"));
 
             savechanges_bt.setOnClickListener(new onSaveListener());
@@ -107,7 +107,7 @@ public class settings_activity extends AppCompatActivity {
         final CheckBox french_cb = (CheckBox) findViewById(R.id.settingsact_french_checkbox);
         final CheckBox biology_cb = (CheckBox) findViewById(R.id.settingsact_biology_checkbox);
         final CheckBox music_cb = (CheckBox) findViewById(R.id.settingsact_music_checkbox);
-        final CheckBox chemics_cb = (CheckBox) findViewById(R.id.settingsact_chemics_checkbox);
+        final CheckBox chemistry_cb = (CheckBox) findViewById(R.id.settingsact_chemics_checkbox);
         final CheckBox maths_cb = (CheckBox) findViewById(R.id.settingsact_maths_checkbox);
         final CheckBox physics_cb = (CheckBox) findViewById(R.id.settingsact_physics_checkbox);
 
@@ -127,7 +127,7 @@ public class settings_activity extends AppCompatActivity {
             boolean english = english_cb.isChecked();
             boolean french = french_cb.isChecked();
             boolean biology = biology_cb.isChecked();
-            boolean chemics = chemics_cb.isChecked();
+            boolean chemistry = chemistry_cb.isChecked();
             boolean maths = maths_cb.isChecked();
             boolean physics = physics_cb.isChecked();
             boolean music = music_cb.isChecked();
@@ -144,7 +144,7 @@ public class settings_activity extends AppCompatActivity {
 
                 System.out.println("Making save request");
 
-                savesettings_pw_request save_request = new savesettings_pw_request(id, surname, name, email, school, description, oldpassword, newpassword, german, spanish, english, french, biology, chemics, music, maths, physics, new onResponseListener());
+                savesettings_pw_request save_request = new savesettings_pw_request(id, surname, name, email, school, description, oldpassword, newpassword, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
                 RequestQueue request_queue = Volley.newRequestQueue(settings_activity.this); //Request Queue
                 request_queue.add(save_request);
 
@@ -193,10 +193,10 @@ public class settings_activity extends AppCompatActivity {
                     boolean subj_english = json_response.getBoolean("subj_english");
                     boolean subj_french = json_response.getBoolean("subj_french");
                     boolean subj_music = json_response.getBoolean("subj_music");
-                    boolean subj_chemics = json_response.getBoolean("subj_chemics");
+                    boolean subj_chemistry = json_response.getBoolean("subj_chemistry");
                     boolean subj_biology = json_response.getBoolean("subj_biology");
                     boolean subj_physics = json_response.getBoolean("subj_physics");
-                    boolean subj_maths = json_response.getBoolean("subj_chemics");
+                    boolean subj_maths = json_response.getBoolean("subj_maths");
 
                     Intent save_intent = new Intent(settings_activity.this, mainpage_activity.class);
 
@@ -216,7 +216,7 @@ public class settings_activity extends AppCompatActivity {
                     save_intent.putExtra("subj_spanish", subj_spanish);
                     save_intent.putExtra("subj_maths", subj_maths);
                     save_intent.putExtra("subj_biology", subj_biology);
-                    save_intent.putExtra("subj_chemics", subj_chemics);
+                    save_intent.putExtra("subj_chemistry", subj_chemistry);
                     save_intent.putExtra("subj_physics", subj_physics);
 
                     startActivity(save_intent);

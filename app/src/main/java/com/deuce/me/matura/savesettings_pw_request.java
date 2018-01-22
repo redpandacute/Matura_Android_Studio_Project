@@ -16,7 +16,7 @@ public class savesettings_pw_request extends StringRequest {
     private Map<String, String> params;
 
     public savesettings_pw_request(int id, String firstname, String name, String email, String school, String description, String oldpassword, String newpassword,
-                                   boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemics, boolean music, boolean maths, boolean physics,
+                                   boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemistry, boolean music, boolean maths, boolean physics,
                                    Response.Listener<String> listener) {
 
         super(Method.POST, savesettings_pw_URL, listener, null /*Errorlistener*/);
@@ -36,7 +36,7 @@ public class savesettings_pw_request extends StringRequest {
         params.put("subj_english", english + "");
         params.put("subj_french", french + "");
         params.put("subj_biology", biology + "");
-        params.put("subj_chemics", chemics + "");
+        params.put("subj_chemistry", chemistry + "");
         params.put("subj_music", music + "");
         params.put("subj_maths", maths + "");
         params.put("subj_physics", physics + "");

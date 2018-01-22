@@ -90,6 +90,8 @@ public class login_activity extends AppCompatActivity {
 
                 if (success) {
 
+
+                    //Could be possibly implemented into the extra directly
                     //getting UserData from Response
                     String user_username = json_response.getString("user_username");
                     String user_name = json_response.getString("user_name");
@@ -97,6 +99,17 @@ public class login_activity extends AppCompatActivity {
                     String user_school = json_response.getString("user_school");
                     String user_email = json_response.getString("user_email");
                     String user_description = "";
+
+                    boolean subj_maths = json_response.getBoolean("subj_maths");
+                    boolean subj_german = json_response.getBoolean("subj_german");
+                    boolean subj_french = json_response.getBoolean("subj_french");
+                    boolean subj_spanish = json_response.getBoolean("subj_spanish");
+                    boolean subj_physics = json_response.getBoolean("subj_physics");
+                    boolean subj_chemistry = json_response.getBoolean("subj_chemistry");
+                    boolean subj_biology = json_response.getBoolean("subj_biology");
+                    boolean subj_music = json_response.getBoolean("subj_music");
+                    boolean subj_english = json_response.getBoolean("subj_english");
+
 
                     try {
                         user_description = json_response.getString("user_description");
@@ -124,19 +137,17 @@ public class login_activity extends AppCompatActivity {
                     login_intent.putExtra("user_yearofbirth", user_yearofbirth);
                     login_intent.putExtra("user_id", user_id);
 
-                    //PLACEHOLDER------------------------
 
-                    login_intent.putExtra("subj_german", true);
-                    login_intent.putExtra("subj_spanish", true);
-                    login_intent.putExtra("subj_french", true);
-                    login_intent.putExtra("subj_english", true);
-                    login_intent.putExtra("subj_maths", true);
-                    login_intent.putExtra("subj_physics", true);
-                    login_intent.putExtra("subj_chemics", true);
-                    login_intent.putExtra("subj_biology", true);
-                    login_intent.putExtra("subj_music", false);
+                    login_intent.putExtra("subj_german", subj_german);
+                    login_intent.putExtra("subj_spanish", subj_spanish);
+                    login_intent.putExtra("subj_french", subj_french);
+                    login_intent.putExtra("subj_english", subj_english);
+                    login_intent.putExtra("subj_maths", subj_maths);
+                    login_intent.putExtra("subj_physics", subj_physics);
+                    login_intent.putExtra("subj_chemistry", subj_chemistry);
+                    login_intent.putExtra("subj_biology", subj_biology);
+                    login_intent.putExtra("subj_music", subj_music);
 
-                    //PLACEHOLDER -------------------------
 
                     //Starting activity
                     startActivity(login_intent);
