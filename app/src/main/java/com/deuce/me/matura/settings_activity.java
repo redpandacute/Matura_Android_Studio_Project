@@ -115,7 +115,7 @@ public class settings_activity extends AppCompatActivity {
         public void onClick(View view) {
 
             String name = name_et.getText().toString();
-            String surname = firstname_et.getText().toString();
+            String firstname = firstname_et.getText().toString();
             String email = email_et.getText().toString();
             String description = description_et.getText().toString();
 
@@ -132,11 +132,15 @@ public class settings_activity extends AppCompatActivity {
             boolean physics = physics_cb.isChecked();
             boolean music = music_cb.isChecked();
 
-            if(newpassword_et.getText().toString().isEmpty()) {
+            if(newpassword_et.getText().toString().isEmpty() && !name_et.getText().toString().isEmpty() && !firstname_et.getText().toString().isEmpty() && !email_et.getText().toString().isEmpty() && email_et.getText().toString().contains("@") && email_et.getText().toString().contains(".")) {
 
-                //TODO no pw request
+                System.out.println("Making save request");
 
-            } else if(newpassword_et.getText().toString().equals(newconfpassword_et.getText().toString()) && !newpassword_et.getText().toString().isEmpty() && !newconfpassword_et.getText().toString().isEmpty() ) {
+                savesettings_nopw_request save_request = new savesettings_nopw_request(id, firstname, name, email, school, description, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
+                RequestQueue request_queue = Volley.newRequestQueue(settings_activity.this); //Request Queue
+                request_queue.add(save_request);
+
+            } else if(newpassword_et.getText().toString().equals(newconfpassword_et.getText().toString()) && !newpassword_et.getText().toString().isEmpty() && !oldpassword_et.getText().toString().isEmpty() && !name_et.getText().toString().isEmpty() && !firstname_et.getText().toString().isEmpty() && !email_et.getText().toString().isEmpty() && email_et.getText().toString().contains("@") && email_et.getText().toString().contains(".")) {
 
                 String oldpassword = oldpassword_et.getText().toString();
                 String newpassword = newpassword_et.getText().toString();
@@ -144,7 +148,7 @@ public class settings_activity extends AppCompatActivity {
 
                 System.out.println("Making save request");
 
-                savesettings_pw_request save_request = new savesettings_pw_request(id, surname, name, email, school, description, oldpassword, newpassword, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
+                savesettings_pw_request save_request = new savesettings_pw_request(id, firstname, name, email, school, description, oldpassword, newpassword, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
                 RequestQueue request_queue = Volley.newRequestQueue(settings_activity.this); //Request Queue
                 request_queue.add(save_request);
 

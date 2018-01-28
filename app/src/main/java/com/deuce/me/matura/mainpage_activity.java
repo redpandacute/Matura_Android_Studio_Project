@@ -103,12 +103,12 @@ public class mainpage_activity extends AppCompatActivity {
 
     class onSettingsListener implements View.OnClickListener  {
 
-
         @Override
         public void onClick(View view) {
             Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
 
             Map<String, String> params = getInfo();
+            Map<String, Boolean> subjs = getSubj();
 
             settings_intent.putExtra("user_id", params.get("user_id") + "");
             settings_intent.putExtra("user_username", params.get("user_username"));
@@ -118,17 +118,15 @@ public class mainpage_activity extends AppCompatActivity {
             settings_intent.putExtra("user_email", params.get("user_email"));
             settings_intent.putExtra("user_description", params.get("user_description"));
 
-
-            //Placeholder ------------------------------------------------------
-            settings_intent.putExtra("subj_german", true);
-            settings_intent.putExtra("subj_spanish", true);
-            settings_intent.putExtra("subj_french", true);
-            settings_intent.putExtra("subj_english", true);
-            settings_intent.putExtra("subj_maths", true);
-            settings_intent.putExtra("subj_physics", true);
-            settings_intent.putExtra("subj_chemistry", true);
-            settings_intent.putExtra("subj_biology", true);
-            settings_intent.putExtra("subj_music", false);
+            settings_intent.putExtra("subj_german", subjs.get("subj_german"));
+            settings_intent.putExtra("subj_spanish", subjs.get("subj_spanish"));
+            settings_intent.putExtra("subj_french", subjs.get("subj_french"));
+            settings_intent.putExtra("subj_english", subjs.get("subj_english"));
+            settings_intent.putExtra("subj_maths", subjs.get("subj_maths"));
+            settings_intent.putExtra("subj_physics", subjs.get("subj_physics"));
+            settings_intent.putExtra("subj_chemistry", subjs.get("subj_chemistry"));
+            settings_intent.putExtra("subj_biology", subjs.get("subj_biology"));
+            settings_intent.putExtra("subj_music", subjs.get("subj_music"));
 
             startActivity(settings_intent);
         }
