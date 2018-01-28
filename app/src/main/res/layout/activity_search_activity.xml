@@ -48,7 +48,6 @@
         android:layout_height="wrap_content"
         android:text="@string/spanish_string"
         app:layout_constraintBottom_toTopOf="@+id/searchactivity_biology_checkbox"
-        app:layout_constraintEnd_toEndOf="@+id/searchactivity_biology_checkbox"
         app:layout_constraintStart_toStartOf="@+id/searchactivity_biology_checkbox" />
 
     <CheckBox
@@ -86,7 +85,7 @@
         app:layout_constraintTop_toTopOf="@+id/searchactivity_spanish_checkbox" />
 
     <CheckBox
-        android:id="@+id/searchactivity_chemics_checkbox"
+        android:id="@+id/searchactivity_chemistry_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/chemics"
@@ -98,8 +97,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/physics_string"
-        app:layout_constraintStart_toStartOf="@+id/searchactivity_chemics_checkbox"
-        app:layout_constraintTop_toBottomOf="@+id/searchactivity_chemics_checkbox" />
+        app:layout_constraintStart_toStartOf="@+id/searchactivity_chemistry_checkbox"
+        app:layout_constraintTop_toBottomOf="@+id/searchactivity_chemistry_checkbox" />
 
     <TextView
         android:id="@+id/searchactivity_filterbysubject_textview"
@@ -145,8 +144,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:ems="10"
+        android:hint="@string/name_string"
         android:inputType="textPersonName"
-        android:text="Name"
         app:layout_constraintBottom_toTopOf="@+id/searchactivity_filterbyschool_textview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
