@@ -17,10 +17,6 @@ public class mainpage_activity extends AppCompatActivity {
 
     private BottomSheetBehavior mBottomSheetBehavior;
 
-
-
-    boolean math = true, spanish = false, biology = false, chemistry = true, physics = true, german = true; //Boolean for subjects :: Values are for testing prpses
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +31,7 @@ public class mainpage_activity extends AppCompatActivity {
         final ImageButton settings_bt = findViewById(R.id.mainpageact_settingsbutton_imagebutton);
 
         Map<String, String> params = getInfo();
+        Map<String, Boolean> subjs = getSubj();
 
         nameandfirstname_tv.setText(params.get("user_name") + " " + params.get("user_firstname"));
         description_tv.setText(params.get("user_description"));
@@ -42,37 +39,35 @@ public class mainpage_activity extends AppCompatActivity {
         userid_tv.setText(params.get("user_id"));
 
 
-//SubjectMedals *PLACEHOLDER* TODO make it dynamic and from the passed data
+//SubjectMedals
 // -------------------------------------------------------------------------------------------------
         ImageView math_medal = findViewById(R.id.mainpageact_math_imageview);
-        if(math == false) {
-            math_medal.setVisibility(View.GONE);
-        }
+        if(!subjs.get("subj_math")) { math_medal.setVisibility(View.GONE); }
 
         ImageView spanish_medal = findViewById(R.id.mainpageact_spanish_imageview);
-        if(spanish == false) {
-            spanish_medal.setVisibility(View.GONE);
-        }
+        if(!subjs.get("subj_spanish")) { spanish_medal.setVisibility(View.GONE); }
 
         ImageView physics_medal = findViewById(R.id.mainpageact_physics_imageview);
-        if(physics == false) {
-            physics_medal.setVisibility(View.GONE);
-        }
+        if(!subjs.get("subj_physics")) { physics_medal.setVisibility(View.GONE); }
 
         ImageView german_medal = findViewById(R.id.mainpageact_german_imageview);
-        if(german == false) {
-            german_medal.setVisibility(View.GONE);
-        }
+        if(!subjs.get("subj_german")) { german_medal.setVisibility(View.GONE); }
 
         ImageView biology_medal = findViewById(R.id.mainpageact_biology_imageview);
-        if(biology == false) {
-            biology_medal.setVisibility(View.GONE);
-        }
+        if(!subjs.get("subj_biology")) { biology_medal.setVisibility(View.GONE); }
 
-        ImageView chemistry_medal = findViewById(R.id.mainpageact_chemics_imageview);
-        if(chemistry == false) {
-            chemistry_medal.setVisibility(View.GONE);
-        }
+        ImageView chemistry_medal = findViewById(R.id.mainpageact_chemistry_imageview);
+        if(!subjs.get("subj_chemistry")) { chemistry_medal.setVisibility(View.GONE); }
+
+        ImageView music_medal = findViewById(R.id.mainpageact_music_imageview);
+        if(!subjs.get("subj_music")) { music_medal.setVisibility(View.GONE); }
+
+        ImageView french_medal = findViewById(R.id.mainpageact_french_imageview);
+        if(!subjs.get("subj_french")) { french_medal.setVisibility(View.GONE); }
+
+        ImageView english_medal = findViewById(R.id.mainpageact_english_imageview);
+        if(!subjs.get("subj_english")) { english_medal.setVisibility(View.GONE); }
+
 
 
 //BottomSheet
@@ -156,7 +151,7 @@ public class mainpage_activity extends AppCompatActivity {
 
         } else {
 
-            //TODO: There was an issue, try again
+            //TODO: There was an issue, try again (Get from database)
 
             Map.put("user_id", "0");
             Map.put("user_username", "");
@@ -167,6 +162,31 @@ public class mainpage_activity extends AppCompatActivity {
             Map.put("user_description", "");
             Map.put("user_email", "");
 
+        }
+
+        return Map;
+    }
+
+    private Map<String, Boolean> getSubj() {
+
+        Bundle extras_bundle = getIntent().getExtras();
+        Map<String, Boolean> Map = new HashMap<>();
+
+        if (!extras_bundle.get("user_name").toString().isEmpty()) {
+
+            Map.put("subj_german", extras_bundle.getBoolean("subj_german"));
+            Map.put("subj_english", extras_bundle.getBoolean("subj_english"));
+            Map.put("subj_spanish", extras_bundle.getBoolean("subj_spanish"));
+            Map.put("subj_music", extras_bundle.getBoolean("subj_music"));
+            Map.put("subj_chemistry", extras_bundle.getBoolean("subj_chemistry"));
+            Map.put("subj_physics", extras_bundle.getBoolean("subj_physics"));
+            Map.put("subj_maths", extras_bundle.getBoolean("subj_maths"));
+            Map.put("subj_biology", extras_bundle.getBoolean("subj_biology"));
+            Map.put("subj_french", extras_bundle.getBoolean("subj_french"));
+
+
+        } else {
+            //TODO: There was an issue, try again (Get from database)
         }
 
         return Map;
