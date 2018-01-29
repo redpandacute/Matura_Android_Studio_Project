@@ -91,7 +91,7 @@ public class login_activity extends AppCompatActivity {
                 if (success) {
 
 
-                    //Could be possibly implemented into the extra directly
+                    //Could be implemented into the extra directly
                     //getting UserData from Response
                     String user_username = json_response.getString("user_username");
                     String user_name = json_response.getString("user_name");

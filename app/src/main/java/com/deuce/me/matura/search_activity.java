@@ -1,5 +1,6 @@
 package com.deuce.me.matura;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.android.volley.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,16 +43,6 @@ public class search_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            boolean german = german_cb.isChecked();
-            boolean spanish = spanish_cb.isChecked();
-            boolean maths = maths_cb.isChecked();
-            boolean physics = physics_cb.isChecked();
-            boolean chemistry = chemistry_cb.isChecked();
-            boolean biology = biology_cb.isChecked();
-            boolean music = music_cb.isChecked();
-            boolean english = english_cb.isChecked();
-            boolean french = french_cb.isChecked();
-
             String name = name_et.getText().toString();
 
             Map<String, Boolean> map = new HashMap<>();
@@ -75,6 +69,32 @@ public class search_activity extends AppCompatActivity {
 
         @Override
         public void onResponse(String response) {
+
+            try {
+
+                JSONObject json_response = new JSONObject(response);
+                boolean success = json_response.getBoolean("success");
+
+                if(success) {
+
+                    Integer[] results = new Integer[json_response.length()];
+
+                    for(int l = 0; l < json_response.length(); l++) {
+                        results[l] = json_response.getInt(l + "");
+                    }
+
+                    Intent view_results = new Intent(search_activity.this, viewresults_activity.class);
+                    view_results.putExtra("result_array", results);
+
+                } else {
+
+                    System.out.println("There was an issue with your search request");
+
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
 
         }
     }
