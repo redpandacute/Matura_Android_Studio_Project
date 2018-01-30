@@ -98,7 +98,7 @@ public class register_activity extends AppCompatActivity {
 
             try {
                 yearofbirth = Integer.parseInt(yearofbirth_sp.getSelectedItem().toString());
-                school = school_sp.getSelectedItem().toString();
+                //school = school_sp.getSelectedItem().toString();
             } catch (Exception e) {
                 e.printStackTrace();
             }

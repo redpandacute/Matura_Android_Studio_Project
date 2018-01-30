@@ -44,7 +44,7 @@ public class userprofile_activity extends AppCompatActivity {
             biology_medal.setVisibility(View.GONE);
         }
 
-        ImageView chemics_medal = findViewById(R.id.mainpageact_chemics_imageview);
+        ImageView chemics_medal = findViewById(R.id.mainpageact_chemistry_imageview);
         if(chemics == false) {
             chemics_medal.setVisibility(View.GONE);
         }

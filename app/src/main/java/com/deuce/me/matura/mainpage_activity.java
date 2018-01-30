@@ -29,6 +29,7 @@ public class mainpage_activity extends AppCompatActivity {
         final TextView userid_tv = findViewById(R.id.userprofileact_userid_textview);
 
         final ImageButton settings_bt = findViewById(R.id.mainpageact_settingsbutton_imagebutton);
+        final FloatingActionButton search_bt = findViewById(R.id.mainpageact_searchbutton_floatingactionbutton);
 
         Map<String, String> params = getInfo();
         Map<String, Boolean> subjs = getSubj();
@@ -84,7 +85,8 @@ public class mainpage_activity extends AppCompatActivity {
         //Actionlistener for settings Button
         settings_bt.setOnClickListener(new onSettingsListener());
 
-
+        //Actionlistener Searchbutton
+        search_bt.setOnClickListener(new onSearchListener());
     }
 
     class onExpandListener implements View.OnClickListener {
@@ -129,6 +131,15 @@ public class mainpage_activity extends AppCompatActivity {
             settings_intent.putExtra("subj_music", subjs.get("subj_music"));
 
             startActivity(settings_intent);
+        }
+    }
+
+    class onSearchListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+            Intent search_intent = new Intent(mainpage_activity.this, search_activity.class);
+            startActivity(search_intent);
         }
     }
 
