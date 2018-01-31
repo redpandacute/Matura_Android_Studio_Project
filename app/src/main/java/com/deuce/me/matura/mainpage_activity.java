@@ -43,7 +43,7 @@ public class mainpage_activity extends AppCompatActivity {
 //SubjectMedals
 // -------------------------------------------------------------------------------------------------
         ImageView math_medal = findViewById(R.id.mainpageact_math_imageview);
-        if(!subjs.get("subj_math")) { math_medal.setVisibility(View.GONE); }
+        if(!subjs.get("subj_maths")) { math_medal.setVisibility(View.GONE); }
 
         ImageView spanish_medal = findViewById(R.id.mainpageact_spanish_imageview);
         if(!subjs.get("subj_spanish")) { spanish_medal.setVisibility(View.GONE); }

@@ -19,7 +19,7 @@ public class savesettings_nopw_request extends StringRequest{
         super(Method.POST, savesettings_nopw_URL, listener, null /*Errorlistener*/);
 
         params = new HashMap<>();
-        params.put("user_username", id + "");
+        params.put("user_id", id + "");
         params.put("user_name", name);
         params.put("user_firstname", firstname);
         params.put("user_school", school);
@@ -31,7 +31,7 @@ public class savesettings_nopw_request extends StringRequest{
         params.put("subj_english", english + "");
         params.put("subj_french", french + "");
         params.put("subj_biology", biology + "");
-        params.put("subj_chemics", chemics + "");
+        params.put("subj_chemistry", chemics + "");
         params.put("subj_music", music + "");
         params.put("subj_maths", maths + "");
         params.put("subj_physics", physics + "");

@@ -76,7 +76,7 @@ public class settings_activity extends AppCompatActivity {
             maths_cb.setChecked((boolean) extras_bundle.get("subj_maths"));
             biology_cb.setChecked((boolean) extras_bundle.get("subj_biology"));
             music_cb.setChecked((boolean) extras_bundle.get("subj_music"));
-            chemistry_cb.setChecked((boolean) extras_bundle.get("subj_chemics"));
+            chemistry_cb.setChecked((boolean) extras_bundle.get("subj_chemistry"));
             physics_cb.setChecked((boolean) extras_bundle.get("subj_physics"));
 
             savechanges_bt.setOnClickListener(new onSaveListener());
@@ -192,15 +192,15 @@ public class settings_activity extends AppCompatActivity {
 
                     int user_id = json_response.getInt("user_id");
 
-                    boolean subj_german = json_response.getBoolean("subj_german");
-                    boolean subj_spanish = json_response.getBoolean("subj_spanish");
-                    boolean subj_english = json_response.getBoolean("subj_english");
-                    boolean subj_french = json_response.getBoolean("subj_french");
-                    boolean subj_music = json_response.getBoolean("subj_music");
-                    boolean subj_chemistry = json_response.getBoolean("subj_chemistry");
-                    boolean subj_biology = json_response.getBoolean("subj_biology");
-                    boolean subj_physics = json_response.getBoolean("subj_physics");
-                    boolean subj_maths = json_response.getBoolean("subj_maths");
+                    boolean subj_maths = 0 != json_response.getInt("subj_maths");
+                    boolean subj_german = 0 != json_response.getInt("subj_german");
+                    boolean subj_french = 0 != json_response.getInt("subj_french");
+                    boolean subj_spanish = 0 != json_response.getInt("subj_spanish");
+                    boolean subj_physics = 0 != json_response.getInt("subj_physics");
+                    boolean subj_chemistry = 0 != json_response.getInt("subj_chemistry");
+                    boolean subj_biology = 0 != json_response.getInt("subj_biology");
+                    boolean subj_music = 0 != json_response.getInt("subj_music");
+                    boolean subj_english = 0 != json_response.getInt("subj_english");
 
                     Intent save_intent = new Intent(settings_activity.this, mainpage_activity.class);
 
