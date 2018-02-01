@@ -168,11 +168,13 @@ public class settings_activity extends AppCompatActivity {
             try {
                 System.out.println("Received Response: " + response);
                 JSONObject json_response = new JSONObject(response);
-                boolean success = json_response.getBoolean("success");
+                boolean success_user = json_response.getBoolean("success_user");
+                boolean success_subj = json_response.getBoolean("success_subjects");
 
-                System.out.println("Success: " + success);
+                System.out.println("Success User: " + success_user);
+                System.out.println("Success Subjects: " + success_user);
 
-                if (success) {
+                if (success_user && success_subj) {
 
                     //Retreiving data from response
                     String user_username = json_response.getString("user_username");

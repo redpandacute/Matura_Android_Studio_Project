@@ -31,15 +31,15 @@ public class savesettings_pw_request extends StringRequest {
         params.put("user_oldpassword", oldpassword);
         params.put("user_newpassword", newpassword);
 
-        params.put("subj_german",  german + "");
-        params.put("subj_spanish", spanish + "");
-        params.put("subj_english", english + "");
-        params.put("subj_french", french + "");
-        params.put("subj_biology", biology + "");
-        params.put("subj_chemistry", chemistry + "");
-        params.put("subj_music", music + "");
-        params.put("subj_maths", maths + "");
-        params.put("subj_physics", physics + "");
+        params.put("subj_german",  ((german) ? 1 : 0) + "");
+        params.put("subj_spanish", ((spanish) ? 1 : 0) + "");
+        params.put("subj_english", ((english) ? 1 : 0) + "");
+        params.put("subj_french", ((french) ? 1 : 0) + "");
+        params.put("subj_biology", ((biology) ? 1 : 0) + "");
+        params.put("subj_chemistry", ((chemistry) ? 1 : 0) + "");
+        params.put("subj_music", ((music) ? 1 : 0) + "");
+        params.put("subj_maths", ((maths) ? 1 : 0) + "");
+        params.put("subj_physics", ((physics) ? 1 : 0) + "");
     }
 
     @Override

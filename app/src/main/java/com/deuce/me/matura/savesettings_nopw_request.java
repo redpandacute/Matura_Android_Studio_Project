@@ -14,7 +14,7 @@ public class savesettings_nopw_request extends StringRequest{
     private static final String savesettings_nopw_URL = "https://lsdfortheelderly.000webhostapp.com/savesettings_nopw.php";
     private Map<String, String> params;
 
-    public savesettings_nopw_request(int id, String firstname, String name, String email, String school, String description, boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemics, boolean music, boolean maths, boolean physics, Response.Listener<String> listener) {
+    public savesettings_nopw_request(int id, String firstname, String name, String email, String school, String description, boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemistry, boolean music, boolean maths, boolean physics, Response.Listener<String> listener) {
 
         super(Method.POST, savesettings_nopw_URL, listener, null /*Errorlistener*/);
 
@@ -26,15 +26,15 @@ public class savesettings_nopw_request extends StringRequest{
         params.put("user_description", description);
         params.put("user_email", email);
 
-        params.put("subj_german",  german + "");
-        params.put("subj_spanish", spanish + "");
-        params.put("subj_english", english + "");
-        params.put("subj_french", french + "");
-        params.put("subj_biology", biology + "");
-        params.put("subj_chemistry", chemics + "");
-        params.put("subj_music", music + "");
-        params.put("subj_maths", maths + "");
-        params.put("subj_physics", physics + "");
+        params.put("subj_german",  ((german) ? 1 : 0) + "");
+        params.put("subj_spanish", ((spanish) ? 1 : 0) + "");
+        params.put("subj_english", ((english) ? 1 : 0) + "");
+        params.put("subj_french", ((french) ? 1 : 0) + "");
+        params.put("subj_biology", ((biology) ? 1 : 0) + "");
+        params.put("subj_chemistry", ((chemistry) ? 1 : 0) + "");
+        params.put("subj_music", ((music) ? 1 : 0) + "");
+        params.put("subj_maths", ((maths) ? 1 : 0) + "");
+        params.put("subj_physics", ((physics) ? 1 : 0) + "");
     }
 
     @Override
