@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +25,8 @@ public class search_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_activity);
+        ImageButton search_bt = findViewById(R.id.searchactivity_searchbutton_imagebutton);
+        search_bt.setOnClickListener(new onSearchListener());
     }
 
     class onSearchListener implements View.OnClickListener {
@@ -61,6 +66,8 @@ public class search_activity extends AppCompatActivity {
 
             System.out.println("Making searchrequest");
             search_request search_request = new search_request(name /*,School*/, map, new onResponseListener());
+            RequestQueue request_queue = Volley.newRequestQueue(search_activity.this); //Request Queue
+            request_queue.add(search_request);
 
         }
     }
@@ -71,7 +78,7 @@ public class search_activity extends AppCompatActivity {
         public void onResponse(String response) {
 
             try {
-
+                System.out.println("Received Response: " + response);
                 JSONObject json_response = new JSONObject(response);
                 boolean success = json_response.getBoolean("success");
 
@@ -79,8 +86,9 @@ public class search_activity extends AppCompatActivity {
 
                     Integer[] results = new Integer[json_response.length()];
 
-                    for(int l = 0; l < json_response.length(); l++) {
+                    for(int l = 0; l < json_response.length() - 1; l++) {
                         results[l] = json_response.getInt(l + "");
+                        System.out.println(results[l]);
                     }
 
                     Intent view_results = new Intent(search_activity.this, viewresults_activity.class);
