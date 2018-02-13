@@ -22,7 +22,20 @@
         <activity android:name=".mainpage_activity" />
         <activity android:name=".search_activity" />
         <activity android:name=".settings_activity" />
-        <activity android:name=".viewresults_activity"></activity>
+        <activity android:name=".viewresults_activity" />
+        <activity
+            android:name=".resultListActivity"
+            android:label="@string/title_result_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".resultDetailActivity"
+            android:label="@string/title_result_detail"
+            android:parentActivityName=".resultListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.deuce.me.matura.resultListActivity" />
+        </activity>
     </application>
 
 </manifest>

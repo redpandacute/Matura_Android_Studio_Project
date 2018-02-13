@@ -32,4 +32,6 @@
     <string name="filterbysubject_string">Filter by subject:</string>
     <string name="filterbyschool_string">Filter by school:</string>
     <string name="searchforname_string">Search for a name:</string>
+    <string name="title_result_list">results</string>
+    <string name="title_result_detail">result Detail</string>
 </resources>
