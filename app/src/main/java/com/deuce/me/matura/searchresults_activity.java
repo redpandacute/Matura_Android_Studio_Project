@@ -129,7 +129,7 @@ public class searchresults_activity extends AppCompatActivity {
             return item;
         }
     }
-    
+
     private class onResponseListener implements Response.Listener<String> {
 
 
