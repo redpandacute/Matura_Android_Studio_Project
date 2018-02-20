@@ -26,9 +26,6 @@ public class login_activity extends AppCompatActivity {
         final TextView register_textview = (TextView) findViewById(R.id.loginact_register_textview);
         final Button signin_button = (Button) findViewById(R.id.loginact_signin_button);
 
-        final EditText username_et = findViewById(R.id.loginact_username_edittext);
-        final EditText password_et = findViewById(R.id.loginact_password_edittext);
-
         //Change to Registeract on click ---------------------------------------------------------
 
         register_textview.setOnClickListener(new onRegisterListener());

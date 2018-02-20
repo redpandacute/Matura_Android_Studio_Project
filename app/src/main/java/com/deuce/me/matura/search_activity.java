@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -72,38 +73,29 @@ public class search_activity extends AppCompatActivity {
         }
     }
 
-    class onResponseListener implements Response.Listener<String> {
+    private class onResponseListener implements  Response.Listener<String> {
 
         @Override
         public void onResponse(String response) {
-
             try {
-                System.out.println("Received Response: " + response);
-                JSONObject json_response = new JSONObject(response);
-                boolean success = json_response.getBoolean("success");
+
+                System.out.println("Received response: " + response);
+                JSONObject json_resp = new JSONObject(response);
+                boolean success = json_resp.getBoolean("success");
 
                 if(success) {
 
-                    Integer[] results = new Integer[json_response.length()];
-
-                    for(int l = 0; l < json_response.length() - 1; l++) {
-                        results[l] = json_response.getInt(l + "");
-                        System.out.println(results[l]);
-                    }
-
-                    Intent view_results = new Intent(search_activity.this, viewresults_activity.class);
-                    view_results.putExtra("result_array", results);
+                    Intent intent = new Intent(search_activity.this, searchresults_activity.class);
+                    intent.putExtra("results", response);
+                    startActivity(intent);
 
                 } else {
-
-                    System.out.println("There was an issue with your search request");
-
+                    System.out.println("There was an issue with the search request (Maybe no results :3)");
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

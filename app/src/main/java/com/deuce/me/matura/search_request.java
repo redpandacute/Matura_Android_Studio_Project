@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class search_request extends StringRequest{
 
-    private static final String search_URL = "https://lsdfortheelderly.000webhostapp.com/search_php_prototype.php";
+    private static final String search_URL = "https://lsdfortheelderly.000webhostapp.com/search_php.php";
     private Map<String, String> params;
 
     public search_request(String name /*  *PLACEHOLDER*, String school*/, Map<String, Boolean> map, Response.Listener<String> listener) {
