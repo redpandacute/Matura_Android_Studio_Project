@@ -36,7 +36,7 @@ public class searchresults_activity extends AppCompatActivity {
         Bundle extras_bundle = getIntent().getExtras();
 
         try {
-            JSONArray json_arr = new JSONObject(extras_bundle.getString("results")).getJSONArray("results");
+            JSONArray json_arr = (new JSONObject(extras_bundle.getString("results"))).getJSONArray("results");
             listview.setAdapter(new searchresults_adapter(getApplicationContext(), json_arr));
         } catch (JSONException e) { e.printStackTrace(); }
 

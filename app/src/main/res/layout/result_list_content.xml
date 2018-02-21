@@ -12,10 +12,12 @@
 
         <ImageView
             android:id="@+id/result_profilepicture_imageview"
-            android:layout_width="85dp"
-            android:layout_height="80dp"
+            android:layout_width="@android:dimen/notification_large_icon_height"
+            android:layout_height="@android:dimen/notification_large_icon_width"
+            android:layout_marginBottom="2dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/ic_launcher_round" />

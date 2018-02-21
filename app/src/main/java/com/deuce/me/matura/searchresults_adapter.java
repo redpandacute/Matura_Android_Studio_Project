@@ -2,19 +2,17 @@
 package com.deuce.me.matura;
 
 import android.content.Context;
-import android.content.Intent;
+import android.util.AttributeSet;
+import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+
 
 /**
  * Created by Flo on 18.02.2018.
@@ -38,6 +36,7 @@ public class searchresults_adapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         try {
+            //return new result_iteminfo().createNewItem(results.getJSONObject(i));
             return new result_iteminfo().createNewItem(results.getJSONObject(i));
         } catch (JSONException e) { e.printStackTrace(); }
         return null;
@@ -49,8 +48,26 @@ public class searchresults_adapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View item = View.inflate(mContext, R.layout.result_list_content, null);
+    public item_view getView(int i, View view, ViewGroup viewGroup) {
+
+        //View item = View.inflate(mContext, R.layout.result_list_content, null);
+
+        XmlPullParser parser = mContext.getResources().getLayout(R.layout.result_list_content);
+
+        /*
+        try {
+            parser.next();
+            parser.nextTag();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+*/
+        AttributeSet attr = Xml.asAttributeSet(parser);
+
+        item_view item = new item_view(mContext, attr);
+
+        //View itemm =  View.inflate(mContext, R.layout.result_list_content, null);
+        //itemm = new item_view(mContext);
 
         TextView name_tv = item.findViewById(R.id.result_name_textview);
         TextView school_yob_tv = item.findViewById(R.id.result_school_yob_textview);
@@ -69,23 +86,30 @@ public class searchresults_adapter extends BaseAdapter {
 
 
         try {
-            result_item item_info = new result_iteminfo().createNewItem(results.getJSONObject(i));
+            item.setInfo(new result_iteminfo().createNewItem(results.getJSONObject(i)));
 
-            if(!item_info.isMaths()) { maths_medal.setVisibility(View.GONE); }
-            if(!item_info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }
-            if(!item_info.isFrench()) { french_medal.setVisibility(View.GONE); }
-            if(!item_info.isBiology()) { biology_medal.setVisibility(View.GONE); }
-            if(!item_info.isPhysics()) { physics_medal.setVisibility(View.GONE); }
-            if(!item_info.isEnglish()) { english_medal.setVisibility(View.GONE); }
-            if(!item_info.isGerman()) { german_medal.setVisibility(View.GONE); }
-            if(!item_info.isMusic()) { music_medal.setVisibility(View.GONE); }
-            if(!item_info.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isMaths()) { maths_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isSpanish()) { spanish_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isFrench()) { french_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isBiology()) { biology_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isPhysics()) { physics_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isEnglish()) { english_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isGerman()) { german_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isMusic()) { music_medal.setVisibility(View.GONE); }
+            if(!item.getInfo().isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
 
-            name_tv.setText(item_info.getFirstname() + " " + item_info.getName());
-            school_yob_tv.setText(item_info.getYearofbirth() + "");
+            name_tv.setText(item.getInfo().getFirstname() + " " + item.getInfo().getName());
+            school_yob_tv.setText(item.getInfo().getYearofbirth() + "");
 
         } catch (JSONException e) { e.printStackTrace(); }
 
         return item;
+    }
+
+    class onClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View view) {
+        }
     }
 }
