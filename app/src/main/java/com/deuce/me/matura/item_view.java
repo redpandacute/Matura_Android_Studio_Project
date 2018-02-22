@@ -14,8 +14,8 @@ public class item_view extends View implements View.OnClickListener {
 
     result_item info;
 
-    public item_view(Context context, AttributeSet attrs) {
-        super(context, attrs);
+    public item_view(Context context) {
+        super(context);
        // this.info = info;
     }
 

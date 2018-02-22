@@ -48,23 +48,9 @@ public class searchresults_adapter extends BaseAdapter {
     }
 
     @Override
-    public item_view getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(int i, View view, ViewGroup viewGroup) {
 
-        //View item = View.inflate(mContext, R.layout.result_list_content, null);
-
-        XmlPullParser parser = mContext.getResources().getLayout(R.layout.result_list_content);
-
-        /*
-        try {
-            parser.next();
-            parser.nextTag();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-*/
-        AttributeSet attr = Xml.asAttributeSet(parser);
-
-        item_view item = new item_view(mContext, attr);
+        View item = View.inflate(mContext, R.layout.result_list_content, null);
 
         //View itemm =  View.inflate(mContext, R.layout.result_list_content, null);
         //itemm = new item_view(mContext);
@@ -86,30 +72,23 @@ public class searchresults_adapter extends BaseAdapter {
 
 
         try {
-            item.setInfo(new result_iteminfo().createNewItem(results.getJSONObject(i)));
+            result_item info = (new result_iteminfo().createNewItem(results.getJSONObject(i)));
 
-            if(!item.getInfo().isMaths()) { maths_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isSpanish()) { spanish_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isFrench()) { french_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isBiology()) { biology_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isPhysics()) { physics_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isEnglish()) { english_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isGerman()) { german_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isMusic()) { music_medal.setVisibility(View.GONE); }
-            if(!item.getInfo().isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
+            if(!info.isMaths()) { maths_medal.setVisibility(View.GONE); }
+            if(!info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }
+            if(!info.isFrench()) { french_medal.setVisibility(View.GONE); }
+            if(!info.isBiology()) { biology_medal.setVisibility(View.GONE); }
+            if(!info.isPhysics()) { physics_medal.setVisibility(View.GONE); }
+            if(!info.isEnglish()) { english_medal.setVisibility(View.GONE); }
+            if(!info.isGerman()) { german_medal.setVisibility(View.GONE); }
+            if(!info.isMusic()) { music_medal.setVisibility(View.GONE); }
+            if(!info.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
 
-            name_tv.setText(item.getInfo().getFirstname() + " " + item.getInfo().getName());
-            school_yob_tv.setText(item.getInfo().getYearofbirth() + "");
+            name_tv.setText(info.getFirstname() + " " + info.getName());
+            school_yob_tv.setText(info.getYearofbirth() + "");
 
         } catch (JSONException e) { e.printStackTrace(); }
 
         return item;
-    }
-
-    class onClickListener implements View.OnClickListener {
-
-        @Override
-        public void onClick(View view) {
-        }
     }
 }
