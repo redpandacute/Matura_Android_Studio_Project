@@ -44,6 +44,9 @@ public class searchresults_adapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
+        try {
+            return new result_iteminfo().createNewItem(results.getJSONObject(i)).getId();
+        } catch (JSONException e) { e.printStackTrace(); }
         return i;
     }
 

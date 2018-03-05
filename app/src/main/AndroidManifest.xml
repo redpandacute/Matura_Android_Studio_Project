@@ -21,6 +21,7 @@
         <activity android:name=".mainpage_activity" />
         <activity android:name=".search_activity" />
         <activity android:name=".settings_activity" />
+        <activity android:name=".userprofile_activity" />
         <activity android:name=".searchresults_activity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

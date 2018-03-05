@@ -91,6 +91,7 @@ public class login_activity extends AppCompatActivity {
                     //Could be implemented into the extra directly
                     //getting UserData from Response
                     String user_username = json_response.getString("user_username");
+                    String user_password = json_response.getString("user_password");
                     String user_name = json_response.getString("user_name");
                     String user_firstname = json_response.getString("user_firstname");
                     String user_school = json_response.getString("user_school");
@@ -133,6 +134,7 @@ public class login_activity extends AppCompatActivity {
 
                     login_intent.putExtra("user_yearofbirth", user_yearofbirth);
                     login_intent.putExtra("user_id", user_id);
+                    login_intent.putExtra("user_password", user_password);
 
 
                     login_intent.putExtra("subj_german", subj_german);

@@ -139,6 +139,9 @@ public class mainpage_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent search_intent = new Intent(mainpage_activity.this, search_activity.class);
+            Map<String, String> params = getInfo();
+            search_intent.putExtra("user_id", Integer.parseInt(params.get("user_id")));
+            search_intent.putExtra("user_password",params.get("user_password"));
             startActivity(search_intent);
         }
     }
@@ -157,6 +160,7 @@ public class mainpage_activity extends AppCompatActivity {
             Map.put("user_yearofbirth", extras_bundle.get("user_yearofbirth") + "");
             Map.put("user_description", extras_bundle.getString("user_description"));
             Map.put("user_email", extras_bundle.getString("user_email"));
+            Map.put("user_password", extras_bundle.getString("user_password"));
 
         } else {
 
