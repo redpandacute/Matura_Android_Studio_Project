@@ -19,18 +19,19 @@ import org.w3c.dom.Text;
 
 public class userprofile_activity extends AppCompatActivity {
 
-
+    private Bundle extras;
+    private String subject;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
 
-        Bundle extras = getIntent().getExtras();
+         extras = getIntent().getExtras();
 
         try {
 
-            result_item info = new result_iteminfo().createNewItem(new JSONObject(extras.getString("user_info")));
+            result_item info = new result_iteminfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
 
 //Infos
 // -------------------------------------------------------------------------------------------------
@@ -48,30 +49,39 @@ public class userprofile_activity extends AppCompatActivity {
 // -------------------------------------------------------------------------------------------------
             ImageView math_medal = findViewById(R.id.userprofileact_math_imageview);
             if (!info.isMaths()) { math_medal.setVisibility(View.GONE); }
+            math_medal.setOnClickListener(new onRequestListener());
 
             ImageView spanish_medal = findViewById(R.id.userprofileact_spanish_imageview);
             if (!info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }
+            spanish_medal.setOnClickListener(new onRequestListener());
 
             ImageView physics_medal = findViewById(R.id.userprofileact_physics_imageview);
             if (!info.isPhysics()) { physics_medal.setVisibility(View.GONE); }
+            physics_medal.setOnClickListener(new onRequestListener());
 
             ImageView german_medal = findViewById(R.id.userprofileact_german_imageview);
             if (!info.isGerman()) { german_medal.setVisibility(View.GONE); }
+            german_medal.setOnClickListener(new onRequestListener());
 
             ImageView biology_medal = findViewById(R.id.userprofileact_biology_imageview);
             if (!info.isBiology()) { biology_medal.setVisibility(View.GONE); }
+            biology_medal.setOnClickListener(new onRequestListener());
 
             ImageView chemistry_medal = findViewById(R.id.userprofileact_chemistry_imageview);
             if (!info.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
+            chemistry_medal.setOnClickListener(new onRequestListener());
 
             ImageView music_medal = findViewById(R.id.userprofileact_music_imageview);
             if (!info.isMusic()) { music_medal.setVisibility(View.GONE); }
+            music_medal.setOnClickListener(new onRequestListener());
 
             ImageView english_medal = findViewById(R.id.userprofileact_english_imageview);
             if (!info.isEnglish()) { english_medal.setVisibility(View.GONE); }
+            english_medal.setOnClickListener(new onRequestListener());
 
             ImageView french_medal = findViewById(R.id.userprofileact_french_imageview);
             if (!info.isFrench()) { french_medal.setVisibility(View.GONE); }
+            french_medal.setOnClickListener(new onRequestListener());
 
 //HomeButton
 // -------------------------------------------------------------------------------------------------
@@ -107,7 +117,6 @@ public class userprofile_activity extends AppCompatActivity {
                 System.out.println(success);
 
                 if (success) {
-
 
                     //Could be implemented into the extra directly
                     //getting UserData from Response
@@ -180,6 +189,39 @@ public class userprofile_activity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class onRequestListener implements View.OnClickListener {
+
+        private result_item senderInfo;
+        private  result_item receiverInfo;
+
+
+        @Override
+        public void onClick(View view) {
+            try {
+                senderInfo = new result_iteminfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+                receiverInfo = new result_iteminfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
+
+
+                Intent chatIntent = new Intent(userprofile_activity.this, ChatMessage.class);
+
+                if (view == findViewById(R.id.userprofileact_math_imageview)) { chatIntent.putExtra("subject", "math"); }
+                else if (view == findViewById(R.id.userprofileact_french_imageview)) { chatIntent.putExtra("subject", "french"); }
+                else if (view == findViewById(R.id.userprofileact_spanish_imageview)) { chatIntent.putExtra("subject", "spanish"); }
+                else if (view == findViewById(R.id.userprofileact_english_imageview)) { chatIntent.putExtra("subject", "english"); }
+                else if (view == findViewById(R.id.userprofileact_german_imageview)) { chatIntent.putExtra("subject", "german"); }
+                else if (view == findViewById(R.id.userprofileact_biology_imageview)) { chatIntent.putExtra("subject", "biology"); }
+                else if (view == findViewById(R.id.userprofileact_chemistry_imageview)) { chatIntent.putExtra("subject", "chemistry"); }
+                else if (view == findViewById(R.id.userprofileact_physics_imageview)) { chatIntent.putExtra("subject", "physics"); }
+                else if (view == findViewById(R.id.userprofileact_music_imageview)) { chatIntent.putExtra("subject", "music"); }
+                else { chatIntent.putExtra("subject", "nil"); }
+
+                chatIntent.putExtra("senderInfo", extras.getString("clientInfo"));
+                chatIntent.putExtra("receiverInfo", extras.getString("profileInfo"));
+                startActivity(chatIntent);
+            } catch (JSONException e) { e.printStackTrace(); }
         }
     }
 }

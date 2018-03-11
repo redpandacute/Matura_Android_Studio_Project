@@ -87,6 +87,7 @@ public class search_activity extends AppCompatActivity {
                 if(success) {
 
                     Intent intent = new Intent(search_activity.this, searchresults_activity.class);
+                    intent.putExtra("clientInfo", getIntent().getExtras().getString("userInfo"));
                     intent.putExtra("results", response);
                     intent.putExtra("user_id", getIntent().getExtras().getInt("user_id"));
                     intent.putExtra("user_password",getIntent().getExtras().getString("user_password"));

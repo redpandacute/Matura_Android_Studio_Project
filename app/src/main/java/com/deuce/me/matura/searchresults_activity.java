@@ -61,7 +61,8 @@ public class searchresults_activity extends AppCompatActivity {
 
 
                 Intent showuser_intent = new Intent(searchresults_activity.this, userprofile_activity.class);
-                showuser_intent.putExtra("user_info", json_arr.getJSONObject(i).toString());
+                showuser_intent.putExtra("profileiInfo", json_arr.getJSONObject(i).toString());
+                showuser_intent.putExtra("clientInfo", extras_bundle.getString("clientInfo"));
                 showuser_intent.putExtra("user_id", extras_bundle.getInt("user_id") + "");
                 showuser_intent.putExtra("user_password", extras_bundle.getString("user_password"));
                 startActivity(showuser_intent);
