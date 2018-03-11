@@ -1,10 +1,7 @@
 package com.deuce.me.matura;
 
 import android.content.Context;
-import android.text.Layout;
-import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 
 /**
  * Created by Flo on 21.02.2018.
@@ -12,18 +9,18 @@ import android.view.ViewGroup;
 
 public class item_view extends View implements View.OnClickListener {
 
-    result_item info;
+    userInfo info;
 
     public item_view(Context context) {
         super(context);
        // this.info = info;
     }
 
-    public result_item getInfo() {
+    public userInfo getInfo() {
         return info;
     }
 
-    public void setInfo(result_item info) {
+    public void setInfo(userInfo info) {
         this.info = info;
     }
 

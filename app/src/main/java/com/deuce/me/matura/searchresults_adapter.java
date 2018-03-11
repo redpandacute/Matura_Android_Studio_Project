@@ -2,8 +2,6 @@
 package com.deuce.me.matura;
 
 import android.content.Context;
-import android.util.AttributeSet;
-import android.util.Xml;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.xmlpull.v1.XmlPullParser;
 
 
 /**
@@ -36,8 +33,8 @@ public class searchresults_adapter extends BaseAdapter {
     @Override
     public Object getItem(int i) {
         try {
-            //return new result_iteminfo().createNewItem(results.getJSONObject(i));
-            return new result_iteminfo().createNewItem(results.getJSONObject(i));
+            //return new JSONtoInfo().createNewItem(results.getJSONObject(i));
+            return new JSONtoInfo().createNewItem(results.getJSONObject(i));
         } catch (JSONException e) { e.printStackTrace(); }
         return null;
     }
@@ -45,7 +42,7 @@ public class searchresults_adapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         try {
-            return new result_iteminfo().createNewItem(results.getJSONObject(i)).getId();
+            return new JSONtoInfo().createNewItem(results.getJSONObject(i)).getId();
         } catch (JSONException e) { e.printStackTrace(); }
         return i;
     }
@@ -75,7 +72,7 @@ public class searchresults_adapter extends BaseAdapter {
 
 
         try {
-            result_item info = (new result_iteminfo().createNewItem(results.getJSONObject(i)));
+            userInfo info = new JSONtoInfo().createNewItem(results.getJSONObject(i));
 
             if(!info.isMaths()) { maths_medal.setVisibility(View.GONE); }
             if(!info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }

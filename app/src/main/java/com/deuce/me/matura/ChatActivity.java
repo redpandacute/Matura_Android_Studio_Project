@@ -42,8 +42,8 @@ public class ChatActivity extends AppCompatActivity {
         //Extras *EXPERIMENTAL*
         try {
             Bundle extrasBundle = getIntent().getExtras();
-            result_item senderInfo = new result_iteminfo().createNewItem(new JSONObject(extrasBundle.getString("senderInfo")));
-            result_item receiverInfo = new result_iteminfo().createNewItem(new JSONObject(extrasBundle.getString("receiverInfo")));
+            userInfo senderInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("senderInfo")));
+            userInfo receiverInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("receiverInfo")));
             senderID = senderInfo.getId();
             receiverID = receiverInfo.getId();
             senderUsername = String.format("%s %s", senderInfo.getFirstname(), senderInfo.getName());

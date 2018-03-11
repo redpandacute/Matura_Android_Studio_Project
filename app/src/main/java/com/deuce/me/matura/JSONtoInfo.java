@@ -1,25 +1,16 @@
 package com.deuce.me.matura;
 
-import android.content.Context;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Flo on 18.02.2018.
  */
 
-public class result_iteminfo {
+public class JSONtoInfo {
 
 
-    public result_item createNewItem(JSONObject json) {
+    public userInfo createNewItem(JSONObject json) {
 
         try {
 
@@ -30,7 +21,14 @@ public class result_iteminfo {
             String user_firstname = json.getString("user_firstname");
             //String user_school = current_res_user.get("user_school"); TODO: SCHOOOL!!!!!!!!!
             String user_username = json.getString("user_username");
-            String user_description = json.getString("user_description");
+
+            String user_description = "No description";
+            try {
+                user_description = json.getString("user_description");
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("NOTE: No description");
+            }
 
             int user_yearofbirth = json.getInt("user_yearofbirth");
 
@@ -46,7 +44,18 @@ public class result_iteminfo {
             boolean subj_english = 0 != json.getInt("subj_english");
 
 
-            result_item item = new result_item(json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics);
+            userInfo item = new userInfo(json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics);
+
+            try {
+                if (json.getString("user_password") != null) {
+                    item.setPassword(json.getString("user_password"));
+                }
+
+                if (json.getString("user_email") != null) {
+                    item.setEmail(json.getString("user_email"));
+                }
+            } catch (Exception e) { System.out.println("Nothing to worry about :)"); }
+
             return item;
 
         } catch (JSONException e) {
