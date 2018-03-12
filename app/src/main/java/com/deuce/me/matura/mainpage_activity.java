@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -102,6 +103,9 @@ public class mainpage_activity extends AppCompatActivity {
 
             FloatingActionButton expandbut = findViewById(R.id.mainpageact_notificationsbutton_floatingactionbutton);
             mBottomSheetBehavior.setPeekHeight((getWindowManager().getDefaultDisplay().getHeight()) / 20);  //Setting height for BottomSheet
+
+            RecyclerView recView = findViewById(R.id.mainpageact_bottomsheet_recyclerview);
+            recView.setAdapter( ---- );
 
             //Expanding or Collapsing BottomSheet
             expandbut.setOnClickListener(new onExpandListener());

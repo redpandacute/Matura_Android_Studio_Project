@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deuce.me.matura_firebasechat.ChatActivity">
+    tools:context="com.deuce.me.matura.ChatActivity">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
