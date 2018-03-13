@@ -11,6 +11,11 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,6 +27,8 @@ public class mainpage_activity extends AppCompatActivity {
     private BottomSheetBehavior mBottomSheetBehavior;
     private userInfo clientInfo;
     private Bundle extrasBundle;
+    private DatabaseReference databaseReference;
+    private RecyclerView recView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +40,8 @@ public class mainpage_activity extends AppCompatActivity {
         try {
 
             clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d",clientInfo.getId()));
+
 
             final TextView nameandfirstname_tv = findViewById(R.id.userprofileact_name_textview);
             final TextView description_tv = findViewById(R.id.userprofileact_description_textview);
@@ -104,8 +113,7 @@ public class mainpage_activity extends AppCompatActivity {
             FloatingActionButton expandbut = findViewById(R.id.mainpageact_notificationsbutton_floatingactionbutton);
             mBottomSheetBehavior.setPeekHeight((getWindowManager().getDefaultDisplay().getHeight()) / 20);  //Setting height for BottomSheet
 
-            RecyclerView recView = findViewById(R.id.mainpageact_bottomsheet_recyclerview);
-            recView.setAdapter( ---- );
+            recView = findViewById(R.id.mainpageact_bottomsheet_recyclerview);
 
             //Expanding or Collapsing BottomSheet
             expandbut.setOnClickListener(new onExpandListener());
@@ -117,6 +125,19 @@ public class mainpage_activity extends AppCompatActivity {
             search_bt.setOnClickListener(new onSearchListener());
 
         } catch (JSONException e) { e.printStackTrace(); }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerAdapter FCBA = new BottomsheetFirebaseAdapter(
+                OpenChat.class,
+                R.layout.openchat,
+                OpenChatViewHolder.class,
+                databaseReference
+        );
+        recView.setAdapter(FCBA);
     }
 
     class onExpandListener implements View.OnClickListener {

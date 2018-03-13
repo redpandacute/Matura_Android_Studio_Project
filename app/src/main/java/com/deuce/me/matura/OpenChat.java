@@ -6,21 +6,28 @@ package com.deuce.me.matura;
 
 public class OpenChat {
 
-    private String subject, receiverName, senderName, latestMessage;
-    private int receiverID, senderID;
+    private String subject, receiverName, latestMessage, chatPath;
+    private int receiverID;
 
 
-    public OpenChat(String subject, String receiverName, String senderName, String latestMessage, int receiverID, int senderID) {
+    public OpenChat(String subject, String receiverName, String latestMessage, String chatPath, int receiverID) {
         this.subject = subject;
         this.receiverName = receiverName;
-        this.senderName = senderName;
         this.receiverID = receiverID;
-        this.senderID = senderID;
         this.latestMessage = latestMessage;
+        this.chatPath = chatPath;
     }
 
     public String getLatestMessage() {
         return latestMessage;
+    }
+
+    public String getChatPath() {
+        return chatPath;
+    }
+
+    public void setChatPath(String chatPath) {
+        this.chatPath = chatPath;
     }
 
     public void setLatestMessage(String latestMessage) {
@@ -43,14 +50,6 @@ public class OpenChat {
         this.receiverName = receiverName;
     }
 
-    public String getSenderName() {
-        return senderName;
-    }
-
-    public void setSenderName(String senderName) {
-        this.senderName = senderName;
-    }
-
     public int getReceiverID() {
         return receiverID;
     }
@@ -59,11 +58,4 @@ public class OpenChat {
         this.receiverID = receiverID;
     }
 
-    public int getSenderID() {
-        return senderID;
-    }
-
-    public void setSenderID(int senderID) {
-        this.senderID = senderID;
-    }
 }

@@ -20,9 +20,10 @@ import java.text.SimpleDateFormat;
 public class ChatActivity extends AppCompatActivity {
 
     private EditText editMessage;
-    private DatabaseReference databaseReference;
+    private DatabaseReference databaseReference, databaseSenderReference, databaseReceiverReference;
     private Button sendButton;
     private RecyclerView ChatRecView;
+    private String subject;
 
     private int senderID, receiverID;
     private String senderUsername, receiverUsername;
@@ -46,12 +47,33 @@ public class ChatActivity extends AppCompatActivity {
             userInfo receiverInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("receiverInfo")));
             senderID = senderInfo.getId();
             receiverID = receiverInfo.getId();
+            subject = extrasBundle.getString("subject");
             senderUsername = String.format("%s %s", senderInfo.getFirstname(), senderInfo.getName());
             receiverUsername = String.format("%s %s", receiverInfo.getFirstname(), receiverInfo.getName());
 
             //Firebasereference
             String referencePath = String.format("Chats/%d>>%d", senderID, receiverID);
             databaseReference = FirebaseDatabase.getInstance().getReference().child(referencePath);
+
+            //FirebaseUserReference
+            String senderRefPath = String.format("Users/%d/%d>>%d", senderID, senderID, receiverID);
+            String receiverRefPath = String.format("Users/%d/%d>>%d", receiverID, senderID, receiverID);
+
+            databaseSenderReference = FirebaseDatabase.getInstance().getReference().child(senderRefPath);
+            databaseReceiverReference = FirebaseDatabase.getInstance().getReference().child(receiverRefPath);
+
+            //Configuring UserDatabase entry
+            databaseSenderReference.child("receiverName").setValue(receiverUsername);
+            databaseSenderReference.child("receiverID").setValue(receiverID);
+            databaseReceiverReference.child("receiverName").setValue(senderUsername);
+            databaseReceiverReference.child("receiverID").setValue(senderID);
+            databaseSenderReference.child("chatPath").setValue(String.format("Chats/%d>>%d", senderID, receiverID));
+            databaseReceiverReference.child("chatPath").setValue(String.format("Chats/%d>>%d", senderID, receiverID));
+
+            databaseSenderReference.child("subject").setValue(subject);
+            databaseReceiverReference.child("subject").setValue(subject);
+
+            //Pushing the Chats
 
             //RecView
             ChatRecView = (RecyclerView) findViewById(R.id.message_recyclerview);
@@ -89,6 +111,9 @@ public class ChatActivity extends AppCompatActivity {
                 newPost.child("messageUser").setValue(messageUser);
                 newPost.child("messageText").setValue(messageText);
                 newPost.child("messageTime").setValue(messageTime);
+
+                final DatabaseReference syncUser = databaseSenderReference;
+                syncUser.child("latestMessage").setValue(messageText);
 
                 editMessage.setText("");
                 editMessage.clearFocus();
