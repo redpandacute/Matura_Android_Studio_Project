@@ -20,19 +20,16 @@ import java.text.SimpleDateFormat;
 public class ChatActivity extends AppCompatActivity {
 
     private EditText editMessage;
+    private Bundle extras;
     private DatabaseReference databaseReference, databaseSenderReference, databaseReceiverReference;
     private Button sendButton;
     private RecyclerView ChatRecView;
-    private String subject;
-
-    private int senderID, receiverID;
-    private String senderUsername, receiverUsername;
+    private String subject, senderName, receiverName, chatDBPath, senderDBPath, receiverDBPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
-
 
         editMessage = (EditText) findViewById(R.id.message_edittext);
 
@@ -41,37 +38,17 @@ public class ChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new onSendListener());
 
         //Extras *EXPERIMENTAL*
-        try {
-            Bundle extrasBundle = getIntent().getExtras();
-            userInfo senderInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("senderInfo")));
-            userInfo receiverInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("receiverInfo")));
-            senderID = senderInfo.getId();
-            receiverID = receiverInfo.getId();
-            subject = extrasBundle.getString("subject");
-            senderUsername = String.format("%s %s", senderInfo.getFirstname(), senderInfo.getName());
-            receiverUsername = String.format("%s %s", receiverInfo.getFirstname(), receiverInfo.getName());
+            extras = getIntent().getExtras();
+            subject = extras.getString("subject");
+            senderName = extras.getString("clientName");
+            chatDBPath = extras.getString("chatPath");
+            senderDBPath = extras.getString("clientDatabasePath");
+            receiverDBPath = extras.getString("receiverDatabasePath");
 
             //Firebasereference
-            String referencePath = String.format("Chats/%d>>%d", senderID, receiverID);
-            databaseReference = FirebaseDatabase.getInstance().getReference().child(referencePath);
-
-            //FirebaseUserReference
-            String senderRefPath = String.format("Users/%d/%d>>%d", senderID, senderID, receiverID);
-            String receiverRefPath = String.format("Users/%d/%d>>%d", receiverID, senderID, receiverID);
-
-            databaseSenderReference = FirebaseDatabase.getInstance().getReference().child(senderRefPath);
-            databaseReceiverReference = FirebaseDatabase.getInstance().getReference().child(receiverRefPath);
-
-            //Configuring UserDatabase entry
-            databaseSenderReference.child("receiverName").setValue(receiverUsername);
-            databaseSenderReference.child("receiverID").setValue(receiverID);
-            databaseReceiverReference.child("receiverName").setValue(senderUsername);
-            databaseReceiverReference.child("receiverID").setValue(senderID);
-            databaseSenderReference.child("chatPath").setValue(String.format("Chats/%d>>%d", senderID, receiverID));
-            databaseReceiverReference.child("chatPath").setValue(String.format("Chats/%d>>%d", senderID, receiverID));
-
-            databaseSenderReference.child("subject").setValue(subject);
-            databaseReceiverReference.child("subject").setValue(subject);
+            databaseReference = FirebaseDatabase.getInstance().getReference(chatDBPath);
+            databaseSenderReference = FirebaseDatabase.getInstance().getReference(senderDBPath);
+            databaseReceiverReference = FirebaseDatabase.getInstance().getReference(receiverDBPath);
 
             //Pushing the Chats
 
@@ -81,7 +58,6 @@ public class ChatActivity extends AppCompatActivity {
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
             linearLayoutManager.setStackFromEnd(true);
             ChatRecView.setLayoutManager(linearLayoutManager);
-        } catch (JSONException e) { e.printStackTrace(); }
     }
 
     @Override
@@ -93,7 +69,7 @@ public class ChatActivity extends AppCompatActivity {
                 R.layout.message_right,
                 MessageViewHolder.class,
                 databaseReference.child("Messages"),
-                senderUsername
+                senderName
         );
         ChatRecView.setAdapter(FBCA);
     }
@@ -104,7 +80,7 @@ public class ChatActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             final String messageText = editMessage.getText().toString().trim();
-            final String messageUser = senderUsername;
+            final String messageUser = senderName;
             final String messageTime = new SimpleDateFormat("MMM dd - hh:mm:dd").format(System.currentTimeMillis()).toString();
             if(!messageText.isEmpty()) {
                 final DatabaseReference newPost = databaseReference.child("Messages").push();
@@ -112,8 +88,10 @@ public class ChatActivity extends AppCompatActivity {
                 newPost.child("messageText").setValue(messageText);
                 newPost.child("messageTime").setValue(messageTime);
 
-                final DatabaseReference syncUser = databaseSenderReference;
-                syncUser.child("latestMessage").setValue(messageText);
+                final DatabaseReference syncSender = databaseSenderReference;
+                syncSender.child("latestMessage").setValue(messageText);
+                final DatabaseReference syncRec = databaseReceiverReference;
+                syncRec.child("latestMessage").setValue(messageText);
 
                 editMessage.setText("");
                 editMessage.clearFocus();

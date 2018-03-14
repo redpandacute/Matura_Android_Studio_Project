@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -40,8 +41,7 @@ public class mainpage_activity extends AppCompatActivity {
         try {
 
             clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
-            databaseReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d",clientInfo.getId()));
-
+            databaseReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d", clientInfo.getId()));
 
             final TextView nameandfirstname_tv = findViewById(R.id.userprofileact_name_textview);
             final TextView description_tv = findViewById(R.id.userprofileact_description_textview);
@@ -135,7 +135,9 @@ public class mainpage_activity extends AppCompatActivity {
                 OpenChat.class,
                 R.layout.openchat,
                 OpenChatViewHolder.class,
-                databaseReference
+                databaseReference,
+                mainpage_activity.this,
+                String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName())
         );
         recView.setAdapter(FCBA);
     }
@@ -150,7 +152,6 @@ public class mainpage_activity extends AppCompatActivity {
             } else {
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
-
         }
     }
 

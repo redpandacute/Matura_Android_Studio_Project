@@ -6,16 +6,34 @@ package com.deuce.me.matura;
 
 public class OpenChat {
 
-    private String subject, receiverName, latestMessage, chatPath;
+    private String subject, receiverName, latestMessage, chatPath, senderRef, receiverRef;
     private int receiverID;
 
 
-    public OpenChat(String subject, String receiverName, String latestMessage, String chatPath, int receiverID) {
+    public OpenChat(String subject, String receiverName, String latestMessage, String chatPath, String receiverRef, String senderRef, int receiverID) {
         this.subject = subject;
         this.receiverName = receiverName;
         this.receiverID = receiverID;
         this.latestMessage = latestMessage;
         this.chatPath = chatPath;
+        this.senderRef = senderRef;
+        this.receiverRef = receiverRef;
+    }
+
+    public String getSenderRef() {
+        return senderRef;
+    }
+
+    public void setSenderRef(String senderRef) {
+        this.senderRef = senderRef;
+    }
+
+    public String getReceiverRef() {
+        return receiverRef;
+    }
+
+    public void setReceiverRef(String receiverRef) {
+        this.receiverRef = receiverRef;
     }
 
     public String getLatestMessage() {

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -150,20 +152,42 @@ public class userprofile_activity extends AppCompatActivity {
 
                 Intent chatIntent = new Intent(userprofile_activity.this, ChatActivity.class);
 
-                if (view == findViewById(R.id.userprofileact_math_imageview)) { chatIntent.putExtra("subject", "math"); }
-                else if (view == findViewById(R.id.userprofileact_french_imageview)) { chatIntent.putExtra("subject", "french"); }
-                else if (view == findViewById(R.id.userprofileact_spanish_imageview)) { chatIntent.putExtra("subject", "spanish"); }
-                else if (view == findViewById(R.id.userprofileact_english_imageview)) { chatIntent.putExtra("subject", "english"); }
-                else if (view == findViewById(R.id.userprofileact_german_imageview)) { chatIntent.putExtra("subject", "german"); }
-                else if (view == findViewById(R.id.userprofileact_biology_imageview)) { chatIntent.putExtra("subject", "biology"); }
-                else if (view == findViewById(R.id.userprofileact_chemistry_imageview)) { chatIntent.putExtra("subject", "chemistry"); }
-                else if (view == findViewById(R.id.userprofileact_physics_imageview)) { chatIntent.putExtra("subject", "physics"); }
-                else if (view == findViewById(R.id.userprofileact_music_imageview)) { chatIntent.putExtra("subject", "music"); }
+                String subject = "nil";
 
-                else { chatIntent.putExtra("subject", "nil"); }
+                if (view == findViewById(R.id.userprofileact_math_imageview)) { subject = "math"; }
+                else if (view == findViewById(R.id.userprofileact_french_imageview)) { subject = "french"; }
+                else if (view == findViewById(R.id.userprofileact_spanish_imageview)) { subject = "spanish"; }
+                else if (view == findViewById(R.id.userprofileact_english_imageview)) { subject = "english"; }
+                else if (view == findViewById(R.id.userprofileact_german_imageview)) { subject = "german"; }
+                else if (view == findViewById(R.id.userprofileact_biology_imageview)) { subject = "biology"; }
+                else if (view == findViewById(R.id.userprofileact_chemistry_imageview)) { subject = "chemistry"; }
+                else if (view == findViewById(R.id.userprofileact_physics_imageview)) { subject = "physics"; }
+                else if (view == findViewById(R.id.userprofileact_music_imageview)) { subject = "music"; }
 
-                chatIntent.putExtra("senderInfo", extras.getString("clientInfo"));
-                chatIntent.putExtra("receiverInfo", extras.getString("profileInfo"));
+                DatabaseReference databaseSenderReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d",profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+
+                databaseSenderReference.child("receiverName").setValue(String.format("%s %s",profileInfo.getFirstname(), profileInfo.getName()));
+                databaseSenderReference.child("receiverID").setValue(profileInfo.getId());
+                databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("receiverName").setValue(String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+                databaseReceiverReference.child("receiverID").setValue(clientInfo.getId());
+                databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseSenderReference.child("chatPath").setValue(String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("chatPath").setValue(String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId()));
+
+                databaseSenderReference.child("subject").setValue(subject);
+                databaseReceiverReference.child("subject").setValue(subject);
+
+                String chatPath = String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId());
+
+                chatIntent.putExtra("chatPath", chatPath);
+                chatIntent.putExtra("clientDatabasePath", String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                chatIntent.putExtra("receiverDatabasePath", String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                chatIntent.putExtra("clientInfo", extras.getString("clientInfo"));
+                chatIntent.putExtra("clientName", String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
                 startActivity(chatIntent);
             } catch (JSONException e) { e.printStackTrace(); }
         }
