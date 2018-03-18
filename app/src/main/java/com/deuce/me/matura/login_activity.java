@@ -83,7 +83,7 @@ public class login_activity extends AppCompatActivity {
                 JSONObject json_response = new JSONObject(response);
                 boolean success = json_response.getBoolean("success");
 
-                System.out.println(success);
+                System.out.println(json_response);
 
                 if (success) {
 

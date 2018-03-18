@@ -5,6 +5,7 @@ import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +42,9 @@ public class mainpage_activity extends AppCompatActivity {
         try {
 
             clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+            System.out.println(clientInfo.getPassword());
             databaseReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d", clientInfo.getId()));
+            System.out.println(databaseReference);
 
             final TextView nameandfirstname_tv = findViewById(R.id.userprofileact_name_textview);
             final TextView description_tv = findViewById(R.id.userprofileact_description_textview);
@@ -113,7 +116,11 @@ public class mainpage_activity extends AppCompatActivity {
             FloatingActionButton expandbut = findViewById(R.id.mainpageact_notificationsbutton_floatingactionbutton);
             mBottomSheetBehavior.setPeekHeight((getWindowManager().getDefaultDisplay().getHeight()) / 20);  //Setting height for BottomSheet
 
-            recView = findViewById(R.id.mainpageact_bottomsheet_recyclerview);
+            //Configuring RecView
+            recView = (RecyclerView) findViewById(R.id.mainpageact_bottomsheet_recyclerview);
+            LinearLayoutManager mManager = new LinearLayoutManager(this);
+            recView.setLayoutManager(mManager);
+
 
             //Expanding or Collapsing BottomSheet
             expandbut.setOnClickListener(new onExpandListener());
@@ -175,5 +182,25 @@ public class mainpage_activity extends AppCompatActivity {
             startActivity(search_intent);
         }
     }
+
+    public static class OpenChatViewHolder extends RecyclerView.ViewHolder {
+
+        //https://android.jlelse.eu/click-listener-for-recyclerview-adapter-2d17a6f6f6c9
+
+        View view;
+
+        public OpenChatViewHolder(View itemView) {
+            super(itemView);
+            view = itemView;
+        }
+
+        public void setChat(String receiverName, String latestMessage) {
+            TextView cName_tv = (TextView) view.findViewById(R.id.openchat_name_textview);
+            cName_tv.setText(receiverName);
+            TextView cLatest_tv = (TextView) view.findViewById(R.id.openchat_latest_textview);
+            cLatest_tv.setText(latestMessage);
+        }
+    }
 }
+
 

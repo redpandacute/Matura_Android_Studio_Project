@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class savesettings_pw_request extends StringRequest {
 
-    private static final String savesettings_pw_URL = "https://lsdfortheelderly.000webhostapp.com/savesettings_pw.php";
+    private static final String savesettings_pw_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/savesettings_pw.php";
     private Map<String, String> params;
 
     public savesettings_pw_request(int id, String firstname, String name, String email, String school, String description, String oldpassword, String newpassword,

@@ -24,6 +24,8 @@ public class OpenChat {
         return senderRef;
     }
 
+    public OpenChat() {}
+
     public void setSenderRef(String senderRef) {
         this.senderRef = senderRef;
     }

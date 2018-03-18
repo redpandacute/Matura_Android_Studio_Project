@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/open_chat" >
 
     <ImageView
         android:id="@+id/imageView"
@@ -32,6 +33,6 @@
         android:text="TextView"
         android:textSize="10dp"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/openchat_name_textview" />
 
 </android.support.constraint.ConstraintLayout>

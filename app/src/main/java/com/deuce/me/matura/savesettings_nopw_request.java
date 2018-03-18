@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class savesettings_nopw_request extends StringRequest{
-    private static final String savesettings_nopw_URL = "https://lsdfortheelderly.000webhostapp.com/savesettings_nopw.php";
+    private static final String savesettings_nopw_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/savesettings_nopw.php";
     private Map<String, String> params;
 
     public savesettings_nopw_request(int id, String firstname, String name, String email, String school, String description, boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemistry, boolean music, boolean maths, boolean physics, Response.Listener<String> listener) {

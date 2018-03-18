@@ -32,7 +32,7 @@ public class userprofile_activity extends AppCompatActivity {
         try {
 
             profileInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
-
+            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
 //Infos
 // -------------------------------------------------------------------------------------------------
 
@@ -98,12 +98,11 @@ public class userprofile_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             System.out.println("Making request");
-            try {
-                clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
-                home_request home_request = new home_request(clientInfo.getId(), clientInfo.getPassword(), new onResponseListener());
-                RequestQueue request_queue = Volley.newRequestQueue(userprofile_activity.this); //Request Queue
-                request_queue.add(home_request);
-            } catch (JSONException e) { e.printStackTrace(); }
+
+            home_request home_request = new home_request(clientInfo.getId(), clientInfo.getPassword(), new onResponseListener());
+            RequestQueue request_queue = Volley.newRequestQueue(userprofile_activity.this); //Request Queue
+            request_queue.add(home_request);
+
         }
     }
     private class onResponseListener implements Response.Listener<String> {

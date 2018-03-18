@@ -11,7 +11,7 @@ import java.util.Map;
  */
 
 public class register_request extends StringRequest {
-    private static final String register_URL = "https://lsdfortheelderly.000webhostapp.com/register_php.php";
+    private static final String register_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/register_php.php";
     private Map<String, String> params;
 
     public register_request(String username, String name, String firstname, String school, int yearofbirth, String email, String password, Response.Listener<String> listener) {
