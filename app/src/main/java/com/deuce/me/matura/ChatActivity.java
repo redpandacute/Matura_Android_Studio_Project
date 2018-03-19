@@ -94,7 +94,7 @@ public class ChatActivity extends AppCompatActivity {
                 syncRec.child("latestMessage").setValue(messageText);
 
                 editMessage.setText("");
-                editMessage.clearFocus();
+                ChatRecView.smoothScrollToPosition(ChatRecView.getChildCount() - 1); //TODO: RESET SCROLL
             }
         }
     }

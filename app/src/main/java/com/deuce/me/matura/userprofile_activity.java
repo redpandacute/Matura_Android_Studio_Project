@@ -40,7 +40,7 @@ public class userprofile_activity extends AppCompatActivity {
             name_tv.setText(profileInfo.getFirstname() + " " + profileInfo.getName());
 
             TextView school_tv = findViewById(R.id.userprofileact_school_textview);
-            school_tv.setText("" + profileInfo.getYearofbirth());
+            school_tv.setText(profileInfo.getSchool() + ", " + profileInfo.getYearofbirth());
 
             TextView desc_tv = findViewById(R.id.userprofileact_description_textview);
             desc_tv.setText(profileInfo.getDescription());
