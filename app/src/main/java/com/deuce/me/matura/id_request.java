@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class id_request extends StringRequest {
 
-    private static final String search_URL = "https://lsdfortheelderly.000webhostapp.com/id_request.php";
+    private static final String search_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/id_request.php";
     private Map<String, String> params;
 
     public id_request (int id, Response.Listener<String> listener) {

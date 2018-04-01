@@ -34,7 +34,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:color/holo_blue_light" />
+                    android:background="@color/colorLight" />
 
                 <ImageView
                     android:id="@+id/userprofileact_profilepic_imageview"
@@ -100,14 +100,16 @@
                     android:id="@+id/space"
                     android:layout_width="340dp"
                     android:layout_height="94dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_description_textview"
-                    tools:layout_editor_absoluteX="2dp" />
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_description_textview" />
 
                 <HorizontalScrollView
                     android:id="@+id/userprofileact_subjectscroll_horscrollview"
                     android:layout_width="wrap_content"
-                    android:layout_height="65dp"
+                    android:layout_height="@dimen/medal_square"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="16dp"
@@ -123,66 +125,75 @@
 
                         <ImageView
                             android:id="@+id/userprofileact_english_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/en_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_french_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/fr_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_music_imageview"
-                            android:layout_width="wrap_content"
+                            android:layout_width="65dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/mu_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_spanish_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/es_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_physics_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/ps_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_biology_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/bi_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_math_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/ma_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_german_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/de_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_chemistry_imageview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/medal_square"
+                            android:layout_height="@dimen/medal_square"
                             android:layout_weight="1"
-                            app:srcCompat="@mipmap/ic_launcher_round" />
+                            android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:src="@drawable/ch_medal" />
                     </LinearLayout>
                 </HorizontalScrollView>
 
@@ -199,14 +210,15 @@
             android:id="@+id/userprofileact_homebutton_floatingactionbutton"
             android:layout_width="69dp"
             android:layout_height="69dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:clickable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="?android:attr/fingerprintAuthDrawable"
-            tools:layout_editor_absoluteY="426dp" />
+            app:srcCompat="?android:attr/fingerprintAuthDrawable" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.design.widget.CoordinatorLayout>

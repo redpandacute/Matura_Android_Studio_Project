@@ -18,6 +18,9 @@ import org.json.JSONObject;
 
 public class settings_activity extends AppCompatActivity {
 
+    private Bundle extrasBundle;
+    private userInfo clientInfo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,47 +52,46 @@ public class settings_activity extends AppCompatActivity {
 
 
         //Getting Extras ----------------
-        Bundle extras_bundle = getIntent().getExtras();
+        extrasBundle = getIntent().getExtras();
 
-        int id = 0;
+        try {
+            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
 
-        if(!extras_bundle.get("user_id").toString().isEmpty()) {
 
-            id = Integer.parseInt(extras_bundle.getString("user_id"));
+            int id = clientInfo.getId();
 
-            System.out.println("id" + id);
-            firstname_et.setText(extras_bundle.getString("user_firstname"));
-            name_et.setText(extras_bundle.getString("user_name"));
-            email_et.setText(extras_bundle.getString("user_email"));
-            description_et.setText(extras_bundle.getString("user_description"));
+                System.out.println("id" + id);
+                firstname_et.setText(clientInfo.getFirstname());
+                name_et.setText(clientInfo.getName());
+                email_et.setText(clientInfo.getEmail());
+                description_et.setText(clientInfo.getDescription());
 
-            //TODO
-            //setting school -----------------
+                //TODO
+                //setting school -----------------
 
-            //TODO
-            //setting profile picture
+                //TODO
+                //setting profile picture
 
-            german_cb.setChecked((boolean) extras_bundle.get("subj_german"));
-            spanish_cb.setChecked((boolean) extras_bundle.get("subj_spanish"));
-            french_cb.setChecked((boolean) extras_bundle.get("subj_french"));
-            english_cb.setChecked((boolean) extras_bundle.get("subj_english"));
-            maths_cb.setChecked((boolean) extras_bundle.get("subj_maths"));
-            biology_cb.setChecked((boolean) extras_bundle.get("subj_biology"));
-            music_cb.setChecked((boolean) extras_bundle.get("subj_music"));
-            chemistry_cb.setChecked((boolean) extras_bundle.get("subj_chemistry"));
-            physics_cb.setChecked((boolean) extras_bundle.get("subj_physics"));
+                german_cb.setChecked(clientInfo.isGerman());
+                spanish_cb.setChecked(clientInfo.isSpanish());
+                french_cb.setChecked(clientInfo.isFrench());
+                english_cb.setChecked(clientInfo.isEnglish());
+                maths_cb.setChecked(clientInfo.isMaths());
+                biology_cb.setChecked(clientInfo.isBiology());
+                music_cb.setChecked(clientInfo.isMusic());
+                chemistry_cb.setChecked(clientInfo.isChemistry());
+                physics_cb.setChecked(clientInfo.isPhysics());
 
-            savechanges_bt.setOnClickListener(new onSaveListener());
-        } else {
-            //Error with extras
-        }
+                savechanges_bt.setOnClickListener(new onSaveListener());
+
+        } catch (JSONException e) { e.printStackTrace(); }
     }
 
     class onSaveListener implements View.OnClickListener {
 
         Bundle extras_bundle = getIntent().getExtras();
 
-        int id = Integer.parseInt((extras_bundle.getString("user_id")));
+        int id = clientInfo.getId();
 
         final EditText firstname_et = (EditText) findViewById(R.id.settingsact_firstname_edittext);
         final EditText name_et = (EditText) findViewById(R.id.settingsact_name_edittext);
@@ -153,7 +155,6 @@ public class settings_activity extends AppCompatActivity {
                 request_queue.add(save_request);
 
             } else {
-
                 //TODO conf pw failed
                 System.out.println("Not inserted Correctly");
             }
@@ -172,59 +173,11 @@ public class settings_activity extends AppCompatActivity {
                 boolean success_subj = json_response.getBoolean("success_subjects");
 
                 System.out.println("Success User: " + success_user);
-                System.out.println("Success Subjects: " + success_user);
+                System.out.println("Success Subjects: " + success_subj);
 
                 if (success_user && success_subj) {
-
-                    //Retreiving data from response
-                    String user_username = json_response.getString("user_username");
-                    String user_name = json_response.getString("user_name");
-                    String user_firstname = json_response.getString("user_firstname");
-                    String user_school = json_response.getString("user_school");
-                    String user_email = json_response.getString("user_email");
-
-                    String user_description = "";
-
-                    try {
-                        user_description = json_response.getString("user_description");
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Warning: No Description");
-                    }
-
-                    int user_id = json_response.getInt("user_id");
-
-                    boolean subj_maths = 0 != json_response.getInt("subj_maths");
-                    boolean subj_german = 0 != json_response.getInt("subj_german");
-                    boolean subj_french = 0 != json_response.getInt("subj_french");
-                    boolean subj_spanish = 0 != json_response.getInt("subj_spanish");
-                    boolean subj_physics = 0 != json_response.getInt("subj_physics");
-                    boolean subj_chemistry = 0 != json_response.getInt("subj_chemistry");
-                    boolean subj_biology = 0 != json_response.getInt("subj_biology");
-                    boolean subj_music = 0 != json_response.getInt("subj_music");
-                    boolean subj_english = 0 != json_response.getInt("subj_english");
-
                     Intent save_intent = new Intent(settings_activity.this, mainpage_activity.class);
-
-                    save_intent.putExtra("user_username", user_username);
-                    save_intent.putExtra("user_name", user_name);
-                    save_intent.putExtra("user_firstname", user_firstname);
-                    save_intent.putExtra("user_username", user_name);
-                    save_intent.putExtra("user_school", user_school);
-                    save_intent.putExtra("user_email", user_email);
-                    save_intent.putExtra("user_description", user_description);
-                    save_intent.putExtra("user_id", user_id);
-
-                    save_intent.putExtra("subj_german", subj_german);
-                    save_intent.putExtra("subj_french", subj_french);
-                    save_intent.putExtra("subj_english", subj_english);
-                    save_intent.putExtra("subj_music", subj_music);
-                    save_intent.putExtra("subj_spanish", subj_spanish);
-                    save_intent.putExtra("subj_maths", subj_maths);
-                    save_intent.putExtra("subj_biology", subj_biology);
-                    save_intent.putExtra("subj_chemistry", subj_chemistry);
-                    save_intent.putExtra("subj_physics", subj_physics);
-
+                    save_intent.putExtra("clientInfo", response);
                     startActivity(save_intent);
                 }
 

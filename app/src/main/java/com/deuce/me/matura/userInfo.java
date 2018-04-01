@@ -4,16 +4,19 @@ package com.deuce.me.matura;
  * Created by Flo on 18.02.2018.
  */
 
-public class result_item {
+public class userInfo {
     // private ?? pb;
 
     private int id;
     private String username;
     private String name;
     private String firstname;
-    //private String school;
+    private String school;
     private int yearofbirth;
     private String description;
+
+    private String email;
+    private String password;
 
     private boolean french;
     private boolean spanish;
@@ -25,7 +28,7 @@ public class result_item {
     private boolean physics;
     private boolean german;
 
-    public result_item(int id, String username, String name, String firstname, int yearofbirth, String description, boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics) {
+    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description, boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics) {
         this.id = id;
         this.username = username;
         this.name = name;
@@ -41,6 +44,23 @@ public class result_item {
         this.maths = maths;
         this.physics = physics;
         this.german = german;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSchool() {
+        return "KSA Pfäffikon SZ";
+        //return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
     }
 
     public int getId() {
@@ -161,5 +181,13 @@ public class result_item {
 
     public void setGerman(boolean german) {
         this.german = german;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

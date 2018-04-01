@@ -3,25 +3,13 @@ package com.deuce.me.matura;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Flo on 11.02.2018.
@@ -29,16 +17,18 @@ import java.util.Map;
 
 public class searchresults_activity extends AppCompatActivity {
 
+    private Bundle extrasBundle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchlist_activity);
 
         ListView listview = findViewById(R.id.searchlistact_listview_listview);
-        Bundle extras_bundle = getIntent().getExtras();
+        extrasBundle = getIntent().getExtras();
 
         try {
-            JSONArray json_arr = (new JSONObject(extras_bundle.getString("results"))).getJSONArray("results");
+            JSONArray json_arr = (new JSONObject(extrasBundle.getString("results"))).getJSONArray("results");
             listview.setAdapter(new searchresults_adapter(getApplicationContext(), json_arr));
             listview.setOnItemClickListener(new onItemClickListener());
             System.out.println(listview.getOnItemClickListener().toString());
@@ -57,13 +47,10 @@ public class searchresults_activity extends AppCompatActivity {
             try {
                 Bundle extras_bundle = getIntent().getExtras();
                 JSONArray json_arr = (new JSONObject(extras_bundle.getString("results"))).getJSONArray("results");
-                result_item info = new result_iteminfo().createNewItem(json_arr.getJSONObject(i));
-
 
                 Intent showuser_intent = new Intent(searchresults_activity.this, userprofile_activity.class);
-                showuser_intent.putExtra("user_info", json_arr.getJSONObject(i).toString());
-                showuser_intent.putExtra("user_id", extras_bundle.getInt("user_id") + "");
-                showuser_intent.putExtra("user_password", extras_bundle.getString("user_password"));
+                showuser_intent.putExtra("profileInfo", json_arr.getJSONObject(i).toString());
+                showuser_intent.putExtra("clientInfo", extras_bundle.getString("clientInfo"));
                 startActivity(showuser_intent);
 
             } catch (JSONException e) { e.printStackTrace(); }

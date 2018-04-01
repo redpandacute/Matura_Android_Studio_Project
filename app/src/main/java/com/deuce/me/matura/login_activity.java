@@ -83,71 +83,13 @@ public class login_activity extends AppCompatActivity {
                 JSONObject json_response = new JSONObject(response);
                 boolean success = json_response.getBoolean("success");
 
-                System.out.println(success);
+                System.out.println(json_response);
 
                 if (success) {
 
-
-                    //Could be implemented into the extra directly
-                    //getting UserData from Response
-                    String user_username = json_response.getString("user_username");
-                    String user_password = json_response.getString("user_password");
-                    String user_name = json_response.getString("user_name");
-                    String user_firstname = json_response.getString("user_firstname");
-                    String user_school = json_response.getString("user_school");
-                    String user_email = json_response.getString("user_email");
-                    String user_description = "";
-
-                    boolean subj_maths = 0 != json_response.getInt("subj_maths");
-                    boolean subj_german = 0 != json_response.getInt("subj_german");
-                    boolean subj_french = 0 != json_response.getInt("subj_french");
-                    boolean subj_spanish = 0 != json_response.getInt("subj_spanish");
-                    boolean subj_physics = 0 != json_response.getInt("subj_physics");
-                    boolean subj_chemistry = 0 != json_response.getInt("subj_chemistry");
-                    boolean subj_biology = 0 != json_response.getInt("subj_biology");
-                    boolean subj_music = 0 != json_response.getInt("subj_music");
-                    boolean subj_english = 0 != json_response.getInt("subj_english");
-
-
-                    try {
-                        user_description = json_response.getString("user_description");
-                        System.out.println("desc: " + user_description);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Warning: No Description");
-                    }
-
-                    int user_yearofbirth = json_response.getInt("user_yearofbirth");
-                    int user_id = json_response.getInt("user_id");
-
-                    //changing to mainpage_activity
                     Intent login_intent = new Intent(login_activity.this, mainpage_activity.class);
 
-                    //passing Response Data to mainpage activity
-                    login_intent.putExtra("user_username", user_username);
-                    login_intent.putExtra("user_name", user_name);
-                    login_intent.putExtra("user_firstname", user_firstname);
-                    login_intent.putExtra("user_username", user_name);
-                    login_intent.putExtra("user_school", user_school);
-                    login_intent.putExtra("user_email", user_email);
-                    login_intent.putExtra("user_description", user_description);
-
-                    login_intent.putExtra("user_yearofbirth", user_yearofbirth);
-                    login_intent.putExtra("user_id", user_id);
-                    login_intent.putExtra("user_password", user_password);
-
-
-                    login_intent.putExtra("subj_german", subj_german);
-                    login_intent.putExtra("subj_spanish", subj_spanish);
-                    login_intent.putExtra("subj_french", subj_french);
-                    login_intent.putExtra("subj_english", subj_english);
-                    login_intent.putExtra("subj_maths", subj_maths);
-                    login_intent.putExtra("subj_physics", subj_physics);
-                    login_intent.putExtra("subj_chemistry", subj_chemistry);
-                    login_intent.putExtra("subj_biology", subj_biology);
-                    login_intent.putExtra("subj_music", subj_music);
-
-
+                    login_intent.putExtra("clientInfo", json_response.toString());
                     //Starting activity
                     startActivity(login_intent);
 

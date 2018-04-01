@@ -5,73 +5,83 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
 public class userprofile_activity extends AppCompatActivity {
 
-
+    private Bundle extras;
+    private userInfo profileInfo, clientInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
 
-        Bundle extras = getIntent().getExtras();
+         extras = getIntent().getExtras();
 
         try {
 
-            result_item info = new result_iteminfo().createNewItem(new JSONObject(extras.getString("user_info")));
-
+            profileInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
+            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
 //Infos
 // -------------------------------------------------------------------------------------------------
 
             TextView name_tv = findViewById(R.id.userprofileact_name_textview);
-            name_tv.setText(info.getFirstname() + " " + info.getName());
+            name_tv.setText(profileInfo.getFirstname() + " " + profileInfo.getName());
 
             TextView school_tv = findViewById(R.id.userprofileact_school_textview);
-            school_tv.setText("" + info.getYearofbirth());
+            school_tv.setText(profileInfo.getSchool() + ", " + profileInfo.getYearofbirth());
 
             TextView desc_tv = findViewById(R.id.userprofileact_description_textview);
-            desc_tv.setText(info.getDescription());
+            desc_tv.setText(profileInfo.getDescription());
 
 //SubjectMedals
 // -------------------------------------------------------------------------------------------------
             ImageView math_medal = findViewById(R.id.userprofileact_math_imageview);
-            if (!info.isMaths()) { math_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isMaths()) { math_medal.setVisibility(View.GONE); }
+            math_medal.setOnClickListener(new onRequestListener());
 
             ImageView spanish_medal = findViewById(R.id.userprofileact_spanish_imageview);
-            if (!info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isSpanish()) { spanish_medal.setVisibility(View.GONE); }
+            spanish_medal.setOnClickListener(new onRequestListener());
 
             ImageView physics_medal = findViewById(R.id.userprofileact_physics_imageview);
-            if (!info.isPhysics()) { physics_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isPhysics()) { physics_medal.setVisibility(View.GONE); }
+            physics_medal.setOnClickListener(new onRequestListener());
 
             ImageView german_medal = findViewById(R.id.userprofileact_german_imageview);
-            if (!info.isGerman()) { german_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isGerman()) { german_medal.setVisibility(View.GONE); }
+            german_medal.setOnClickListener(new onRequestListener());
 
             ImageView biology_medal = findViewById(R.id.userprofileact_biology_imageview);
-            if (!info.isBiology()) { biology_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isBiology()) { biology_medal.setVisibility(View.GONE); }
+            biology_medal.setOnClickListener(new onRequestListener());
 
             ImageView chemistry_medal = findViewById(R.id.userprofileact_chemistry_imageview);
-            if (!info.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
+            chemistry_medal.setOnClickListener(new onRequestListener());
 
             ImageView music_medal = findViewById(R.id.userprofileact_music_imageview);
-            if (!info.isMusic()) { music_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isMusic()) { music_medal.setVisibility(View.GONE); }
+            music_medal.setOnClickListener(new onRequestListener());
 
             ImageView english_medal = findViewById(R.id.userprofileact_english_imageview);
-            if (!info.isEnglish()) { english_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isEnglish()) { english_medal.setVisibility(View.GONE); }
+            english_medal.setOnClickListener(new onRequestListener());
 
             ImageView french_medal = findViewById(R.id.userprofileact_french_imageview);
-            if (!info.isFrench()) { french_medal.setVisibility(View.GONE); }
+            if (!profileInfo.isFrench()) { french_medal.setVisibility(View.GONE); }
+            french_medal.setOnClickListener(new onRequestListener());
 
 //HomeButton
 // -------------------------------------------------------------------------------------------------
@@ -88,9 +98,11 @@ public class userprofile_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             System.out.println("Making request");
-            home_request home_request = new home_request(Integer.parseInt(getIntent().getExtras().getString("user_id")), getIntent().getExtras().getString("user_password"), new onResponseListener());
+
+            home_request home_request = new home_request(clientInfo.getId(), clientInfo.getPassword(), new onResponseListener());
             RequestQueue request_queue = Volley.newRequestQueue(userprofile_activity.this); //Request Queue
             request_queue.add(home_request);
+
         }
     }
     private class onResponseListener implements Response.Listener<String> {
@@ -107,67 +119,8 @@ public class userprofile_activity extends AppCompatActivity {
                 System.out.println(success);
 
                 if (success) {
-
-
-                    //Could be implemented into the extra directly
-                    //getting UserData from Response
-                    String user_username = json_response.getString("user_username");
-                    String user_password = json_response.getString("user_password");
-                    String user_name = json_response.getString("user_name");
-                    String user_firstname = json_response.getString("user_firstname");
-                    String user_school = json_response.getString("user_school");
-                    String user_email = json_response.getString("user_email");
-                    String user_description = "";
-
-                    boolean subj_maths = 0 != json_response.getInt("subj_maths");
-                    boolean subj_german = 0 != json_response.getInt("subj_german");
-                    boolean subj_french = 0 != json_response.getInt("subj_french");
-                    boolean subj_spanish = 0 != json_response.getInt("subj_spanish");
-                    boolean subj_physics = 0 != json_response.getInt("subj_physics");
-                    boolean subj_chemistry = 0 != json_response.getInt("subj_chemistry");
-                    boolean subj_biology = 0 != json_response.getInt("subj_biology");
-                    boolean subj_music = 0 != json_response.getInt("subj_music");
-                    boolean subj_english = 0 != json_response.getInt("subj_english");
-
-
-                    try {
-                        user_description = json_response.getString("user_description");
-                        System.out.println("desc: " + user_description);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        System.out.println("Warning: No Description");
-                    }
-
-                    int user_yearofbirth = json_response.getInt("user_yearofbirth");
-                    int user_id = json_response.getInt("user_id");
-
-                    //changing to mainpage_activity
                     Intent home_intent = new Intent(userprofile_activity.this, mainpage_activity.class);
-
-                    //passing Response Data to mainpage activity
-                    home_intent.putExtra("user_username", user_username);
-                    home_intent.putExtra("user_name", user_name);
-                    home_intent.putExtra("user_firstname", user_firstname);
-                    home_intent.putExtra("user_username", user_name);
-                    home_intent.putExtra("user_school", user_school);
-                    home_intent.putExtra("user_email", user_email);
-                    home_intent.putExtra("user_description", user_description);
-
-                    home_intent.putExtra("user_yearofbirth", user_yearofbirth);
-                    home_intent.putExtra("user_id", user_id);
-                    home_intent.putExtra("user_password", user_password);
-
-
-                    home_intent.putExtra("subj_german", subj_german);
-                    home_intent.putExtra("subj_spanish", subj_spanish);
-                    home_intent.putExtra("subj_french", subj_french);
-                    home_intent.putExtra("subj_english", subj_english);
-                    home_intent.putExtra("subj_maths", subj_maths);
-                    home_intent.putExtra("subj_physics", subj_physics);
-                    home_intent.putExtra("subj_chemistry", subj_chemistry);
-                    home_intent.putExtra("subj_biology", subj_biology);
-                    home_intent.putExtra("subj_music", subj_music);
-
+                    home_intent.putExtra("clientInfo", extras.getString("clientInfo"));
 
                     //Starting activity
                     startActivity(home_intent);
@@ -180,6 +133,62 @@ public class userprofile_activity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private class onRequestListener implements View.OnClickListener {
+
+        private userInfo senderInfo;
+        private userInfo receiverInfo;
+
+
+        @Override
+        public void onClick(View view) {
+            try {
+                senderInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+                receiverInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
+
+
+                Intent chatIntent = new Intent(userprofile_activity.this, ChatActivity.class);
+
+                String subject = "nil";
+
+                if (view == findViewById(R.id.userprofileact_math_imageview)) { subject = "math"; }
+                else if (view == findViewById(R.id.userprofileact_french_imageview)) { subject = "french"; }
+                else if (view == findViewById(R.id.userprofileact_spanish_imageview)) { subject = "spanish"; }
+                else if (view == findViewById(R.id.userprofileact_english_imageview)) { subject = "english"; }
+                else if (view == findViewById(R.id.userprofileact_german_imageview)) { subject = "german"; }
+                else if (view == findViewById(R.id.userprofileact_biology_imageview)) { subject = "biology"; }
+                else if (view == findViewById(R.id.userprofileact_chemistry_imageview)) { subject = "chemistry"; }
+                else if (view == findViewById(R.id.userprofileact_physics_imageview)) { subject = "physics"; }
+                else if (view == findViewById(R.id.userprofileact_music_imageview)) { subject = "music"; }
+
+                DatabaseReference databaseSenderReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d",profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+
+                databaseSenderReference.child("receiverName").setValue(String.format("%s %s",profileInfo.getFirstname(), profileInfo.getName()));
+                databaseSenderReference.child("receiverID").setValue(profileInfo.getId());
+                databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("receiverName").setValue(String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+                databaseReceiverReference.child("receiverID").setValue(clientInfo.getId());
+                databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                databaseSenderReference.child("chatPath").setValue(String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId()));
+                databaseReceiverReference.child("chatPath").setValue(String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId()));
+
+                databaseSenderReference.child("subject").setValue(subject);
+                databaseReceiverReference.child("subject").setValue(subject);
+
+                String chatPath = String.format("Chats/%d>>%d", clientInfo.getId(), profileInfo.getId());
+
+                chatIntent.putExtra("chatPath", chatPath);
+                chatIntent.putExtra("clientDatabasePath", String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                chatIntent.putExtra("receiverDatabasePath", String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
+                chatIntent.putExtra("clientInfo", extras.getString("clientInfo"));
+                chatIntent.putExtra("clientName", String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+                startActivity(chatIntent);
+            } catch (JSONException e) { e.printStackTrace(); }
         }
     }
 }

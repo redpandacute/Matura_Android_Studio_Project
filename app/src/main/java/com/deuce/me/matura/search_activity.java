@@ -66,11 +66,13 @@ public class search_activity extends AppCompatActivity {
             //String school = school_sp.getSelectedItem();
 
             System.out.println("Making searchrequest");
-            Bundle extras_bundle = getIntent().getExtras();
-            search_request search_request = new search_request(extras_bundle.getInt("user_id") ,name /*,School*/, map, new onResponseListener());
-            RequestQueue request_queue = Volley.newRequestQueue(search_activity.this); //Request Queue
-            request_queue.add(search_request);
-
+            Bundle extrasBundle = getIntent().getExtras();
+            try {
+                userInfo clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+                search_request search_request = new search_request(clientInfo.getId(), name /*,School*/, map, new onResponseListener());
+                RequestQueue request_queue = Volley.newRequestQueue(search_activity.this); //Request Queue
+                request_queue.add(search_request);
+            } catch (JSONException e) { e.printStackTrace(); }
         }
     }
 
@@ -87,9 +89,8 @@ public class search_activity extends AppCompatActivity {
                 if(success) {
 
                     Intent intent = new Intent(search_activity.this, searchresults_activity.class);
+                    intent.putExtra("clientInfo", getIntent().getExtras().getString("clientInfo"));
                     intent.putExtra("results", response);
-                    intent.putExtra("user_id", getIntent().getExtras().getInt("user_id"));
-                    intent.putExtra("user_password",getIntent().getExtras().getString("user_password"));
                     startActivity(intent);
 
                 } else {
