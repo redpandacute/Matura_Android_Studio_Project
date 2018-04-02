@@ -3,6 +3,7 @@ package com.deuce.me.matura;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -26,6 +27,8 @@ public class search_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_activity);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         ImageButton search_bt = findViewById(R.id.searchactivity_searchbutton_imagebutton);
         search_bt.setOnClickListener(new onSearchListener());
     }

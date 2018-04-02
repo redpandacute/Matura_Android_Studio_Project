@@ -44,6 +44,7 @@ public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChat
                 System.out.println(model.getChatPath());
                 chat_intent.putExtra("clientDatabasePath", model.getSenderRef());
                 chat_intent.putExtra("receiverDatabasePath", model.getReceiverRef());
+                chat_intent.putExtra("parentActivity", "mainpage");
                 mContext.startActivity(chat_intent);
             }
         });

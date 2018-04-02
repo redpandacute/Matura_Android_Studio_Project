@@ -1,6 +1,8 @@
 package com.deuce.me.matura;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +24,7 @@ public class ChatActivity extends AppCompatActivity {
     private EditText editMessage;
     private Bundle extras;
     private DatabaseReference databaseReference, databaseSenderReference, databaseReceiverReference;
-    private Button sendButton;
+    private FloatingActionButton sendButton;
     private RecyclerView ChatRecView;
     private String subject, senderName, receiverName, chatDBPath, senderDBPath, receiverDBPath;
 
@@ -31,10 +33,11 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        editMessage = (EditText) findViewById(R.id.message_edittext);
+
+        editMessage = (EditText) findViewById(R.id.chatact_message_edittext);
 
         //Button
-        sendButton = (Button) findViewById(R.id.sendbutton_button);
+        sendButton = (FloatingActionButton) findViewById(R.id.chatact_sendbutton_floatingactionbutton);
         sendButton.setOnClickListener(new onSendListener());
 
         //Extras *EXPERIMENTAL*
@@ -72,6 +75,22 @@ public class ChatActivity extends AppCompatActivity {
                 senderName
         );
         ChatRecView.setAdapter(FBCA);
+    }
+    @Override
+    public void onBackPressed() {
+        String parentActivity = extras.getString("parentActivity");
+
+        if(parentActivity == "userprofile") {
+            Intent profileintent = new Intent(ChatActivity.this, userprofile_activity.class);
+            profileintent.putExtra("clientInfo", extras.getString("clientInfo"));
+            profileintent.putExtra("profileInfo", extras.getString("profileInfo"));
+
+            startActivity(profileintent);
+        } else {
+            Intent homeintent = new Intent(ChatActivity.this, mainpage_activity.class);
+
+            startActivity(homeintent);
+        }
     }
 
     //onSendListener

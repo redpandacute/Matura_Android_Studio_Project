@@ -6,4 +6,6 @@
     <dimen name="text_margin">16dp</dimen>
     <dimen name="medal_square">60dp</dimen>
     <dimen name="medal_margin">2dp</dimen>
+    <dimen name="inputbarheight">50dp</dimen>
+    <dimen name="inputcorners">25dp</dimen>
 </resources>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +29,7 @@ public class register_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity);
+        getActionBar().setHomeButtonEnabled(true);
 
         final Spinner yearofbirth_sp = findViewById(R.id.registeract_yearofbirth_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);

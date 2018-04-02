@@ -14,23 +14,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/inputbarheight"
         android:orientation="horizontal"
+        android:gravity="end"
         android:layout_alignParentBottom = "true"
         android:id="@+id/linearLayout">
 
         <EditText
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/message_edittext"/>
-
-        <Button
+            android:id="@+id/chatact_message_edittext"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/inputbarheight"
+            android:background="@drawable/inputbar"
+            android:hint="    Type a message"
+            android:layout_weight="40" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/chatact_sendbutton_floatingactionbutton"
+            android:layout_width="@dimen/inputbarheight"
+            android:layout_height="@dimen/inputbarheight"
             android:layout_weight="1"
+            android:layout_marginHorizontal="@dimen/fab_margin"
             android:clickable="true"
-            android:id="@+id/sendbutton_button"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_menu_send" />
 
 
     </LinearLayout>

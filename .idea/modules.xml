@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Matura_Android_Studio_Project.iml" filepath="$PROJECT_DIR$/Matura_Android_Studio_Project.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Matura_Android.iml" filepath="$PROJECT_DIR$/Matura_Android.iml" />
+      <module fileurl="file://C:\Users\ingli\StudioProjects\Matura_Android\Matura_Android_Studio_Project.iml" filepath="C:\Users\ingli\StudioProjects\Matura_Android\Matura_Android_Studio_Project.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,6 +27,7 @@ public class userprofile_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
+        getActionBar().setHomeButtonEnabled(true);
 
          extras = getIntent().getExtras();
 
@@ -186,7 +188,10 @@ public class userprofile_activity extends AppCompatActivity {
                 chatIntent.putExtra("clientDatabasePath", String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
                 chatIntent.putExtra("receiverDatabasePath", String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
                 chatIntent.putExtra("clientInfo", extras.getString("clientInfo"));
+                chatIntent.putExtra("profileInfo", extras.getString("profileInfo"));
                 chatIntent.putExtra("clientName", String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+
+                chatIntent.putExtra("parentActivity", "userprofile");
                 startActivity(chatIntent);
             } catch (JSONException e) { e.printStackTrace(); }
         }
