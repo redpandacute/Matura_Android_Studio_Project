@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,9 +28,9 @@ public class userprofile_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-         extras = getIntent().getExtras();
+        extras = getIntent().getExtras();
 
         try {
 
@@ -93,6 +94,22 @@ public class userprofile_activity extends AppCompatActivity {
 
 
         } catch (JSONException e) { e.printStackTrace(); }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(userprofile_activity.this, mainpage_activity.class);
+                intent.putExtra("clientInfo", getIntent().getExtras().getString("clientInfo"));
+                intent.putExtra("results", getIntent().getExtras().getString("results"));
+                startActivity(intent);
+                System.out.println("::BACK BUTTON::");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     class onHomeListener implements View.OnClickListener {
