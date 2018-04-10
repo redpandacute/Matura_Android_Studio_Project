@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -27,7 +28,7 @@ public class search_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_activity);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageButton search_bt = findViewById(R.id.searchactivity_searchbutton_imagebutton);
         search_bt.setOnClickListener(new onSearchListener());
@@ -76,6 +77,21 @@ public class search_activity extends AppCompatActivity {
                 RequestQueue request_queue = Volley.newRequestQueue(search_activity.this); //Request Queue
                 request_queue.add(search_request);
             } catch (JSONException e) { e.printStackTrace(); }
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(search_activity.this, mainpage_activity.class);
+                intent.putExtra("clientInfo", getIntent().getExtras().getString("clientInfo"));
+                startActivity(intent);
+                System.out.println("::BACK BUTTON::");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 

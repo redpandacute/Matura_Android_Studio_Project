@@ -16,16 +16,17 @@ import com.google.firebase.database.Query;
 public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChat, mainpage_activity.OpenChatViewHolder> {
 
     private Context mContext;
-    private String clientName;
+    private String clientName, clientInfo;
 
     public BottomsheetFirebaseAdapter(Class<OpenChat> modelClass,
                                       int modelLayout,
                                       Class<mainpage_activity.OpenChatViewHolder> viewHolderClass,
-                                      Query ref, Context context, String clientName
+                                      Query ref, Context context, String clientName, String clientInfo
     ) {
         super(modelClass, modelLayout, viewHolderClass, ref);
         this.mContext = context;
         this.clientName = clientName;
+        this.clientInfo = clientInfo;
     }
 
     @Override
@@ -45,6 +46,8 @@ public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChat
                 chat_intent.putExtra("clientDatabasePath", model.getSenderRef());
                 chat_intent.putExtra("receiverDatabasePath", model.getReceiverRef());
                 chat_intent.putExtra("parentActivity", "mainpage");
+                chat_intent.putExtra("clientInfo", clientInfo);
+                chat_intent.putExtra("receiverName", model.getReceiverName());
                 mContext.startActivity(chat_intent);
             }
         });

@@ -202,22 +202,37 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="359dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp">
+
+        <Button
+            android:id="@+id/userprofileact_openchatbutton_button"
+            android:layout_width="0dp"
+            android:layout_height="62dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:textColor="#ffffff"
+            android:background="@drawable/contact_button"
+            android:text="@string/contact_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/messagebubble_left" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/userprofileact_homebutton_floatingactionbutton"
             android:layout_width="69dp"
             android:layout_height="69dp"
-            android:layout_marginBottom="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:clickable="true"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="?android:attr/fingerprintAuthDrawable" />
 
     </android.support.constraint.ConstraintLayout>

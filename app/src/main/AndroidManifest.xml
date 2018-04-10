@@ -14,21 +14,18 @@
         <activity android:name=".login_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register_activity"
-            android:parentActivityName=".login_activity"/>
+        <activity android:name=".register_activity" />
         <activity android:name=".mainpage_activity" />
-        <activity android:name=".search_activity"
-            android:parentActivityName=".mainpage_activity"/>
-        <activity android:name=".settings_activity"
-            android:parentActivityName=".mainpage_activity"/>
-        <activity android:name=".userprofile_activity"
-            android:parentActivityName=".searchresults_activity"/>
-        <activity android:name=".searchresults_activity"
-            android:parentActivityName=".search_activity"/>
+        <activity android:name=".search_activity" />
+        <activity android:name=".settings_activity" />
+        <activity android:name=".userprofile_activity" />
+        <activity android:name=".searchresults_activity" />
         <activity android:name=".ChatActivity" />
+        <activity android:name=".settingsOverview"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -29,7 +30,8 @@ public class register_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity);
-        getActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(R.string.register_title);
 
         final Spinner yearofbirth_sp = findViewById(R.id.registeract_yearofbirth_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
@@ -42,6 +44,19 @@ public class register_activity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(register_activity.this, login_activity.class);
+                startActivity(intent);
+                System.out.println("::BACK BUTTON::");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     //OnResponseListener Register ------------------------------------------------------------------
     private class onResponseListener implements Response.Listener<String> {

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -26,7 +27,8 @@ public class settings_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_activity);
-        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         //Objects
         final EditText firstname_et = (EditText) findViewById(R.id.settingsact_firstname_edittext);
@@ -87,6 +89,20 @@ public class settings_activity extends AppCompatActivity {
                 savechanges_bt.setOnClickListener(new onSaveListener());
 
         } catch (JSONException e) { e.printStackTrace(); }
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Intent intent = new Intent(settings_activity.this, mainpage_activity.class);
+                intent.putExtra("clientInfo", extrasBundle.getString("clientInfo"));
+                startActivity(intent);
+                System.out.println("::BACK BUTTON::");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     class onSaveListener implements View.OnClickListener {
@@ -161,6 +177,8 @@ public class settings_activity extends AppCompatActivity {
                 System.out.println("Not inserted Correctly");
             }
         }
+
+
     }
 
     class onResponseListener implements Response.Listener<String> {

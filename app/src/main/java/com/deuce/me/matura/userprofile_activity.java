@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +37,8 @@ public class userprofile_activity extends AppCompatActivity {
 
             profileInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
             clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+
+            getSupportActionBar().setTitle(profileInfo.getFirstname() + " " + profileInfo.getName());
 //Infos
 // -------------------------------------------------------------------------------------------------
 
@@ -47,6 +50,9 @@ public class userprofile_activity extends AppCompatActivity {
 
             TextView desc_tv = findViewById(R.id.userprofileact_description_textview);
             desc_tv.setText(profileInfo.getDescription());
+
+            Button openChatButton = findViewById(R.id.userprofileact_openchatbutton_button);
+            openChatButton.setOnClickListener(new onRequestListener());
 
 //SubjectMedals
 // -------------------------------------------------------------------------------------------------
@@ -182,6 +188,8 @@ public class userprofile_activity extends AppCompatActivity {
                 else if (view == findViewById(R.id.userprofileact_physics_imageview)) { subject = "physics"; }
                 else if (view == findViewById(R.id.userprofileact_music_imageview)) { subject = "music"; }
 
+                //Setting up firebase
+
                 DatabaseReference databaseSenderReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
                 DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d",profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
 
@@ -189,7 +197,7 @@ public class userprofile_activity extends AppCompatActivity {
                 databaseSenderReference.child("receiverID").setValue(profileInfo.getId());
                 databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
                 databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
-                databaseReceiverReference.child("receiverName").setValue(String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+                databaseReceiverReference.child("senderName").setValue(String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
                 databaseReceiverReference.child("receiverID").setValue(clientInfo.getId());
                 databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", profileInfo.getId(), clientInfo.getId(), profileInfo.getId()));
                 databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", clientInfo.getId(), clientInfo.getId(), profileInfo.getId()));
@@ -207,8 +215,10 @@ public class userprofile_activity extends AppCompatActivity {
                 chatIntent.putExtra("clientInfo", extras.getString("clientInfo"));
                 chatIntent.putExtra("profileInfo", extras.getString("profileInfo"));
                 chatIntent.putExtra("clientName", String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()));
+                chatIntent.putExtra("receiverName", String.format("%s %s",profileInfo.getFirstname(), profileInfo.getName()));
 
                 chatIntent.putExtra("parentActivity", "userprofile");
+
                 startActivity(chatIntent);
             } catch (JSONException e) { e.printStackTrace(); }
         }

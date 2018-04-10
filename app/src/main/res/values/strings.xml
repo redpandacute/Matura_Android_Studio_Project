@@ -34,4 +34,15 @@
     <string name="searchforname_string">Search for a name:</string>
     <string name="title_result_list">results</string>
     <string name="title_result_detail">result Detail</string>
+
+    <string name="clientprofile_title">Your Profile</string>
+    <string name="userprofile_title">\'s Profile</string>
+    <string name="securitysettings_title">Security settings</string>
+    <string name="profilesettings_title">Profile settings</string>
+    <string name="login_title">Login</string>
+    <string name="register_title">Register</string>
+    <string name="filter_title">Specify your Search:</string>
+    <string name="searchresults_title">Searchresults</string>
+    <string name="chat_title">Chat with</string>
+    <string name="contact_button">Open a Chat</string>
 </resources>

@@ -6,13 +6,17 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +36,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         editMessage = (EditText) findViewById(R.id.chatact_message_edittext);
@@ -41,26 +46,29 @@ public class ChatActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new onSendListener());
 
         //Extras *EXPERIMENTAL*
-            extras = getIntent().getExtras();
-            subject = extras.getString("subject");
-            senderName = extras.getString("clientName");
-            chatDBPath = extras.getString("chatPath");
-            senderDBPath = extras.getString("clientDatabasePath");
-            receiverDBPath = extras.getString("receiverDatabasePath");
+        extras = getIntent().getExtras();
+        subject = extras.getString("subject");
+        senderName = extras.getString("clientName");
+        chatDBPath = extras.getString("chatPath");
+        senderDBPath = extras.getString("clientDatabasePath");
+        receiverDBPath = extras.getString("receiverDatabasePath");
 
-            //Firebasereference
-            databaseReference = FirebaseDatabase.getInstance().getReference(chatDBPath);
-            databaseSenderReference = FirebaseDatabase.getInstance().getReference(senderDBPath);
-            databaseReceiverReference = FirebaseDatabase.getInstance().getReference(receiverDBPath);
+        //Title
+        getSupportActionBar().setTitle(getString(R.string.chat_title) + " " + extras.getString("receiverName"));
 
-            //Pushing the Chats
+        //Firebasereference
+        databaseReference = FirebaseDatabase.getInstance().getReference(chatDBPath);
+        databaseSenderReference = FirebaseDatabase.getInstance().getReference(senderDBPath);
+        databaseReceiverReference = FirebaseDatabase.getInstance().getReference(receiverDBPath);
 
-            //RecView
-            ChatRecView = (RecyclerView) findViewById(R.id.message_recyclerview);
-            ChatRecView.setHasFixedSize(true);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-            linearLayoutManager.setStackFromEnd(true);
-            ChatRecView.setLayoutManager(linearLayoutManager);
+        //Pushing the Chats
+
+        //RecView
+        ChatRecView = (RecyclerView) findViewById(R.id.message_recyclerview);
+        ChatRecView.setHasFixedSize(true);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true);
+        ChatRecView.setLayoutManager(linearLayoutManager);
     }
 
     @Override
@@ -76,20 +84,27 @@ public class ChatActivity extends AppCompatActivity {
         );
         ChatRecView.setAdapter(FBCA);
     }
+
     @Override
-    public void onBackPressed() {
-        String parentActivity = extras.getString("parentActivity");
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(parentActivity == "userprofile") {
-            Intent profileintent = new Intent(ChatActivity.this, userprofile_activity.class);
-            profileintent.putExtra("clientInfo", extras.getString("clientInfo"));
-            profileintent.putExtra("profileInfo", extras.getString("profileInfo"));
-
-            startActivity(profileintent);
-        } else {
-            Intent homeintent = new Intent(ChatActivity.this, mainpage_activity.class);
-
-            startActivity(homeintent);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                if (extras.getString("parentActivity").matches("mainpage")) {
+                    Intent intent = new Intent(ChatActivity.this, mainpage_activity.class);
+                    intent.putExtra("clientInfo", extras.getString("clientInfo"));
+                    startActivity(intent);
+                    System.out.println("::BACK BUTTON::");
+                } else {
+                    Intent intent = new Intent(ChatActivity.this, userprofile_activity.class);
+                    intent.putExtra("clientInfo", extras.getString("clientInfo"));
+                    intent.putExtra("profileInfo", extras.getString("profileInfo"));
+                    startActivity(intent);
+                    System.out.println("::BACK BUTTON::");
+                }
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -101,7 +116,7 @@ public class ChatActivity extends AppCompatActivity {
             final String messageText = editMessage.getText().toString().trim();
             final String messageUser = senderName;
             final String messageTime = new SimpleDateFormat("MMM dd - hh:mm:dd").format(System.currentTimeMillis()).toString();
-            if(!messageText.isEmpty()) {
+            if (!messageText.isEmpty()) {
                 final DatabaseReference newPost = databaseReference.child("Messages").push();
                 newPost.child("messageUser").setValue(messageUser);
                 newPost.child("messageText").setValue(messageText);
@@ -113,7 +128,6 @@ public class ChatActivity extends AppCompatActivity {
                 syncRec.child("latestMessage").setValue(messageText);
 
                 editMessage.setText("");
-                ChatRecView.smoothScrollToPosition(ChatRecView.getChildCount() - 1); //TODO: RESET SCROLL
             }
         }
     }
@@ -136,5 +150,4 @@ public class ChatActivity extends AppCompatActivity {
             mTime_tv.setText(messageTime);
         }
     }
-
 }

@@ -38,6 +38,7 @@ public class mainpage_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage_activity);
         getSupportActionBar().setHomeButtonEnabled(false);
+        getSupportActionBar().setTitle(R.string.clientprofile_title);
 
         extrasBundle = getIntent().getExtras();
 
@@ -146,7 +147,9 @@ public class mainpage_activity extends AppCompatActivity {
                 OpenChatViewHolder.class,
                 databaseReference,
                 mainpage_activity.this,
-                String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName())
+                String.format("%s %s",clientInfo.getFirstname(), clientInfo.getName()),
+                extrasBundle.getString("clientInfo")
+
         );
         recView.setAdapter(FCBA);
     }

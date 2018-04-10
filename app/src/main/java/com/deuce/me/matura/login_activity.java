@@ -22,6 +22,7 @@ public class login_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_activity);
+        getSupportActionBar().setTitle(R.string.login_title);
 
         //Objects
         final TextView register_textview = (TextView) findViewById(R.id.loginact_register_textview);
