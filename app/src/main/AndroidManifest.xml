@@ -25,7 +25,9 @@
         <activity android:name=".userprofile_activity" />
         <activity android:name=".searchresults_activity" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".settingsOverview"></activity>
+        <activity android:name=".settingsOverview" />
+        <activity android:name=".securitySettings" />
+        <activity android:name=".profileSettings"></activity>
     </application>
 
 </manifest>

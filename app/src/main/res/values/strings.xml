@@ -45,4 +45,10 @@
     <string name="searchresults_title">Searchresults</string>
     <string name="chat_title">Chat with</string>
     <string name="contact_button">Open a Chat</string>
+    <string name="settings_title">Settings</string>
+    <String name="profileSettings_title">Profile Settings</String>
+    <String name="securtiySettings_title">Security Settings</String>
+    <String name="profileSettings_title">Profile Settings</String>
+    <string name="profileSettings_cat">Profile</string>
+    <string name="securitySettings_cat">Security</string>
 </resources>
