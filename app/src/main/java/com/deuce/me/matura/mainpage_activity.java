@@ -171,7 +171,8 @@ public class mainpage_activity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
+            //Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
+            Intent settings_intent = new Intent(mainpage_activity.this, settingsOverview.class);
             settings_intent.putExtra("clientInfo", extrasBundle.getString("clientInfo"));
 
             startActivity(settings_intent);
