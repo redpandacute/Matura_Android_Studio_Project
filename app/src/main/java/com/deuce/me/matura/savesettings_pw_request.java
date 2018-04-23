@@ -15,8 +15,23 @@ public class savesettings_pw_request extends StringRequest {
     private static final String savesettings_pw_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/savesettings_pw.php";
     private Map<String, String> params;
 
-    public savesettings_pw_request(int id, String firstname, String name, String email, String school, String description, String oldpassword, String newpassword,
-                                   boolean german , boolean spanish, boolean english, boolean french, boolean biology, boolean chemistry, boolean music, boolean maths, boolean physics,
+    public savesettings_pw_request(int id,
+                                   String firstname,
+                                   String name,
+                                   String email,
+                                   String school,
+                                   String description,
+                                   String oldpassword,
+                                   String newpassword,
+                                   boolean german,
+                                   boolean spanish,
+                                   boolean english,
+                                   boolean french,
+                                   boolean biology,
+                                   boolean chemistry,
+                                   boolean music,
+                                   boolean maths,
+                                   boolean physics,
                                    Response.Listener<String> listener) {
 
         super(Method.POST, savesettings_pw_URL, listener, null /*Errorlistener*/);

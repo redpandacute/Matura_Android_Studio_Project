@@ -71,7 +71,7 @@ public class securitySettings extends AppCompatActivity {
             String newPW = newPW_et.getText().toString();
             String confPW = confPW_et.getText().toString();
 
-            if(!email.isEmpty() && oldPW.isEmpty() && newPW.isEmpty() && confPW.isEmpty()) {
+            if(!email.isEmpty() && oldPW.isEmpty() && newPW.isEmpty() && confPW.isEmpty() && email.contains(".") && email.contains("@")) {
                 //SAVEREQUEST NO PW
 
                 System.out.println("Making save request");
@@ -98,6 +98,32 @@ public class securitySettings extends AppCompatActivity {
                 RequestQueue request_queue = Volley.newRequestQueue(securitySettings.this); //Request Queue
                 request_queue.add(save_request);
 
+            } else if(!email.isEmpty() && !oldPW.isEmpty() && !newPW.isEmpty() && !confPW.isEmpty() && (newPW.equals(confPW)) && email.contains(".") && email.contains("@")) {
+                //WITH PW
+
+                System.out.println("Making save request");
+
+                savesettings_pw_request save_request = new savesettings_pw_request(clientInfo.getId(),
+                        clientInfo.getFirstname(),
+                        clientInfo.getName(),
+                        email,
+                        clientInfo.getSchool(),
+                        clientInfo.getDescription(),
+                        oldPW,
+                        newPW,
+                        clientInfo.isGerman(),
+                        clientInfo.isSpanish(),
+                        clientInfo.isEnglish(),
+                        clientInfo.isFrench(),
+                        clientInfo.isBiology(),
+                        clientInfo.isChemistry(),
+                        clientInfo.isMusic(),
+                        clientInfo.isMaths(),
+                        clientInfo.isPhysics(),
+                        new onResponseListener(getApplicationContext()));
+
+                RequestQueue request_queue = Volley.newRequestQueue(securitySettings.this); //Request Queue
+                request_queue.add(save_request);
             }
 
         }
