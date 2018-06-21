@@ -8,11 +8,10 @@
 	
 	$conn = mysqli_connect($db_serverhost, $db_username, $db_password, $db_name);
 	
-	$user_username = $_POST["user_username"];
-	$user_password = $_POST["user_password"];
+	$user_id = $_POST["user_id"];
 	
-	$statement = mysqli_prepare($conn, "SELECT * FROM user_archive WHERE user_username = ? AND user_password = ?"); //Checking for Username
-	mysqli_stmt_bind_param($statement, "ss", $user_username, $user_password);
+	$statement = mysqli_prepare($conn, "SELECT * FROM user_archive WHERE user_id = ?"); //Checking for Username
+	mysqli_stmt_bind_param($statement, "i", $user_id);
 	mysqli_stmt_execute($statement);
 	mysqli_stmt_store_result($statement);
 
@@ -27,7 +26,6 @@
 		
 		while ($field = mysqli_stmt_fetch($statement)) {
 			$response['user_username'] = $username;
-			$response['user_password'] = $password;
 			$response['user_name'] = $name;
 			$response['user_firstname'] = $firstname;
 			$response['user_school'] = $school;
@@ -39,7 +37,7 @@
 			
 		mysqli_stmt_close($statement);
 		$subj_statement = mysqli_prepare($conn, "SELECT * FROM user_subjects WHERE user_id = ?");
-		mysqli_stmt_bind_param($subj_statement, "i", $id);
+		mysqli_stmt_bind_param($subj_statement, "i", $user_id);
 		mysqli_stmt_execute($subj_statement);
 		
 		mysqli_stmt_store_result($subj_statement);
@@ -62,9 +60,8 @@
 		print_r(json_encode($response));
 		
 	} else {
-		//Username or password is incorrect
+		//user does not exist
 		$response['success'] = false;
 		
 		print_r(json_encode($response));
 	}
-?>	

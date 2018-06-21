@@ -8,11 +8,11 @@
 	
 	$conn = mysqli_connect($db_serverhost, $db_username, $db_password, $db_name);
 	
-	$user_username = $_POST["user_username"];
+	$user_id = $_POST["user_id"];
 	$user_password = $_POST["user_password"];
 	
-	$statement = mysqli_prepare($conn, "SELECT * FROM user_archive WHERE user_username = ? AND user_password = ?"); //Checking for Username
-	mysqli_stmt_bind_param($statement, "ss", $user_username, $user_password);
+	$statement = mysqli_prepare($conn, "SELECT * FROM user_archive WHERE user_id = ? AND user_password = ?"); //Checking for Username
+	mysqli_stmt_bind_param($statement, "is", $user_id, $user_password);
 	mysqli_stmt_execute($statement);
 	mysqli_stmt_store_result($statement);
 
