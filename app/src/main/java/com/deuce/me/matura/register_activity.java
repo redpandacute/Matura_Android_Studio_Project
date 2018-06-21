@@ -5,6 +5,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,11 +21,18 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 public class register_activity extends AppCompatActivity {
+
+    private static final int SALT_LENGHT = 32;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,11 +131,15 @@ public class register_activity extends AppCompatActivity {
             if (password.equals(confpassword)) {
                 if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !surname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty()){
 
-
+                    passwordHasher hasher = new passwordHasher();
+                    byte[] saltBytes = hasher.generateSalt(32);
+                    byte[] passwordBytes = hasher.hashPassword(password, saltBytes);
+                    String passwordHash = hasher.convertBytesToHex(passwordBytes);
+                    String saltHex = hasher.convertBytesToHex(saltBytes);
 
                     System.out.println("Creating request");
                     //Creating Request
-                    register_request reg_request = new register_request(username, name, surname, school, yearofbirth,email, password, new onResponseListener());
+                    register_request reg_request = new register_request(username, name, surname, school, yearofbirth,email, passwordHash, saltHex, new onResponseListener());
                     RequestQueue request_queue = Volley.newRequestQueue(register_activity.this); //Makeing a Requestqueue
                     request_queue.add(reg_request);
 
@@ -143,7 +155,6 @@ public class register_activity extends AppCompatActivity {
 
         }
     }
-
 
     //Adding years function ------------------------------------------------------------------------
     private void SpinnerYears (Spinner yearSpinner) {
@@ -162,4 +173,63 @@ public class register_activity extends AppCompatActivity {
         year_spinner_adp.notifyDataSetChanged();
 
     }
+
+    /*
+    private byte[] generateSalt(int bytes) {
+        byte[] salt = new byte[bytes];
+
+        try {
+
+            SecureRandom random = new SecureRandom().getInstance("SHA1PRNG", "SUN");
+            random.nextBytes(salt);
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (NoSuchProviderException e) {
+            e.printStackTrace();
+        }
+
+        return salt;
+    }
+
+
+    //https://howtodoinjava.com/security/how-to-generate-secure-password-hash-md5-sha-pbkdf2-bcrypt-examples/
+    private byte[] hashPassword(String password, byte[] salt) {
+        try {
+            MessageDigest digester = MessageDigest.getInstance("SHA-256");
+            digester.update(salt);
+            byte[] hash = digester.digest(password.getBytes());
+
+            return hash;
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    //https://stackoverflow.com/questions/332079/in-java-how-do-i-convert-a-byte-array-to-a-string-of-hex-digits-while-keeping-l/2197650#2197650
+    private String convertBytesToHex(byte[] bytes) {
+
+        final char[] hexArray = "0123456789ABCDEF".toCharArray(); //Characters needed for HexValue
+        char[] hexChars = new char[bytes.length * 2];
+
+        for(int i = 0; i < bytes.length; i++) {
+            int v = bytes[i] & 0xff;
+            hexChars[i * 2] = hexArray[v/16];
+            hexChars[i * 2 + 1] = hexArray[v%16];
+        }
+
+        return new String(hexChars);
+    }
+
+    //https://stackoverflow.com/questions/140131/convert-a-string-representation-of-a-hex-dump-to-a-byte-array-using-java
+    private byte[] convertHexToBytes(String hex) {
+        byte[] output = new byte[hex.length() / 2];
+        for(int i = 0; i < hex.length(); i+= 2) {
+            output[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4) + Character.digit(hex.charAt(i+1), 16));
+        }
+        return output;
+    }
+    */
 }
