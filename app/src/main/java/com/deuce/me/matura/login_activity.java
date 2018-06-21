@@ -18,6 +18,9 @@ import org.json.JSONObject;
 
 public class login_activity extends AppCompatActivity {
 
+    private static String password, username;
+    private RequestQueue queue;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,15 +58,15 @@ public class login_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
 
-            final String username = username_et.getText().toString();
-            final String password = password_et.getText().toString();
+            username = username_et.getText().toString();
+            password = password_et.getText().toString();
 
             if (!username.isEmpty() && !password.isEmpty()) {
 
                 System.out.println("Making request");
-                login_request log_request = new login_request(username, password, new onResponseListener());
-                RequestQueue request_queue = Volley.newRequestQueue(login_activity.this); //Request Queue
-                request_queue.add(log_request);
+                saltRequest salt = new saltRequest(username, new onSaltResponseListener());
+                queue = Volley.newRequestQueue(login_activity.this);
+                queue.add(salt);
 
             } else {
                 //Login not inserted correctly
@@ -73,24 +76,42 @@ public class login_activity extends AppCompatActivity {
         }
     }
 
+    private class onSaltResponseListener implements Response.Listener<String> {
 
-    private class onResponseListener implements Response.Listener<String> {
+        @Override
+        public void onResponse(String response) {
+            try {
+                System.out.println("SALT RESP: " + response);
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
+
+                if(success) {
+                    passwordHasher pH = new passwordHasher();
+                    String passwordHash = pH.hashPassword(password, jsonResponse.getString("hash_salt"));
+                    login_request login = new login_request(username, passwordHash, new onLoginResponseListener());
+                    queue.add(login);
+                }
+            } catch (JSONException e) {
+            e.printStackTrace();
+            }
+        }
+    }
+
+    private class onLoginResponseListener implements Response.Listener<String> {
 
         @Override
         public void onResponse(String response) {
 
             try {
 
-                System.out.println("my_response" + response);
+                System.out.println("LOGIN RESP: " + response);
                 JSONObject json_response = new JSONObject(response);
                 boolean success = json_response.getBoolean("success");
 
                 System.out.println(json_response);
 
                 if (success) {
-
                     Intent login_intent = new Intent(login_activity.this, mainpage_activity.class);
-
                     login_intent.putExtra("clientInfo", json_response.toString());
                     //Starting activity
                     startActivity(login_intent);

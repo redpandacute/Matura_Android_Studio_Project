@@ -1,5 +1,7 @@
 package com.deuce.me.matura;
 
+import android.content.Context;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -8,6 +10,12 @@ import org.json.JSONObject;
  */
 
 public class JSONtoInfo {
+
+    private Context context;
+
+    public JSONtoInfo(Context context) {
+        this.context = context;
+    }
 
 
     public userInfo createNewItem(JSONObject json) {
@@ -43,12 +51,15 @@ public class JSONtoInfo {
             boolean subj_music = 0 != json.getInt("subj_music");
             boolean subj_english = 0 != json.getInt("subj_english");
 
+            String encodedProfilePicture = json.getString("blob_profilepicture");
 
-            userInfo item = new userInfo(json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics);
+
+            userInfo item = new userInfo(context, json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics, encodedProfilePicture);
 
             try {
-                if (json.getString("user_password") != null) {
-                    item.setPassword(json.getString("user_password"));
+                if (json.getString("hash_password") != null) {
+                    item.setPasswordHash(json.getString("hash_password"));
+                    item.setSalt(json.getString("hash_salt"));
                 }
 
                 if (json.getString("user_email") != null) {

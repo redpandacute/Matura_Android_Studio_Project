@@ -1,11 +1,20 @@
 package com.deuce.me.matura;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 /**
  * Created by Flo on 18.02.2018.
  */
 
 public class userInfo {
     // private ?? pb;
+
+    private Context context;
+
+    private Bitmap profilePicture;
 
     private int id;
     private String username;
@@ -14,9 +23,10 @@ public class userInfo {
     private String school;
     private int yearofbirth;
     private String description;
-
     private String email;
-    private String password;
+
+    private String passwordHash;
+    private String salt;
 
     private boolean french;
     private boolean spanish;
@@ -28,13 +38,19 @@ public class userInfo {
     private boolean physics;
     private boolean german;
 
-    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description, boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics) {
+    public userInfo(Context context,int id, String username, String name, String firstname, int yearofbirth, String description,
+                    boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
+                    String encodedProfilePicture
+    ) {
+        this.context = context;
+
         this.id = id;
         this.username = username;
         this.name = name;
         this.firstname = firstname;
         this.yearofbirth = yearofbirth;
         this.description = description;
+
         this.french = french;
         this.spanish = spanish;
         this.english = english;
@@ -44,6 +60,71 @@ public class userInfo {
         this.maths = maths;
         this.physics = physics;
         this.german = german;
+
+        this.profilePicture = decodeProfilePicture(encodedProfilePicture);
+    }
+
+    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description,
+                    boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
+                    String passwordHash, String salt,
+                    String encodedProfilePicture
+    ) {
+        this.id = id;
+        this.username = username;
+        this.name = name;
+        this.firstname = firstname;
+        this.yearofbirth = yearofbirth;
+        this.description = description;
+
+        this.french = french;
+        this.spanish = spanish;
+        this.english = english;
+        this.music = music;
+        this.chemistry = chemistry;
+        this.biology = biology;
+        this.maths = maths;
+        this.physics = physics;
+        this.german = german;
+
+        this.passwordHash = passwordHash;
+        this.salt = salt;
+
+        this.profilePicture = decodeProfilePicture(encodedProfilePicture);
+    }
+
+    private Bitmap decodeProfilePicture(String encodedProfilePicture) {
+        if(!encodedProfilePicture.equals("0")) {
+            byte[] decodedString = Base64.decode(encodedProfilePicture, Base64.DEFAULT);
+            Bitmap data = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            return data;
+        } else {
+            Bitmap data = BitmapFactory.decodeResource(context.getResources(), R.drawable.bi_medal);
+            return data;
+        }
+    }
+
+    public Bitmap getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(Bitmap profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
     public String getEmail() {
@@ -184,10 +265,10 @@ public class userInfo {
     }
 
     public String getPassword() {
-        return password;
+        return passwordHash;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.passwordHash = password;
     }
 }

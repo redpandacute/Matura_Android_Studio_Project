@@ -94,9 +94,6 @@ public class userprofile_activity extends AppCompatActivity {
 
 //HomeButton
 // -------------------------------------------------------------------------------------------------
-            FloatingActionButton home_button = (FloatingActionButton) findViewById(R.id.userprofileact_homebutton_floatingactionbutton);
-
-            home_button.setOnClickListener(new onHomeListener());
 
 
         } catch (JSONException e) { e.printStackTrace(); }
