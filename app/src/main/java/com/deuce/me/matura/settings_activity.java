@@ -59,7 +59,7 @@ public class settings_activity extends AppCompatActivity {
         extrasBundle = getIntent().getExtras();
 
         try {
-            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+            clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
 
 
             int id = clientInfo.getId();

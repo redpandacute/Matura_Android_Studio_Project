@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,13 +16,9 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class mainpage_activity extends AppCompatActivity {
 
@@ -32,27 +27,30 @@ public class mainpage_activity extends AppCompatActivity {
     private Bundle extrasBundle;
     private DatabaseReference databaseReference;
     private RecyclerView recView;
+    private profilePicture PB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage_activity);
-        getSupportActionBar().setHomeButtonEnabled(false);
-        getSupportActionBar().setTitle(R.string.clientprofile_title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toolbar);
+        toolbar.setTitle(R.string.mainpage_title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         extrasBundle = getIntent().getExtras();
 
         try {
 
-            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+            clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
             System.out.println(clientInfo.getPassword());
             databaseReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d", clientInfo.getId()));
             System.out.println(databaseReference);
 
-            final TextView nameandfirstname_tv = findViewById(R.id.userprofileact_name_textview);
-            final TextView description_tv = findViewById(R.id.userprofileact_description_textview);
-            final TextView school_tv = findViewById(R.id.userprofileact_school_textview);
-            final TextView userid_tv = findViewById(R.id.userprofileact_userid_textview);
+            final TextView nameandfirstname_tv = findViewById(R.id.mainpageact_name_textview);
+            final TextView description_tv = findViewById(R.id.mainpageact_description_textview);
+            final TextView school_tv = findViewById(R.id.mainpageact_school_textview);
 
             final ImageButton settings_bt = findViewById(R.id.mainpageact_settingsbutton_imagebutton);
             final FloatingActionButton search_bt = findViewById(R.id.mainpageact_searchbutton_floatingactionbutton);
@@ -60,7 +58,9 @@ public class mainpage_activity extends AppCompatActivity {
             nameandfirstname_tv.setText(clientInfo.getFirstname() + " " + clientInfo.getName());
             description_tv.setText(clientInfo.getDescription());
             school_tv.setText(clientInfo.getSchool());
-            userid_tv.setText(clientInfo.getId() + "");
+
+            PB = new profilePicture(getBaseContext(), clientInfo.getProfilePictureBASE64());
+            final ImageView profilepicture_iv = findViewById(R.id.mainpageact_profilepicture_imageview);
 
 
 //SubjectMedals

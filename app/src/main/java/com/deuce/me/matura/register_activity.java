@@ -38,8 +38,11 @@ public class register_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.register_toolbar);
+        toolbar.setTitle(R.string.register_title);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.register_title);
 
         final Spinner yearofbirth_sp = findViewById(R.id.registeract_yearofbirth_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
@@ -49,6 +52,15 @@ public class register_activity extends AppCompatActivity {
         SpinnerYears(yearofbirth_sp);
 
         registerbutton_bu.setOnClickListener(new onRegisterListener());
+
+        passwordHasher hasher = new passwordHasher();
+
+        byte[] saltBytes = hasher.generateSalt();
+        System.out.println(saltBytes.toString());
+        String saltHex = hasher.byteArrayToHexString(saltBytes);
+        System.out.println(saltHex);
+        byte[] second = hasher.hexStringToByteArray(saltHex);
+        System.out.println(hasher.byteArrayToHexString(second));
 
     }
 
@@ -114,7 +126,7 @@ public class register_activity extends AppCompatActivity {
 
             String username = username_et.getText().toString();
             String name = name_et.getText().toString();
-            String surname = firstname_et.getText().toString();
+            String firstname = firstname_et.getText().toString();
             String email = email_et.getText().toString();
             String password = password_et.getText().toString();
             String confpassword = confpassword_et.getText().toString();
@@ -129,17 +141,18 @@ public class register_activity extends AppCompatActivity {
             }
 
             if (password.equals(confpassword)) {
-                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !surname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty()){
+                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty()){
 
                     passwordHasher hasher = new passwordHasher();
-                    byte[] saltBytes = hasher.generateSalt(32);
+                    byte[] saltBytes = hasher.generateSalt();
                     byte[] passwordBytes = hasher.hashPassword(password, saltBytes);
-                    String passwordHash = hasher.convertBytesToHex(passwordBytes);
-                    String saltHex = hasher.convertBytesToHex(saltBytes);
+                    String passwordHash = hasher.byteArrayToHexString(passwordBytes);
+                    System.out.println(passwordHash);
+                    String saltHex = hasher.byteArrayToHexString(saltBytes);
 
                     System.out.println("Creating request");
                     //Creating Request
-                    register_request reg_request = new register_request(username, name, surname, school, yearofbirth,email, passwordHash, saltHex, new onResponseListener());
+                    register_request reg_request = new register_request(username, name, firstname, school, yearofbirth,email, passwordHash, saltHex, new onResponseListener());
                     RequestQueue request_queue = Volley.newRequestQueue(register_activity.this); //Makeing a Requestqueue
                     request_queue.add(reg_request);
 

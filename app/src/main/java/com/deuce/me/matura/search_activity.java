@@ -28,6 +28,10 @@ public class search_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.search_toolbar);
+        toolbar.setTitle(R.string.search_title);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ImageButton search_bt = findViewById(R.id.searchactivity_searchbutton_imagebutton);
@@ -72,7 +76,7 @@ public class search_activity extends AppCompatActivity {
             System.out.println("Making searchrequest");
             Bundle extrasBundle = getIntent().getExtras();
             try {
-                userInfo clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
+                userInfo clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
                 search_request search_request = new search_request(clientInfo.getId(), name /*,School*/, map, new onResponseListener());
                 RequestQueue request_queue = Volley.newRequestQueue(search_activity.this); //Request Queue
                 request_queue.add(search_request);

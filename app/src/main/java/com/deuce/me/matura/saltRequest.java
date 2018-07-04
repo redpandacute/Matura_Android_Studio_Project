@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class saltRequest extends StringRequest {
 
-    private static final String URL = "";
+    private static final String URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/salt_php.php";
     private Map<String, String> params;
 
     public saltRequest(String username, Response.Listener<String> listener) {

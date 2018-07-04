@@ -26,13 +26,10 @@ public class onResponseListener implements Response.Listener<String> {
         try {
             System.out.println("Received Response: " + response);
             JSONObject json_response = new JSONObject(response);
-            boolean success_user = json_response.getBoolean("success_user");
-            boolean success_subj = json_response.getBoolean("success_subjects");
 
-            System.out.println("Success User: " + success_user);
-            System.out.println("Success Subjects: " + success_subj);
+            boolean success = json_response.getBoolean("success");
 
-            if (success_user && success_subj) {
+            if (success) {
                 Intent save_intent = new Intent(mContext, settingsOverview.class);
                 save_intent.putExtra("clientInfo", response);
                 mContext.startActivity(save_intent);

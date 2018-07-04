@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +27,10 @@ public class securitySettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_settings);
-        getSupportActionBar().setTitle(R.string.securitySettings_title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.security_toolbar);
+        toolbar.setTitle(R.string.securitySettings_title);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         email_et = findViewById(R.id.secsettings_email_et);
@@ -39,7 +43,7 @@ public class securitySettings extends AppCompatActivity {
         extras = getIntent().getExtras();
 
         try {
-            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+            clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("clientInfo")));
             email_et.setText(clientInfo.getEmail());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -93,13 +97,17 @@ public class securitySettings extends AppCompatActivity {
                         clientInfo.isMusic(),
                         clientInfo.isMaths(),
                         clientInfo.isPhysics(),
-                        new onResponseListener(getApplicationContext()));
+                        new settingsOverview.onSaveResponseListener(getBaseContext(), 0));
 
                 RequestQueue request_queue = Volley.newRequestQueue(securitySettings.this); //Request Queue
                 request_queue.add(save_request);
 
             } else if(!email.isEmpty() && !oldPW.isEmpty() && !newPW.isEmpty() && !confPW.isEmpty() && (newPW.equals(confPW)) && email.contains(".") && email.contains("@")) {
                 //WITH PW
+
+                passwordHasher pwH = new passwordHasher();
+                String oldPasswordHash = pwH.hashPassword(oldPW, clientInfo.getSalt());
+                String newPasswordHash = pwH.hashPassword(newPW, clientInfo.getSalt());
 
                 System.out.println("Making save request");
 
@@ -109,8 +117,8 @@ public class securitySettings extends AppCompatActivity {
                         email,
                         clientInfo.getSchool(),
                         clientInfo.getDescription(),
-                        oldPW,
-                        newPW,
+                        oldPasswordHash,
+                        newPasswordHash,
                         clientInfo.isGerman(),
                         clientInfo.isSpanish(),
                         clientInfo.isEnglish(),
@@ -120,7 +128,7 @@ public class securitySettings extends AppCompatActivity {
                         clientInfo.isMusic(),
                         clientInfo.isMaths(),
                         clientInfo.isPhysics(),
-                        new onResponseListener(getApplicationContext()));
+                        new settingsOverview.onSaveResponseListener(getBaseContext(), 0));
 
                 RequestQueue request_queue = Volley.newRequestQueue(securitySettings.this); //Request Queue
                 request_queue.add(save_request);

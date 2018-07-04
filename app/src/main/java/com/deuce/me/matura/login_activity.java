@@ -25,7 +25,11 @@ public class login_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_activity);
-        getSupportActionBar().setTitle(R.string.login_title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+        toolbar.setTitle(R.string.login_title);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Objects
         final TextView register_textview = (TextView) findViewById(R.id.loginact_register_textview);
@@ -88,6 +92,7 @@ public class login_activity extends AppCompatActivity {
                 if(success) {
                     passwordHasher pH = new passwordHasher();
                     String passwordHash = pH.hashPassword(password, jsonResponse.getString("hash_salt"));
+                    System.out.println(passwordHash);
                     login_request login = new login_request(username, passwordHash, new onLoginResponseListener());
                     queue.add(login);
                 }

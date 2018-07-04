@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,11 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.volley.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class settingsOverview extends AppCompatActivity {
 
@@ -21,9 +27,12 @@ public class settingsOverview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_overview);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.settingsOverview_toolbar);
+        toolbar.setTitle(R.string.settingsOverview_title);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getSupportActionBar().setTitle(getString(R.string.settings_title));
         mContext = getBaseContext();
         categories[0] = getString(R.string.profileSettings_cat);
         categories[1] = getString(R.string.securitySettings_cat);
@@ -90,6 +99,36 @@ public class settingsOverview extends AppCompatActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    static class onSaveResponseListener implements Response.Listener<String> {
+
+        private Context mContext;
+        private int responseCode;
+
+        public onSaveResponseListener(Context mContext, int responseCode) {
+            this.mContext = mContext;
+            this.responseCode = responseCode;
+        }
+
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject JSON = new JSONObject(response);
+                boolean success = JSON.getBoolean("success");
+                if(success && responseCode == 0) {
+                    Intent settingsOverview = new Intent(mContext, settingsOverview.class);
+                    settingsOverview.putExtra("clientInfo", response);
+                    mContext.startActivity(settingsOverview);
+                } else if(success && responseCode == 1) {
+                    Intent profileSettings = new Intent(mContext, profileSettings.class);
+                    profileSettings.putExtra("clientInfo", response);
+                    mContext.startActivity(profileSettings);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context="com.deuce.me.matura.login_activity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/login_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
     <EditText
         android:id="@+id/loginact_password_edittext"
         android:layout_width="0dp"
@@ -86,6 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.75"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
 </android.support.constraint.ConstraintLayout>

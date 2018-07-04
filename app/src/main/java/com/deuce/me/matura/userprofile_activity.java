@@ -29,14 +29,17 @@ public class userprofile_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.userprofile_toolbar);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         extras = getIntent().getExtras();
 
         try {
 
-            profileInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
-            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+            profileInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("profileInfo")));
+            clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("clientInfo")));
 
             getSupportActionBar().setTitle(profileInfo.getFirstname() + " " + profileInfo.getName());
 //Infos
@@ -167,8 +170,8 @@ public class userprofile_activity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             try {
-                senderInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
-                receiverInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("profileInfo")));
+                senderInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("clientInfo")));
+                receiverInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("profileInfo")));
 
 
                 Intent chatIntent = new Intent(userprofile_activity.this, ChatActivity.class);

@@ -35,18 +35,22 @@
     <string name="title_result_list">results</string>
     <string name="title_result_detail">result Detail</string>
 
-    <string name="clientprofile_title">Your Profile</string>
-    <string name="userprofile_title">\'s Profile</string>
+    <string name="mainpage_title">Your profile</string>
+    <string name="userprofile_title">\'s profile</string>
     <string name="login_title">Login</string>
     <string name="register_title">Register</string>
-    <string name="filter_title">Specify your Search:</string>
+    <string name="filter_title">Specify your search:</string>
     <string name="searchresults_title">Searchresults</string>
     <string name="chat_title">Chat with</string>
-    <string name="contact_button">Open a Chat</string>
-    <string name="settings_title">Settings</string>
-    <string name="profileSettings_title">Profile Settings</string>
-    <string name="securitySettings_title">Security and Privacy Settings</string>
+    <string name="contact_button">Open a chat</string>
+    <string name="settingsOverview_title">Settings</string>
+    <string name="profileSettings_title">Profile settings</string>
+    <string name="selectfromgallery_title">Select image from gallery</string>
+    <string name="chooseimage_title">Profile photo</string>
+    <string name="securitySettings_title">Security and privacy settings</string>
     <string name="profileSettings_cat">Profile</string>
     <string name="securitySettings_cat">Security</string>
     <string name="privacy_string">Privacy</string>
+    <string name="search_title">Search for a tutor</string>
+    <string name="chooseOption_caption">Choose one option</string>
 </resources>

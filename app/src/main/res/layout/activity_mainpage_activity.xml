@@ -11,7 +11,24 @@
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_marginEnd="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mainpage_toolbar">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mainpage_toolbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -31,18 +48,18 @@
                     android:layout_height="0dp"
                     android:layout_marginBottom="8dp"
                     android:background="@color/colorLight"
-                    app:layout_constraintBottom_toTopOf="@+id/userprofileact_subjectscroll_horscrollview"
+                    app:layout_constraintBottom_toTopOf="@+id/mainpageact_medalscroll_imageview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/userprofileact_profilepic_imageview"
+                    android:id="@+id/mainpageact_profilepicture_imageview"
                     android:layout_width="136dp"
                     android:layout_height="135dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
-                    android:layout_marginTop="64dp"
+                    android:layout_marginTop="@dimen/profileimage_mainpage_marginfromtop_dimen"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -59,43 +76,44 @@
                     app:srcCompat="@mipmap/ic_launcher_round" />
 
                 <TextView
-                    android:id="@+id/userprofileact_name_textview"
+                    android:id="@+id/mainpageact_name_textview"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="30dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text='"Surname Name"'
+                    android:text='"Firstname Name"'
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_profilepic_imageview" />
+                    app:layout_constraintTop_toBottomOf="@+id/mainpageact_profilepicture_imageview" />
 
                 <TextView
-                    android:id="@+id/userprofileact_school_textview"
+                    android:id="@+id/mainpageact_school_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
                     android:text='"School"'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_name_textview" />
+                    app:layout_constraintTop_toBottomOf="@+id/mainpageact_name_textview" />
 
                 <TextView
-                    android:id="@+id/userprofileact_aboutme_textview"
+                    android:id="@+id/mainpageact_aboutme_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/aboutme_string"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_subjectscroll_horscrollview" />
+                    app:layout_constraintTop_toBottomOf="@+id/mainpageact_medalscroll_imageview" />
 
                 <TextView
-                    android:id="@+id/userprofileact_description_textview"
+                    android:id="@+id/mainpageact_description_textview"
                     android:layout_width="322dp"
                     android:layout_height="100dp"
                     android:layout_marginEnd="8dp"
@@ -104,30 +122,10 @@
                     android:text='"Description"'
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_aboutme_textview" />
-
-                <TextView
-                    android:id="@+id/userprofileact_userid_textview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="8dp"
-                    android:clickable="false"
-                    android:text="TextView"
-                    android:textSize="8sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/userprofileact_school_textview"
-                    app:layout_constraintEnd_toEndOf="parent" />
-
-                <Space
-                    android:id="@+id/space"
-                    android:layout_width="303dp"
-                    android:layout_height="94dp"
-                    android:layout_marginEnd="28dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_description_textview" />
+                    app:layout_constraintTop_toBottomOf="@+id/mainpageact_aboutme_textview" />
 
                 <HorizontalScrollView
-                    android:id="@+id/userprofileact_subjectscroll_horscrollview"
+                    android:id="@+id/mainpageact_medalscroll_imageview"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/medal_square"
                     android:layout_marginEnd="8dp"
@@ -135,7 +133,7 @@
                     android:layout_marginTop="16dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_school_textview">
+                    app:layout_constraintTop_toBottomOf="@+id/mainpageact_school_textview">
 
                     <LinearLayout
                         android:id="@+id/mainpageact_subjectslayout_linearlayout"
@@ -147,72 +145,72 @@
                             android:id="@+id/mainpageact_french_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/fr_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_english_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/en_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_music_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/mu_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_spanish_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/es_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_physics_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ps_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_biology_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/bi_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_math_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ma_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_german_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/de_medal" />
 
                         <ImageView
                             android:id="@+id/mainpageact_chemistry_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ch_medal" />
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -248,7 +246,7 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
+        android:layout_width="384dp"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp">
 

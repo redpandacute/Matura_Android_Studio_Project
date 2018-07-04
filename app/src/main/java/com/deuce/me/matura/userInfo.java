@@ -13,8 +13,7 @@ public class userInfo {
     // private ?? pb;
 
     private Context context;
-
-    private Bitmap profilePicture;
+    private String JSON;
 
     private int id;
     private String username;
@@ -24,6 +23,8 @@ public class userInfo {
     private int yearofbirth;
     private String description;
     private String email;
+
+    private String profilePictureBASE64;
 
     private String passwordHash;
     private String salt;
@@ -38,11 +39,12 @@ public class userInfo {
     private boolean physics;
     private boolean german;
 
-    public userInfo(Context context,int id, String username, String name, String firstname, int yearofbirth, String description,
+    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description,
                     boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
-                    String encodedProfilePicture
+                    String encodedProfilePicture, String JSON
     ) {
         this.context = context;
+        this.JSON = JSON;
 
         this.id = id;
         this.username = username;
@@ -61,20 +63,23 @@ public class userInfo {
         this.physics = physics;
         this.german = german;
 
-        this.profilePicture = decodeProfilePicture(encodedProfilePicture);
+        this.profilePictureBASE64 = encodedProfilePicture;
     }
 
-    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description,
+    public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description, String email,
                     boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                     String passwordHash, String salt,
-                    String encodedProfilePicture
+                    String encodedProfilePicture, String JSON
     ) {
         this.id = id;
+        this.JSON = JSON;
+
         this.username = username;
         this.name = name;
         this.firstname = firstname;
         this.yearofbirth = yearofbirth;
         this.description = description;
+        this.email = email;
 
         this.french = french;
         this.spanish = spanish;
@@ -89,9 +94,9 @@ public class userInfo {
         this.passwordHash = passwordHash;
         this.salt = salt;
 
-        this.profilePicture = decodeProfilePicture(encodedProfilePicture);
+        this.profilePictureBASE64 = encodedProfilePicture;
     }
-
+    /*
     private Bitmap decodeProfilePicture(String encodedProfilePicture) {
         if(!encodedProfilePicture.equals("0")) {
             byte[] decodedString = Base64.decode(encodedProfilePicture, Base64.DEFAULT);
@@ -102,13 +107,22 @@ public class userInfo {
             return data;
         }
     }
+*/
 
-    public Bitmap getProfilePicture() {
-        return profilePicture;
+    public String getJSON() {
+        return JSON;
     }
 
-    public void setProfilePicture(Bitmap profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setJSON(String JSON) {
+        this.JSON = JSON;
+    }
+
+    public String getProfilePictureBASE64() {
+        return profilePictureBASE64;
+    }
+
+    public void setProfilePictureBASE64(String profilePictureBASE64) {
+        this.profilePictureBASE64 = profilePictureBASE64;
     }
 
     public String getPasswordHash() {

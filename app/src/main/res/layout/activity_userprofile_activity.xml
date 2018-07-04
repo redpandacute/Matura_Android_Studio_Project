@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,10 +7,25 @@
     android:fitsSystemWindows="true"
     tools:context="com.deuce.me.matura.mainpage_activity">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/userprofile_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userprofile_toolbar"
+        app:layout_constraintVertical_bias="0.0">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -30,14 +45,14 @@
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toTopOf="@+id/userprofileact_subjectscroll_horscrollview"
+                    android:background="@color/colorLight"
+                    app:layout_constraintBottom_toTopOf="@+id/userprofileact_medallscroll_imageview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:background="@color/colorLight" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/userprofileact_profilepic_imageview"
+                    android:id="@+id/userprofileact_profilepicture_imageview"
                     android:layout_width="136dp"
                     android:layout_height="135dp"
                     android:layout_marginEnd="8dp"
@@ -59,7 +74,7 @@
                     android:textSize="24sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_profilepic_imageview" />
+                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_profilepicture_imageview" />
 
                 <TextView
                     android:id="@+id/userprofileact_school_textview"
@@ -76,13 +91,13 @@
                     android:id="@+id/userprofileact_aboutme_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/aboutme_string"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_subjectscroll_horscrollview" />
+                    app:layout_constraintTop_toBottomOf="@+id/userprofileact_medallscroll_imageview" />
 
                 <TextView
                     android:id="@+id/userprofileact_description_textview"
@@ -98,8 +113,8 @@
 
                 <Space
                     android:id="@+id/space"
-                    android:layout_width="340dp"
-                    android:layout_height="94dp"
+                    android:layout_width="0dp"
+                    android:layout_height="140dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +122,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/userprofileact_description_textview" />
 
                 <HorizontalScrollView
-                    android:id="@+id/userprofileact_subjectscroll_horscrollview"
+                    android:id="@+id/userprofileact_medallscroll_imageview"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/medal_square"
                     android:layout_marginEnd="8dp"
@@ -127,72 +142,72 @@
                             android:id="@+id/userprofileact_english_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/en_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_french_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/fr_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_music_imageview"
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/mu_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_spanish_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/es_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_physics_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ps_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_biology_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/bi_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_math_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ma_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_german_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/de_medal" />
 
                         <ImageView
                             android:id="@+id/userprofileact_chemistry_imageview"
                             android:layout_width="@dimen/medal_square"
                             android:layout_height="@dimen/medal_square"
-                            android:layout_weight="1"
                             android:layout_marginHorizontal="@dimen/medal_margin"
+                            android:layout_weight="1"
                             android:src="@drawable/ch_medal" />
                     </LinearLayout>
                 </HorizontalScrollView>
@@ -202,6 +217,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="1dp">
@@ -213,27 +229,13 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:textColor="#ffffff"
             android:background="@drawable/contact_button"
             android:text="@string/contact_button"
+            android:textColor="#ffffff"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/messagebubble_left" />
 
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/userprofileact_homebutton_floatingactionbutton"
-            android:layout_width="69dp"
-            android:layout_height="69dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:clickable="true"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="?android:attr/fingerprintAuthDrawable" />
-
     </android.support.constraint.ConstraintLayout>
-</android.support.design.widget.CoordinatorLayout>
+</android.support.constraint.ConstraintLayout>

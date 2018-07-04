@@ -15,6 +15,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,9 +60,11 @@ public class profileSettings extends AppCompatActivity {
     Bundle extras;
     userInfo clientInfo;
     ImageView profilePicture_iv;
-    String profilepicturePath;
+    profilePicture PB;
     final String uploadHTTPAddress = "https://lsdfortheelderly.000webhostapp.com/pictureupload_php.php";
     final int MAX_RETRIES = 2;
+
+    static boolean profilePictureChanged = false;
 
     private static final int STORAGE_PERMISSION_CODE = 2342;
 
@@ -69,7 +72,10 @@ public class profileSettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
-        getSupportActionBar().setTitle(R.string.profileSettings_title);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.profilesettings_toolbar);
+        toolbar.setTitle(R.string.profileSettings_title);
+        setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         profilePicture_iv = (ImageView) findViewById(R.id.profsettings_profilepic_imageview);
@@ -97,7 +103,7 @@ public class profileSettings extends AppCompatActivity {
 
         extras = getIntent().getExtras();
         try {
-            clientInfo = new JSONtoInfo().createNewItem(new JSONObject(extras.getString("clientInfo")));
+            clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("clientInfo")));
             firstname_et.setText(clientInfo.getFirstname());
             name_et.setText(clientInfo.getName());
             description_et.setText(clientInfo.getDescription());
@@ -112,6 +118,8 @@ public class profileSettings extends AppCompatActivity {
             maths_cb.setChecked(clientInfo.isMaths());
             physics_cb.setChecked(clientInfo.isPhysics());
 
+            PB = new profilePicture(getBaseContext(), clientInfo.getProfilePictureBASE64());
+            profilePicture_iv.setImageBitmap(PB.getImageBitmap());
         } catch(JSONException e) {
             e.printStackTrace();
         }
@@ -136,11 +144,17 @@ public class profileSettings extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
+        /*
             requestStoragePermission();
             Intent pictureIntent = new Intent();
             pictureIntent.setType("image/*");
             pictureIntent.setAction(Intent.ACTION_GET_CONTENT);
             startActivityForResult(Intent.createChooser(pictureIntent, "Choose your profilepicture:"), 1);
+        */
+
+            Intent cropIntent = new Intent(profileSettings.this, chooseImage_activity.class);
+            cropIntent.putExtra("clientInfo", clientInfo.getJSON());
+            startActivity(cropIntent);
         }
     }
 
@@ -148,17 +162,10 @@ public class profileSettings extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == 1 && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
+            profilePictureChanged = true;
             //profilepicturePath = imageUri.getPath();
-            profilepicturePath = getPath(imageUri);
-            System.out.println(imageUri);
-            System.out.println(profilepicturePath);
-            String filetype = profilepicturePath.substring(profilepicturePath.lastIndexOf(".") + 1);
-            if (filetype.equals("img") || filetype.equals("png") || filetype.equals("jpg") || filetype.equals("jpeg")) {
-                Bitmap bitmap = BitmapFactory.decodeFile(profilepicturePath);
-                profilePicture_iv.setImageBitmap(bitmap);
-
-                uploadImage(/*imageUri*/);
-            }
+            PB.update(imageUri);
+            profilePicture_iv.setImageBitmap(PB.getImageBitmap());
         }
     }
 
@@ -195,26 +202,6 @@ public class profileSettings extends AppCompatActivity {
         }
     }
 
-    //https://www.youtube.com/watch?v=odmC3aa210Q
-    private boolean easyUpload() {
-
-        String uploadID = UUID.randomUUID().toString();
-
-        try {
-            new MultipartUploadRequest(this, uploadID, uploadHTTPAddress)
-                    .addFileToUpload(profilepicturePath, "image")
-                    .addParameter("user_username", clientInfo.getUsername())
-                    .addParameter("user_password", clientInfo.getPassword())
-                    .setNotificationConfig(new UploadNotificationConfig())
-                    .setMaxRetries(MAX_RETRIES)
-                    .startUpload();
-            System.out.println("REEEEEEEEEEEEEEEEEEEEEE!");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
-    }
 
     //https://www.androidpit.com/forum/626144/android-image-uploading-to-server-from-gallery
     //https://www.youtube.com/watch?v=odmC3aa210Q
@@ -279,29 +266,54 @@ public class profileSettings extends AppCompatActivity {
             boolean physics = physics_cb.isChecked();
             boolean music = music_cb.isChecked();
 
+
+
             if (!name.isEmpty() && !firstname.isEmpty()) {
 
                 System.out.println("Making save request");
 
-                savesettings_pw_request save_request = new savesettings_pw_request(clientInfo.getId(),
-                        firstname,
-                        name,
-                        clientInfo.getEmail(),
-                        school,
-                        description,
-                        clientInfo.getPassword(),
-                        clientInfo.getPassword(),
-                        german,
-                        spanish,
-                        english,
-                        french,
-                        biology,
-                        chemistry,
-                        music,
-                        maths,
-                        physics,
-                        new onResponseListener(getApplicationContext()));
+                savesettings_pw_request save_request;
 
+                if (profilePictureChanged) {
+                    save_request = new savesettings_pw_request(clientInfo.getId(),
+                            firstname,
+                            name,
+                            clientInfo.getEmail(),
+                            school,
+                            description,
+                            clientInfo.getPassword(),
+                            clientInfo.getPassword(),
+                            german,
+                            spanish,
+                            english,
+                            french,
+                            biology,
+                            chemistry,
+                            music,
+                            maths,
+                            physics,
+                            PB.getBASE64(),
+                            new settingsOverview.onSaveResponseListener(getBaseContext(), 0));
+                } else {
+                    save_request = new savesettings_pw_request(clientInfo.getId(),
+                            firstname,
+                            name,
+                            clientInfo.getEmail(),
+                            school,
+                            description,
+                            clientInfo.getPasswordHash(),
+                            clientInfo.getPasswordHash(),
+                            german,
+                            spanish,
+                            english,
+                            french,
+                            biology,
+                            chemistry,
+                            music,
+                            maths,
+                            physics,
+                            new settingsOverview.onSaveResponseListener(getBaseContext(), 0));
+                }
                 RequestQueue request_queue = Volley.newRequestQueue(profileSettings.this); //Request Queue
                 request_queue.add(save_request);
             }

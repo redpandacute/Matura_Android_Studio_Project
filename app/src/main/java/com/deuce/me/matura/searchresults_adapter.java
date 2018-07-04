@@ -34,7 +34,7 @@ public class searchresults_adapter extends BaseAdapter {
     public Object getItem(int i) {
         try {
             //return new JSONtoInfo().createNewItem(results.getJSONObject(i));
-            return new JSONtoInfo().createNewItem(results.getJSONObject(i));
+            return new JSONtoInfo(mContext).createNewItem(results.getJSONObject(i));
         } catch (JSONException e) { e.printStackTrace(); }
         return null;
     }
@@ -42,7 +42,7 @@ public class searchresults_adapter extends BaseAdapter {
     @Override
     public long getItemId(int i) {
         try {
-            return new JSONtoInfo().createNewItem(results.getJSONObject(i)).getId();
+            return new JSONtoInfo(mContext).createNewItem(results.getJSONObject(i)).getId();
         } catch (JSONException e) { e.printStackTrace(); }
         return i;
     }
@@ -72,7 +72,7 @@ public class searchresults_adapter extends BaseAdapter {
 
 
         try {
-            userInfo info = new JSONtoInfo().createNewItem(results.getJSONObject(i));
+            userInfo info = new JSONtoInfo(mContext).createNewItem(results.getJSONObject(i));
 
             if(!info.isMaths()) { maths_medal.setVisibility(View.GONE); }
             if(!info.isSpanish()) { spanish_medal.setVisibility(View.GONE); }

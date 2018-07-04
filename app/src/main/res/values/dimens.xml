@@ -9,4 +9,7 @@
     <dimen name="inputbarheight">50dp</dimen>
     <dimen name="inputcorners">25dp</dimen>
     <dimen name="descriptionheight">150dp</dimen>
+    <dimen name="settings_profilepicture">128dp</dimen>
+    <dimen name="crop_dimen">180</dimen>
+    <dimen name="profileimage_mainpage_marginfromtop_dimen">90dp</dimen>
 </resources>

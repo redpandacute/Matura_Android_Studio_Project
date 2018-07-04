@@ -1,6 +1,9 @@
 package com.deuce.me.matura;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -51,21 +54,37 @@ public class JSONtoInfo {
             boolean subj_music = 0 != json.getInt("subj_music");
             boolean subj_english = 0 != json.getInt("subj_english");
 
-            String encodedProfilePicture = json.getString("blob_profilepicture");
+            String encodedProfilePicture = null;
+
+            if(json.getString("blob_profilepicture").equals("0")) {
+                Bitmap PBDummy = BitmapFactory.decodeResource(context.getResources(), R.drawable.bi_medal);
+
+                profilePicture PB = new profilePicture(context, PBDummy);
+                encodedProfilePicture = PB.getBASE64();
+            } else {
+                encodedProfilePicture = json.getString("blob_profilepicture");
+            }
 
 
-            userInfo item = new userInfo(context, json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics, encodedProfilePicture);
 
-            try {
-                if (json.getString("hash_password") != null) {
-                    item.setPasswordHash(json.getString("hash_password"));
-                    item.setSalt(json.getString("hash_salt"));
-                }
+            userInfo item = null;
+            if(json.getString("hash_password") == null) {
+                item = new userInfo(
+                        json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description,
+                        subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics,
+                        encodedProfilePicture, json.toString());
+            } else {
 
-                if (json.getString("user_email") != null) {
-                    item.setEmail(json.getString("user_email"));
-                }
-            } catch (Exception e) { System.out.println("Nothing to worry about :)"); }
+                String user_email = json.getString("user_email");
+                String hash_password = json.getString("hash_password");
+                String hash_salt = json.getString("hash_salt");
+
+                item = new userInfo(
+                        json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, user_email,
+                        subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics,
+                        hash_password, hash_salt,
+                        encodedProfilePicture, json.toString());
+            }
 
             return item;
 
