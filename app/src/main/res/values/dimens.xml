@@ -10,6 +10,9 @@
     <dimen name="inputcorners">25dp</dimen>
     <dimen name="descriptionheight">150dp</dimen>
     <dimen name="settings_profilepicture">128dp</dimen>
+    <dimen name="settings_floatingbutton_size">64dp</dimen>
+    <dimen name="settings_floatingbutton_padding">80dp</dimen>
     <dimen name="crop_dimen">180</dimen>
     <dimen name="profileimage_mainpage_marginfromtop_dimen">90dp</dimen>
+    <dimen name="profileimage_mainpage_size">128dp</dimen>
 </resources>

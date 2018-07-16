@@ -5,6 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Flo on 18.02.2018.
  */
@@ -22,12 +25,12 @@ public class userInfo {
     private String school;
     private int yearofbirth;
     private String description;
-    private String email;
+    private String email = null;
 
-    private String profilePictureBASE64;
+    private String temp_profilepicture_path;
 
-    private String passwordHash;
-    private String salt;
+    private String passwordHash = null;
+    private String salt = null;
 
     private boolean french;
     private boolean spanish;
@@ -41,7 +44,7 @@ public class userInfo {
 
     public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description,
                     boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
-                    String encodedProfilePicture, String JSON
+                    String temp_profilepicture_path, String JSON
     ) {
         this.context = context;
         this.JSON = JSON;
@@ -63,13 +66,13 @@ public class userInfo {
         this.physics = physics;
         this.german = german;
 
-        this.profilePictureBASE64 = encodedProfilePicture;
+        this.temp_profilepicture_path = temp_profilepicture_path;
     }
 
     public userInfo(int id, String username, String name, String firstname, int yearofbirth, String description, String email,
                     boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                     String passwordHash, String salt,
-                    String encodedProfilePicture, String JSON
+                    String temp_profilepicture_path, String JSON
     ) {
         this.id = id;
         this.JSON = JSON;
@@ -94,7 +97,7 @@ public class userInfo {
         this.passwordHash = passwordHash;
         this.salt = salt;
 
-        this.profilePictureBASE64 = encodedProfilePicture;
+        this.temp_profilepicture_path = temp_profilepicture_path;
     }
     /*
     private Bitmap decodeProfilePicture(String encodedProfilePicture) {
@@ -117,12 +120,40 @@ public class userInfo {
         this.JSON = JSON;
     }
 
-    public String getProfilePictureBASE64() {
-        return profilePictureBASE64;
+    public void updateJSON() throws JSONException {
+        JSONObject jsn = new JSONObject();
+        jsn.put("user_username", username);
+        jsn.put("user_firstname", firstname);
+        jsn.put("user_name", name);
+        jsn.put("user_school", school);
+        jsn.put("user_yearofbirth", yearofbirth);
+        jsn.put("user_description", description);
+        jsn.put("user_email", email);
+        jsn.put("user_id", id);
+
+        if(german){jsn.put("subj_german",1);} else {jsn.put("subj_german",0);}
+        if(spanish){jsn.put("subj_spanish",1);} else {jsn.put("subj_spanish",0);}
+        if(english){jsn.put("subj_english",1);} else {jsn.put("subj_english",0);}
+        if(french){jsn.put("subj_french",1);} else {jsn.put("subj_french",0);}
+        if(biology){jsn.put("subj_biology",1);} else {jsn.put("subj_biology",0);}
+        if(chemistry){jsn.put("subj_chemistry",1);} else {jsn.put("subj_chemistry",0);}
+        if(music){jsn.put("subj_music",1);} else {jsn.put("subj_music",0);}
+        if(physics){jsn.put("subj_physics",1);} else {jsn.put("subj_physics",0);}
+        if(maths){jsn.put("subj_maths",1);} else {jsn.put("subj_maths",0);}
+
+        jsn.put("hash_password", passwordHash);
+        jsn.put("hash_salt", salt);
+        jsn.put("temp_profilepicture_path", temp_profilepicture_path);
+
+        this.JSON = jsn.toString();
     }
 
-    public void setProfilePictureBASE64(String profilePictureBASE64) {
-        this.profilePictureBASE64 = profilePictureBASE64;
+    public String getTempProfilePicturePath() {
+        return temp_profilepicture_path;
+    }
+
+    public void setTempProfilePicturePath(String temp_profilepicture_path) {
+        this.temp_profilepicture_path = temp_profilepicture_path;
     }
 
     public String getPasswordHash() {

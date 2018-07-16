@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -20,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 public class mainpage_activity extends AppCompatActivity {
 
     private BottomSheetBehavior mBottomSheetBehavior;
@@ -27,7 +31,7 @@ public class mainpage_activity extends AppCompatActivity {
     private Bundle extrasBundle;
     private DatabaseReference databaseReference;
     private RecyclerView recView;
-    private profilePicture PB;
+    private profilePicture picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,15 +56,17 @@ public class mainpage_activity extends AppCompatActivity {
             final TextView description_tv = findViewById(R.id.mainpageact_description_textview);
             final TextView school_tv = findViewById(R.id.mainpageact_school_textview);
 
-            final ImageButton settings_bt = findViewById(R.id.mainpageact_settingsbutton_imagebutton);
             final FloatingActionButton search_bt = findViewById(R.id.mainpageact_searchbutton_floatingactionbutton);
 
             nameandfirstname_tv.setText(clientInfo.getFirstname() + " " + clientInfo.getName());
             description_tv.setText(clientInfo.getDescription());
             school_tv.setText(clientInfo.getSchool());
 
-            PB = new profilePicture(getBaseContext(), clientInfo.getProfilePictureBASE64());
+            System.out.println(clientInfo.getTempProfilePicturePath());
+
+            picture = new profilePicture(getBaseContext(), new File(clientInfo.getTempProfilePicturePath()));
             final ImageView profilepicture_iv = findViewById(R.id.mainpageact_profilepicture_imageview);
+            profilepicture_iv.setImageBitmap(picture.getImageBitmap());
 
 
 //SubjectMedals
@@ -128,13 +134,26 @@ public class mainpage_activity extends AppCompatActivity {
             //Expanding or Collapsing BottomSheet
             expandbut.setOnClickListener(new onExpandListener());
 
-            //Actionlistener for settings Button
-            settings_bt.setOnClickListener(new onSettingsListener());
-
             //Actionlistener Searchbutton
             search_bt.setOnClickListener(new onSearchListener());
 
         } catch (JSONException e) { e.printStackTrace(); }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mainpage_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.settings_menu_button) {
+            startSettingsActivity();
+        } else if(item.getItemId() == R.id.logout_menu_button) {
+            //LOGOUT
+        }
+        return true;
     }
 
     @Override
@@ -154,6 +173,12 @@ public class mainpage_activity extends AppCompatActivity {
         recView.setAdapter(FCBA);
     }
 
+    private void startSettingsActivity() {
+        Intent settings_intent = new Intent(mainpage_activity.this, settingsOverview.class);
+        settings_intent.putExtra("clientInfo", extrasBundle.getString("clientInfo"));
+        startActivity(settings_intent);
+    }
+
     class onExpandListener implements View.OnClickListener {
 
         @Override
@@ -164,18 +189,6 @@ public class mainpage_activity extends AppCompatActivity {
             } else {
                 mBottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
-        }
-    }
-
-    class onSettingsListener implements View.OnClickListener  {
-
-        @Override
-        public void onClick(View view) {
-            //Intent settings_intent = new Intent(mainpage_activity.this, settings_activity.class);
-            Intent settings_intent = new Intent(mainpage_activity.this, settingsOverview.class);
-            settings_intent.putExtra("clientInfo", extrasBundle.getString("clientInfo"));
-
-            startActivity(settings_intent);
         }
     }
 

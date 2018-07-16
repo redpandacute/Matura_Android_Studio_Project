@@ -91,4 +91,8 @@ public class searchresults_adapter extends BaseAdapter {
 
         return item;
     }
+
+    public void setProfilePicture() {
+
+    }
 }

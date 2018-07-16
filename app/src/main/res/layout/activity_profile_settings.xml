@@ -245,6 +245,18 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/profsettings_description_edittext" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/profsettings_profilepicture_floatingactionbutton"
+                android:layout_width="@dimen/settings_floatingbutton_size"
+                android:layout_height="@dimen/settings_floatingbutton_size"
+                android:layout_marginStart="@dimen/settings_floatingbutton_padding"
+                android:layout_marginLeft="@dimen/settings_floatingbutton_padding"
+                android:layout_marginTop="@dimen/settings_floatingbutton_padding"
+                android:clickable="true"
+                app:layout_constraintStart_toStartOf="@+id/profsettings_profilepic_imageview"
+                app:layout_constraintTop_toTopOf="@+id/profsettings_profilepic_imageview"
+                app:srcCompat="@drawable/choose_image_icon" />
         </android.support.constraint.ConstraintLayout>
     </ScrollView>
 

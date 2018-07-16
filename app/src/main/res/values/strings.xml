@@ -53,4 +53,5 @@
     <string name="privacy_string">Privacy</string>
     <string name="search_title">Search for a tutor</string>
     <string name="chooseOption_caption">Choose one option</string>
+    <string name="logout_string">Logout</string>
 </resources>

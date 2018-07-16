@@ -25,11 +25,14 @@ import android.widget.ImageView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URI;
 import java.nio.file.Path;
 import java.util.List;
@@ -45,14 +48,18 @@ public class chooseImage_activity extends AppCompatActivity {
 
     private userInfo clientInfo;
     private Bundle extras;
-    private profilePicture picture;
-    private File chosenFile;
+    private profilePicture picture_big, picture_small;
+    private File chosenFile, tempFile, tempDir;
     private Intent CameraIntent, GalleryIntent;
-    private Uri imageURI;
+    private Uri imageURI, tempUri;
     private ImageView profileImage_iv;
 
+
+    private static final int CROP_CODE = 1;
     private static final int REQUEST_PERMISSION_CODE = 1;
     private static final int STORAGE_PERMISSION_CODE = 2342;
+    private static final int QUALITY_BIG = 70, QUALITY_SMALL = 40;
+    private static final int SCALE_BIG = 400, SCALE_SMALL = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +80,8 @@ public class chooseImage_activity extends AppCompatActivity {
         }
 
         profileImage_iv = (ImageView) findViewById(R.id.chooseimageact_chosenimage_imageview);
-        picture = new profilePicture(getBaseContext(), clientInfo.getProfilePictureBASE64());
-        profileImage_iv.setImageBitmap(picture.getImageBitmap());
+        picture_big = new profilePicture(getBaseContext(),new File(clientInfo.getTempProfilePicturePath()));
+        profileImage_iv.setImageBitmap(picture_big.getImageBitmap());
 
         int permission = ContextCompat.checkSelfPermission(chooseImage_activity.this, Manifest.permission.CAMERA);
     }
@@ -94,9 +101,14 @@ public class chooseImage_activity extends AppCompatActivity {
         } else if(item.getItemId() == R.id.choose_image) {
             getStoragePermission();
             OpenGallery();
+        } else if (item.getItemId() == android.R.id.home) {
+            Intent intent = new Intent(chooseImage_activity.this, profileSettings.class);
+            intent.putExtra("clientInfo", extras.getString("clientInfo"));
+            startActivity(intent);
         }
         return true;
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -106,37 +118,44 @@ public class chooseImage_activity extends AppCompatActivity {
             imageURI = data.getData();
             CropImage();
         } else */
-        if(requestCode == 2 && data != null) {
-            Bundle result = data.getExtras();
-            Bitmap bitmap = result.getParcelable("data");
-            profileImage_iv.setImageBitmap(bitmap);
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            if (resultCode == RESULT_OK) {
+                picture_big.updateWithPath(tempFile.getPath());
+                picture_big.compress(QUALITY_BIG);
+                picture_big.downscale(SCALE_BIG);
+                profileImage_iv.setImageBitmap(picture_big.getImageBitmap());
+                String small_temp_path = new tempFileGenerator().getTempFilePath(getBaseContext(), picture_big.getBASE64());
+                picture_small = new profilePicture(getBaseContext(), new File(small_temp_path));
+                picture_small.compress(QUALITY_SMALL);
+                picture_small.downscale(SCALE_SMALL);
 
-            picture.update(bitmap);
+                savesettings_pw_request request = new savesettings_pw_request(
+                        clientInfo.getId(),
+                        clientInfo.getFirstname(),
+                        clientInfo.getName(),
+                        clientInfo.getEmail(),
+                        clientInfo.getSchool(),
+                        clientInfo.getDescription(),
+                        clientInfo.getPassword(),
+                        clientInfo.getPassword(),
+                        clientInfo.isGerman(),
+                        clientInfo.isSpanish(),
+                        clientInfo.isEnglish(),
+                        clientInfo.isFrench(),
+                        clientInfo.isBiology(),
+                        clientInfo.isChemistry(),
+                        clientInfo.isMusic(),
+                        clientInfo.isMaths(),
+                        clientInfo.isPhysics(),
+                        picture_big.getBASE64(),
+                        picture_small.getBASE64(),
+                        new settingsOverview.onSaveResponseListener(getBaseContext(), 1)
+                );
 
-            savesettings_pw_request request = new savesettings_pw_request(
-                    clientInfo.getId(),
-                    clientInfo.getFirstname(),
-                    clientInfo.getName(),
-                    clientInfo.getEmail(),
-                    clientInfo.getSchool(),
-                    clientInfo.getDescription(),
-                    clientInfo.getPassword(),
-                    clientInfo.getPassword(),
-                    clientInfo.isGerman(),
-                    clientInfo.isSpanish(),
-                    clientInfo.isEnglish(),
-                    clientInfo.isFrench(),
-                    clientInfo.isBiology(),
-                    clientInfo.isChemistry(),
-                    clientInfo.isMusic(),
-                    clientInfo.isMaths(),
-                    clientInfo.isPhysics(),
-                    picture.getBASE64(),
-                    new settingsOverview.onSaveResponseListener(getBaseContext(), 1)
-            );
-
-            RequestQueue request_queue = Volley.newRequestQueue(chooseImage_activity.this); //Request Queue
-            request_queue.add(request);
+                RequestQueue request_queue = Volley.newRequestQueue(chooseImage_activity.this); //Request Queue
+                request_queue.add(request);
+            }
         } else {
             EasyImage.handleActivityResult(requestCode, resultCode, data, this, new DefaultCallback() {
 
@@ -170,24 +189,32 @@ public class chooseImage_activity extends AppCompatActivity {
     }
 
     private void CropImage(Uri uri) {
+        tempDir = getCacheDir();
+        try {
+            tempFile = File.createTempFile("file" + String.valueOf(System.currentTimeMillis()), ".png", tempDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+            tempFile = new File(tempDir, "file" + String.valueOf(System.currentTimeMillis())+ ".png");
+        }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            tempUri = Uri.fromFile(tempFile);
+        } else {
+            tempUri = FileProvider.getUriForFile(getApplicationContext(), getApplicationContext().getPackageName() + ".provider", tempFile);
+        }
 
         try {
-            Intent CropIntent = new Intent("com.android.camera.action.CROP");
-            CropIntent.setDataAndType(uri, "image/*");
+            Intent cropIntent = CropImage.activity(uri)
+                    .setCropShape(CropImageView.CropShape.OVAL)
+                    .setOutputCompressFormat(Bitmap.CompressFormat.PNG)
+                    .setFixAspectRatio(true)
+                    .setOutputUri(tempUri)
+                    .setOutputCompressQuality(QUALITY_BIG)
+                    .setRequestedSize(R.dimen.crop_dimen, R.dimen.crop_dimen, CropImageView.RequestSizeOptions.RESIZE_INSIDE)
+                    .setAutoZoomEnabled(true)
+                    .setActivityTitle(getString(R.string.crop_image_activity_title))
+                    .setGuidelines(CropImageView.Guidelines.ON).getIntent(this);
 
-            CropIntent.putExtra("crop", "true");
-            CropIntent.putExtra("outputX", R.dimen.crop_dimen);
-            CropIntent.putExtra("outputY", R.dimen.crop_dimen);
-            CropIntent.putExtra("aspectX",1);
-            CropIntent.putExtra("aspectY",1);
-            CropIntent.putExtra("scaleUpIfNeeded",true);
-            CropIntent.putExtra("return-data", true);
-
-            //CropIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.name());
-            //CropIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(getExternalStorageTempStoreFilePath()));
-            CropIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            CropIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-            startActivityForResult(CropIntent, 2);
+            startActivityForResult(cropIntent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
         } catch (ActivityNotFoundException e) {
             e.printStackTrace();
         }

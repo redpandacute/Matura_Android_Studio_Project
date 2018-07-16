@@ -18,6 +18,9 @@ import com.android.volley.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.IOException;
+
 public class settingsOverview extends AppCompatActivity {
 
     private String[] categories = new String[2];
@@ -117,13 +120,20 @@ public class settingsOverview extends AppCompatActivity {
             try {
                 JSONObject JSON = new JSONObject(response);
                 boolean success = JSON.getBoolean("success");
+                System.out.println("CODE ONE::" + response);
                 if(success && responseCode == 0) {
+                    String tempPath = new tempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
+                    JSON.remove("blob_profilepicture_big");
+                    JSON.put("temp_profilepicture_path", tempPath);
                     Intent settingsOverview = new Intent(mContext, settingsOverview.class);
-                    settingsOverview.putExtra("clientInfo", response);
+                    settingsOverview.putExtra("clientInfo", JSON.toString());
                     mContext.startActivity(settingsOverview);
                 } else if(success && responseCode == 1) {
+                    String tempPath = new tempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
+                    JSON.remove("blob_profilepicture_big");
+                    JSON.put("temp_profilepicture_path", tempPath);
                     Intent profileSettings = new Intent(mContext, profileSettings.class);
-                    profileSettings.putExtra("clientInfo", response);
+                    profileSettings.putExtra("clientInfo", JSON.toString());
                     mContext.startActivity(profileSettings);
                 }
             } catch (JSONException e) {

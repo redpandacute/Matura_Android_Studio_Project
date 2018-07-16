@@ -16,7 +16,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainpage_toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/mainpage_toolbar"
+        android:layout_marginRight="0dp">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainpage_toolbar"
@@ -55,23 +56,13 @@
 
                 <ImageView
                     android:id="@+id/mainpageact_profilepicture_imageview"
-                    android:layout_width="136dp"
-                    android:layout_height="135dp"
+                    android:layout_width="@dimen/profileimage_mainpage_size"
+                    android:layout_height="@dimen/profileimage_mainpage_size"
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="@dimen/profileimage_mainpage_marginfromtop_dimen"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@mipmap/ic_launcher_round" />
-
-                <ImageButton
-                    android:id="@+id/mainpageact_settingsbutton_imagebutton"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@mipmap/ic_launcher_round" />
 

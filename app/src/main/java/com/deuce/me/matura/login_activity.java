@@ -116,6 +116,11 @@ public class login_activity extends AppCompatActivity {
                 System.out.println(json_response);
 
                 if (success) {
+                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), json_response.getString("blob_profilepicture_big"));
+                    System.out.println(tempPath);
+                    json_response.remove("blob_profilepicture_big");
+                    json_response.put("temp_profilepicture_path", tempPath);
+                    System.out.println("TEST::: " + json_response);
                     Intent login_intent = new Intent(login_activity.this, mainpage_activity.class);
                     login_intent.putExtra("clientInfo", json_response.toString());
                     //Starting activity

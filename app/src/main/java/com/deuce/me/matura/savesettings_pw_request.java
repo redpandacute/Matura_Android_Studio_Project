@@ -55,7 +55,7 @@ public class savesettings_pw_request extends StringRequest {
         params.put("subj_music", ((music) ? 1 : 0) + "");
         params.put("subj_maths", ((maths) ? 1 : 0) + "");
         params.put("subj_physics", ((physics) ? 1 : 0) + "");
-        params.put("bool_pb_image_changed", "false");
+        params.put("bool_image_changed", 0 + "");
     }
 
     public savesettings_pw_request(int id,
@@ -75,7 +75,8 @@ public class savesettings_pw_request extends StringRequest {
                                    boolean music,
                                    boolean maths,
                                    boolean physics,
-                                   String blob_profilepicture,
+                                   String blob_profilepicture_big,
+                                   String blob_profilepicture_small,
                                    Response.Listener<String> listener) {
 
         super(Method.POST, savesettings_pw_URL, listener, null /*Errorlistener*/);
@@ -99,9 +100,10 @@ public class savesettings_pw_request extends StringRequest {
         params.put("subj_music", ((music) ? 1 : 0) + "");
         params.put("subj_maths", ((maths) ? 1 : 0) + "");
         params.put("subj_physics", ((physics) ? 1 : 0) + "");
-        params.put("bool_pb_image_changed", "true");
+        params.put("bool_image_changed", 1 + "");
 
-        params.put("blob_profilepicture", blob_profilepicture);
+        params.put("blob_profilepicture_small", blob_profilepicture_small);
+        params.put("blob_profilepicture_big", blob_profilepicture_big);
     }
 
     @Override
