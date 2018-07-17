@@ -1,6 +1,7 @@
 package com.deuce.me.matura;
 
 import android.content.Context;
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 
@@ -23,6 +25,7 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
 
     private JSONArray rawDataset;
     private userInfo[] mDataset;
+    private String clientInfo;
     private Context mContext;
     private int scrollState;
     private static final int heapsize = 10;
@@ -46,12 +49,12 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
         }
     }
 
-    public searchresult_recycleradapter(JSONArray Dataset, Context Context) throws JSONException {
+    public searchresult_recycleradapter(JSONArray Dataset, String clientInfo, Context Context) throws JSONException {
         this.rawDataset = Dataset;
         this.mContext = Context;
+        this.clientInfo = clientInfo;
         this.mDataset = new userInfo[rawDataset.length()];
         JSONtoInfo jsn = new JSONtoInfo(mContext);
-
         for(int n = 0; n < Dataset.length(); n++) {
             mDataset[n] = jsn.createNewItem(rawDataset.getJSONObject(n));
             System.out.println("ZAG!");
@@ -67,7 +70,7 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.setInfo(mDataset[position]);
         System.out.println("SWUGG!");
         TextView name_tv = holder.itemView.findViewById(R.id.result_name_textview);
@@ -101,8 +104,29 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
         if(mDataset[position].getTempProfilePicturePath() != null) {
             pb_imageview.setImageBitmap(new profilePicture(mContext, new File(mDataset[position].getTempProfilePicturePath())).getImageBitmap());
         }
-
         //holder.itemView.setOnClickListener(null);
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, userprofile_activity.class);
+                holder.getInfo().setTempProfilePicturePath("0");
+
+                try {
+                    holder.getInfo().updateJSON();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                intent.putExtra("profileInfo", holder.getInfo().getJSON());
+                intent.putExtra("clientInfo", clientInfo);
+                try {
+                    intent.putExtra("results", new JSONObject().put("results", rawDataset).toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -116,4 +140,6 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
             mDataset[start + n].setTempProfilePicturePath(paths[n]);
         }
     }
+
+
 }

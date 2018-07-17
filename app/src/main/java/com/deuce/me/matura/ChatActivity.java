@@ -103,6 +103,7 @@ public class ChatActivity extends AppCompatActivity {
                     Intent intent = new Intent(ChatActivity.this, userprofile_activity.class);
                     intent.putExtra("clientInfo", extras.getString("clientInfo"));
                     intent.putExtra("profileInfo", extras.getString("profileInfo"));
+                    intent.putExtra("results", extras.getString("results"));
                     startActivity(intent);
                     System.out.println("::BACK BUTTON::");
                 }

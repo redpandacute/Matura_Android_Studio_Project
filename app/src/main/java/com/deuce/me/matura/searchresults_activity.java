@@ -53,7 +53,7 @@ public class searchresults_activity extends AppCompatActivity {
             recyclerView = findViewById(R.id.searchlistact_listview_reclistview);
             layoutManager = new LinearLayoutManager(getBaseContext());
             recyclerView.setLayoutManager(layoutManager);
-            recAdapter = new searchresult_recycleradapter(json_arr, getBaseContext());
+            recAdapter = new searchresult_recycleradapter(json_arr, extrasBundle.getString("clientInfo"), getBaseContext());
             recyclerView.setAdapter(recAdapter);
 
             if(json_arr.length() != 0) {
@@ -86,6 +86,7 @@ public class searchresults_activity extends AppCompatActivity {
         }
     }
 
+    /*
     private class onItemClickListener implements AdapterView.OnItemClickListener {
 
         @Override
@@ -103,6 +104,7 @@ public class searchresults_activity extends AppCompatActivity {
             } catch (JSONException e) { e.printStackTrace(); }
         }
     }
+    */
 
     private void getProfilePictures(int start, int amount) {
         int[] ids = new int[amount];

@@ -24,6 +24,8 @@ public class userprofile_activity extends AppCompatActivity {
 
     private Bundle extras;
     private userInfo profileInfo, clientInfo;
+    private ImageView profilePicture_iv;
+    private profilePicture picture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class userprofile_activity extends AppCompatActivity {
 
             Button openChatButton = findViewById(R.id.userprofileact_openchatbutton_button);
             openChatButton.setOnClickListener(new onRequestListener());
+
+            profilePicture_iv = findViewById(R.id.userprofileact_profilepicture_imageview);
 
 //SubjectMedals
 // -------------------------------------------------------------------------------------------------
@@ -98,8 +102,16 @@ public class userprofile_activity extends AppCompatActivity {
 //HomeButton
 // -------------------------------------------------------------------------------------------------
 
-
+            if(profileInfo.getTempProfilePicturePath().equals("0")) {
+                requestBigProfilePicture request = new requestBigProfilePicture(profileInfo.getId(), new onBigPictureResponseListener());
+                RequestQueue queue = Volley.newRequestQueue(userprofile_activity.this);
+                queue.add(request);
+            } else {
+                picture = new profilePicture(getBaseContext(), profileInfo.getTempProfilePicturePath());
+                profilePicture_iv.setImageBitmap(picture.getImageBitmap());
+            }
         } catch (JSONException e) { e.printStackTrace(); }
+
     }
 
     @Override
@@ -107,7 +119,7 @@ public class userprofile_activity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(userprofile_activity.this, mainpage_activity.class);
+                Intent intent = new Intent(userprofile_activity.this, searchresults_activity.class);
                 intent.putExtra("clientInfo", getIntent().getExtras().getString("clientInfo"));
                 intent.putExtra("results", getIntent().getExtras().getString("results"));
                 startActivity(intent);
@@ -221,6 +233,29 @@ public class userprofile_activity extends AppCompatActivity {
 
                 startActivity(chatIntent);
             } catch (JSONException e) { e.printStackTrace(); }
+        }
+    }
+
+    private class onBigPictureResponseListener implements Response.Listener<String> {
+
+        @Override
+        public void onResponse(String response) {
+            System.out.println(response);
+
+            try {
+                JSONObject jsn = new JSONObject(response);
+
+                if(jsn.getBoolean("success")) {
+                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), jsn.getString("blob_big_profilepicture"));
+                    picture = new profilePicture(getBaseContext(), tempPath);
+                    profileInfo.setTempProfilePicturePath(tempPath);
+                    profileInfo.updateJSON();
+                    profilePicture_iv.setImageBitmap(picture.getImageBitmap());
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
