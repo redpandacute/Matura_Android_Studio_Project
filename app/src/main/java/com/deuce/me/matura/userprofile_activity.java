@@ -20,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+
 public class userprofile_activity extends AppCompatActivity {
 
     private Bundle extras;
@@ -60,7 +62,9 @@ public class userprofile_activity extends AppCompatActivity {
             openChatButton.setOnClickListener(new onRequestListener());
 
             profilePicture_iv = findViewById(R.id.userprofileact_profilepicture_imageview);
-
+            picture = new profilePicture(getBaseContext(), new File(new tempFileGenerator().getTempFilePath(getBaseContext(), "0")));
+            profilePicture_iv.setImageBitmap(picture.getImageBitmap());
+            //profilePicture_iv.setImageBitmap(findViewById(R.drawable.de_medal));
 //SubjectMedals
 // -------------------------------------------------------------------------------------------------
             ImageView math_medal = findViewById(R.id.userprofileact_math_imageview);
@@ -246,8 +250,9 @@ public class userprofile_activity extends AppCompatActivity {
                 JSONObject jsn = new JSONObject(response);
 
                 if(jsn.getBoolean("success")) {
-                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), jsn.getString("blob_big_profilepicture"));
-                    picture = new profilePicture(getBaseContext(), tempPath);
+                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), jsn.getString("blob_profilepicture_big"));
+                    System.out.println("Path: " + tempPath);
+                    picture = new profilePicture(getBaseContext(), new File(tempPath));
                     profileInfo.setTempProfilePicturePath(tempPath);
                     profileInfo.updateJSON();
                     profilePicture_iv.setImageBitmap(picture.getImageBitmap());
