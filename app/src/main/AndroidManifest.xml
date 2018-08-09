@@ -17,24 +17,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login_activity">
+        <activity android:name=".activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register_activity" />
-        <activity android:name=".mainpage_activity" />
-        <activity android:name=".search_activity" />
-        <activity android:name=".settings_activity" />
-        <activity android:name=".userprofile_activity" />
-        <activity android:name=".searchresults_activity" />
-        <activity android:name=".ChatActivity" />
-        <activity android:name=".settingsOverview" />
-        <activity android:name=".securitySettings" />
-        <activity android:name=".profileSettings"/>
-        <activity android:name=".chooseImage_activity"/>
+        <activity android:name=".activities.RegisterActivity" />
+        <activity android:name=".activities.MainpageActivity" />
+        <activity android:name=".activities.SearchfilterActivity" />
+        <activity android:name=".trash.settings_activity" />
+        <activity android:name=".activities.UserprofileActivity" />
+        <activity android:name=".activities.SearchresultsActivity" />
+        <activity android:name=".activities.ChatActivity" />
+        <activity android:name=".activities.SettingsoverviewActivity" />
+        <activity android:name=".activities.SecuritysettingsActivity" />
+        <activity android:name=".activities.ProfilesettingsActivity"/>
+        <activity android:name=".trash.chooseImage_activity"/>
         <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
 

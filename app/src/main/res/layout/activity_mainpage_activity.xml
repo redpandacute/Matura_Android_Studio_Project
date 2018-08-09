@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.deuce.me.matura.mainpage_activity">
+    tools:context="com.deuce.me.matura.activities.MainpageActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
