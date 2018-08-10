@@ -35,27 +35,27 @@ public class settings_activity extends AppCompatActivity {
 
 
         //Objects
-        final EditText firstname_et = (EditText) findViewById(R.id.settingsact_firstname_edittext);
-        final EditText name_et = (EditText) findViewById(R.id.settingsact_name_edittext);
-        final EditText email_et = (EditText) findViewById(R.id.settingsact_email_edittext);
-        final EditText description_et = (EditText) findViewById(R.id.settingsact_description_edittext);
-        final EditText oldpassword_et = (EditText) findViewById(R.id.settingsact_oldpassword_edittext);
-        final EditText newpassword_et = (EditText) findViewById(R.id.settingsact_newpassword_edittext);
-        final EditText newconfpassword_et = (EditText) findViewById(R.id.settingsact_confnewpassword_edittext);
+        final EditText firstname_et = findViewById(R.id.settingsact_firstname_edittext);
+        final EditText name_et = findViewById(R.id.settingsact_name_edittext);
+        final EditText email_et = findViewById(R.id.settingsact_email_edittext);
+        final EditText description_et = findViewById(R.id.settingsact_description_edittext);
+        final EditText oldpassword_et = findViewById(R.id.settingsact_oldpassword_edittext);
+        final EditText newpassword_et = findViewById(R.id.settingsact_newpassword_edittext);
+        final EditText newconfpassword_et = findViewById(R.id.settingsact_confnewpassword_edittext);
 
-        final Spinner school_sp = (Spinner) findViewById(R.id.settingsact_school_spinner);
+        final Spinner school_sp = findViewById(R.id.settingsact_school_spinner);
 
-        final CheckBox german_cb = (CheckBox) findViewById(R.id.settingsact_german_checkbox);
-        final CheckBox spanish_cb = (CheckBox) findViewById(R.id.settingsact_spanish_checkbox);
-        final CheckBox english_cb = (CheckBox) findViewById(R.id.settingsact_english_checkbox);
-        final CheckBox french_cb = (CheckBox) findViewById(R.id.settingsact_french_checkbox);
-        final CheckBox biology_cb = (CheckBox) findViewById(R.id.settingsact_biology_checkbox);
-        final CheckBox music_cb = (CheckBox) findViewById(R.id.settingsact_music_checkbox);
-        final CheckBox chemistry_cb = (CheckBox) findViewById(R.id.settingsact_chemics_checkbox);
-        final CheckBox maths_cb = (CheckBox) findViewById(R.id.settingsact_maths_checkbox);
-        final CheckBox physics_cb = (CheckBox) findViewById(R.id.settingsact_physics_checkbox);
+        final CheckBox german_cb = findViewById(R.id.settingsact_german_checkbox);
+        final CheckBox spanish_cb = findViewById(R.id.settingsact_spanish_checkbox);
+        final CheckBox english_cb = findViewById(R.id.settingsact_english_checkbox);
+        final CheckBox french_cb = findViewById(R.id.settingsact_french_checkbox);
+        final CheckBox biology_cb = findViewById(R.id.settingsact_biology_checkbox);
+        final CheckBox music_cb = findViewById(R.id.settingsact_music_checkbox);
+        final CheckBox chemistry_cb = findViewById(R.id.settingsact_chemics_checkbox);
+        final CheckBox maths_cb = findViewById(R.id.settingsact_maths_checkbox);
+        final CheckBox physics_cb = findViewById(R.id.settingsact_physics_checkbox);
 
-        final Button savechanges_bt = (Button) findViewById(R.id.settingsact_savechanges_button);
+        final Button savechanges_bt = findViewById(R.id.settingsact_savechanges_button);
 
 
 

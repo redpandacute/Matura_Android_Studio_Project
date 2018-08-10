@@ -32,7 +32,7 @@ public class SecuritysettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.security_toolbar);
+        Toolbar toolbar = findViewById(R.id.security_toolbar);
         toolbar.setTitle(R.string.securitySettings_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

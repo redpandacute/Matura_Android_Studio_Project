@@ -34,15 +34,15 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.chat_toolbar);
+        Toolbar toolbar = findViewById(R.id.chat_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        editMessage = (EditText) findViewById(R.id.chatact_message_edittext);
+        editMessage = findViewById(R.id.chatact_message_edittext);
 
         //Button
-        sendButton = (FloatingActionButton) findViewById(R.id.chatact_sendbutton_floatingactionbutton);
+        sendButton = findViewById(R.id.chatact_sendbutton_floatingactionbutton);
         sendButton.setOnClickListener(new onSendListener());
 
         //Extras *EXPERIMENTAL*
@@ -64,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         //Pushing the Chats
 
         //RecView
-        ChatRecView = (RecyclerView) findViewById(R.id.message_recyclerview);
+        ChatRecView = findViewById(R.id.message_recyclerview);
         ChatRecView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);
@@ -143,11 +143,11 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         public void setMessage(String messageUser, String messageText, String messageTime) {
-            TextView mText_tv = (TextView) view.findViewById(R.id.message_textview);
+            TextView mText_tv = view.findViewById(R.id.message_textview);
             mText_tv.setText(messageText);
-            TextView mUser_tv = (TextView) view.findViewById(R.id.messagesender_textview);
+            TextView mUser_tv = view.findViewById(R.id.messagesender_textview);
             mUser_tv.setText(messageUser);
-            TextView mTime_tv = (TextView) view.findViewById(R.id.sendingtime_textview);
+            TextView mTime_tv = view.findViewById(R.id.sendingtime_textview);
             mTime_tv.setText(messageTime);
         }
     }

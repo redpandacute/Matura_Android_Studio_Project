@@ -70,7 +70,7 @@ public class chooseImage_activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chooseimage_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.chooseimage_toolbar);
+        Toolbar toolbar = findViewById(R.id.chooseimage_toolbar);
         toolbar.setTitle(R.string.chooseimage_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -83,7 +83,7 @@ public class chooseImage_activity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        profileImage_iv = (ImageView) findViewById(R.id.chooseimageact_chosenimage_imageview);
+        profileImage_iv = findViewById(R.id.chooseimageact_chosenimage_imageview);
         picture_big = new ProfilePictureModel(getBaseContext(),new File(clientInfo.getTempProfilePicturePath()));
         profileImage_iv.setImageBitmap(picture_big.getImageBitmap());
 

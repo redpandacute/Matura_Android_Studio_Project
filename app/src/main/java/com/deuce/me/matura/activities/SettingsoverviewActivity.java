@@ -30,7 +30,7 @@ public class SettingsoverviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_overview);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.settingsOverview_toolbar);
+        Toolbar toolbar = findViewById(R.id.settingsOverview_toolbar);
         toolbar.setTitle(R.string.settingsOverview_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

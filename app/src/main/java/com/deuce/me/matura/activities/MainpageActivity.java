@@ -43,7 +43,7 @@ public class MainpageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainpage_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.mainpage_toolbar);
+        Toolbar toolbar = findViewById(R.id.mainpage_toolbar);
         toolbar.setTitle(R.string.mainpage_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -132,7 +132,7 @@ public class MainpageActivity extends AppCompatActivity {
             mBottomSheetBehavior.setPeekHeight((getWindowManager().getDefaultDisplay().getHeight()) / 20);  //Setting height for BottomSheet
 
             //Configuring RecView
-            recView = (RecyclerView) findViewById(R.id.mainpageact_bottomsheet_recyclerview);
+            recView = findViewById(R.id.mainpageact_bottomsheet_recyclerview);
             LinearLayoutManager mManager = new LinearLayoutManager(this);
             recView.setLayoutManager(mManager);
 
@@ -222,9 +222,9 @@ public class MainpageActivity extends AppCompatActivity {
         }
 
         public void setChat(String receiverName, String latestMessage) {
-            TextView cName_tv = (TextView) view.findViewById(R.id.openchat_name_textview);
+            TextView cName_tv = view.findViewById(R.id.openchat_name_textview);
             cName_tv.setText(receiverName);
-            TextView cLatest_tv = (TextView) view.findViewById(R.id.openchat_latest_textview);
+            TextView cLatest_tv = view.findViewById(R.id.openchat_latest_textview);
             cLatest_tv.setText(latestMessage);
         }
 

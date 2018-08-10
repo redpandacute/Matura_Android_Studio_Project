@@ -85,29 +85,29 @@ public class ProfilesettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.profilesettings_toolbar);
+        Toolbar toolbar = findViewById(R.id.profilesettings_toolbar);
         toolbar.setTitle(R.string.profileSettings_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        profilePicture_iv = (ImageView) findViewById(R.id.profsettings_profilepic_imageview);
+        profilePicture_iv = findViewById(R.id.profsettings_profilepic_imageview);
 
-        firstname_et = (EditText) findViewById(R.id.profsettings_firstname_edittext);
-        name_et = (EditText) findViewById(R.id.profsettings_name_edittext);
-        description_et = (EditText) findViewById(R.id.profsettings_description_edittext);
+        firstname_et = findViewById(R.id.profsettings_firstname_edittext);
+        name_et = findViewById(R.id.profsettings_name_edittext);
+        description_et = findViewById(R.id.profsettings_description_edittext);
 
-        school_sp = (Spinner) findViewById(R.id.profsettings_school_spinner);
+        school_sp = findViewById(R.id.profsettings_school_spinner);
 
-        german_cb = (CheckBox) findViewById(R.id.profsettings_german_checkbox);
-        spanish_cb = (CheckBox) findViewById(R.id.profsettings_spanish_checkbox);
-        english_cb = (CheckBox) findViewById(R.id.profsettings_english_checkbox);
-        french_cb = (CheckBox) findViewById(R.id.profsettings_french_checkbox);
-        biology_cb = (CheckBox) findViewById(R.id.profsettings_biology_checkbox);
-        music_cb = (CheckBox) findViewById(R.id.profsettings_music_checkbox);
-        chemistry_cb = (CheckBox) findViewById(R.id.profsettings_chemics_checkbox);
-        maths_cb = (CheckBox) findViewById(R.id.profsettings_maths_checkbox);
-        physics_cb = (CheckBox) findViewById(R.id.profsettings_physics_checkbox);
-        changeprofilepicture_bt = (FloatingActionButton) findViewById(R.id.profsettings_profilepicture_floatingactionbutton);
+        german_cb = findViewById(R.id.profsettings_german_checkbox);
+        spanish_cb = findViewById(R.id.profsettings_spanish_checkbox);
+        english_cb = findViewById(R.id.profsettings_english_checkbox);
+        french_cb = findViewById(R.id.profsettings_french_checkbox);
+        biology_cb = findViewById(R.id.profsettings_biology_checkbox);
+        music_cb = findViewById(R.id.profsettings_music_checkbox);
+        chemistry_cb = findViewById(R.id.profsettings_chemics_checkbox);
+        maths_cb = findViewById(R.id.profsettings_maths_checkbox);
+        physics_cb = findViewById(R.id.profsettings_physics_checkbox);
+        changeprofilepicture_bt = findViewById(R.id.profsettings_profilepicture_floatingactionbutton);
 
         changeprofilepicture_bt.setOnClickListener(new onChangeProfilePicture());
         save_bt = findViewById(R.id.profsettings_save_bt);

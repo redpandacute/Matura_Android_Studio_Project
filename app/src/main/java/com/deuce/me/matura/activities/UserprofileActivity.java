@@ -40,7 +40,7 @@ public class UserprofileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userprofile_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.userprofile_toolbar);
+        Toolbar toolbar = findViewById(R.id.userprofile_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

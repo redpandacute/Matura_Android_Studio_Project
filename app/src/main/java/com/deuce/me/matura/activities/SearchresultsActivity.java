@@ -40,7 +40,7 @@ public class SearchresultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_searchlist_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.searchresult_toolbar);
+        Toolbar toolbar = findViewById(R.id.searchresult_toolbar);
         toolbar.setTitle(R.string.searchresults_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

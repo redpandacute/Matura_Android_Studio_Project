@@ -31,14 +31,14 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_activity);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.login_toolbar);
+        Toolbar toolbar = findViewById(R.id.login_toolbar);
         toolbar.setTitle(R.string.login_title);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Objects
-        final TextView register_textview = (TextView) findViewById(R.id.loginact_register_textview);
-        final Button signin_button = (Button) findViewById(R.id.loginact_signin_button);
+        final TextView register_textview = findViewById(R.id.loginact_register_textview);
+        final Button signin_button = findViewById(R.id.loginact_signin_button);
 
         //Change to Registeract on click ---------------------------------------------------------
 

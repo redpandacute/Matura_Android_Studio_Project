@@ -63,7 +63,7 @@
         android:id="@+id/searchactivity_german_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="@string/german_string"
         app:layout_constraintEnd_toStartOf="@+id/searchactivity_spanish_checkbox"
         app:layout_constraintTop_toTopOf="@+id/searchactivity_spanish_checkbox" />
@@ -88,7 +88,7 @@
         android:id="@+id/searchactivity_english_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="@string/english_string"
         app:layout_constraintStart_toEndOf="@+id/searchactivity_spanish_checkbox"
         app:layout_constraintTop_toTopOf="@+id/searchactivity_spanish_checkbox" />
