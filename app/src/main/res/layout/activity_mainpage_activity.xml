@@ -252,7 +252,7 @@
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mainpageact_notificationsbutton_floatingactionbutton"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+            app:srcCompat="@android:drawable/ic_menu_search" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/mainpageact_notificationsbutton_floatingactionbutton"
