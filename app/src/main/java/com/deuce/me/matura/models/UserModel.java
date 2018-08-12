@@ -19,6 +19,7 @@ public class UserModel {
     private String JSON;
 
     private int id;
+    private int grade = 2;
     private String username;
     private String name;
     private String firstname;
@@ -315,5 +316,19 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.passwordHash = password;
+    }
+
+    public String getGrade() {
+
+        String grade_str;
+
+        if(grade == 1) {
+            grade_str = grade + "st grade";
+        } else if(grade == 2) {
+            grade_str = grade + "nd grade";
+        } else {
+            grade_str = grade + "th grade";
+        }
+        return grade_str;
     }
 }

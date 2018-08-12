@@ -1,0 +1,139 @@
+package com.deuce.me.matura.fragments.mainprofile;
+
+import android.content.Intent;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.deuce.me.matura.R;
+import com.deuce.me.matura.activities.MainActivity;
+import com.deuce.me.matura.activities.MainpageActivity;
+import com.deuce.me.matura.activities.SettingsoverviewActivity;
+import com.deuce.me.matura.models.UserModel;
+
+public class MainprofileFragment extends Fragment {
+
+    private MainActivity mActivity;
+    private UserModel mainprofileModel;
+
+    public MainprofileFragment() {
+        this.mActivity = (MainActivity) this.getActivity();
+        mainprofileModel = mActivity.getMainprofileModel();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+// Inflate the layout for this fragment
+
+
+        View view = inflater.inflate(R.layout.fragment_mainprofile_fragment, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.mainpage_toolbar);
+        toolbar.setTitle(R.string.mainpage_title);
+        mActivity.setSupportActionBar(toolbar);
+        mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
+        final TextView nameandfirstname_tv = view.findViewById(R.id.mainprofile_name_textview);
+        nameandfirstname_tv.setText(mainprofileModel.getFirstname() + " " + mainprofileModel.getName());
+
+        final TextView description_tv = view.findViewById(R.id.mainprofile_aboutme_textview);
+        description_tv.setText(mainprofileModel.getDescription());
+
+        final TextView school_tv = view.findViewById(R.id.mainprofile_school_textview);
+        school_tv.setText(mainprofileModel.getSchool() + ", " + mainprofileModel.getGrade());
+
+        final ImageView profilepicture_iv = view.findViewById(R.id.mainpageact_profilepicture_imageview);
+        profilepicture_iv.setImageBitmap(mActivity.getMainprofilePicture().getImageBitmap());
+
+        //EMBLEMS::
+        ImageView math_medal = view.findViewById(R.id.mainprofile_math_imageview);
+        if (!mainprofileModel.isMaths()) {
+            math_medal.setVisibility(View.GONE);
+        }
+
+        ImageView spanish_medal = view.findViewById(R.id.mainprofile_spanish_imageview);
+        if (!mainprofileModel.isSpanish()) {
+            spanish_medal.setVisibility(View.GONE);
+        }
+
+        ImageView physics_medal = view.findViewById(R.id.mainprofile_physics_imageview);
+        if (!mainprofileModel.isPhysics()) {
+            physics_medal.setVisibility(View.GONE);
+        }
+
+        ImageView german_medal = view.findViewById(R.id.mainprofile_german_imageview);
+        if (!mainprofileModel.isGerman()) {
+            german_medal.setVisibility(View.GONE);
+        }
+
+        ImageView biology_medal = view.findViewById(R.id.mainprofile_biology_imageview);
+        if (!mainprofileModel.isBiology()) {
+            biology_medal.setVisibility(View.GONE);
+        }
+
+        ImageView chemistry_medal = view.findViewById(R.id.mainprofile_chemistry_imageview);
+        if (!mainprofileModel.isChemistry()) {
+            chemistry_medal.setVisibility(View.GONE);
+        }
+
+        ImageView music_medal = view.findViewById(R.id.mainprofile_music_imageview);
+        if (!mainprofileModel.isMusic()) {
+            music_medal.setVisibility(View.GONE);
+        }
+
+        ImageView french_medal = view.findViewById(R.id.mainprofile_french_imageview);
+        if (!mainprofileModel.isFrench()) {
+            french_medal.setVisibility(View.GONE);
+        }
+
+        ImageView english_medal = view.findViewById(R.id.mainprofile_english_imageview);
+        if (!mainprofileModel.isEnglish()) {
+            english_medal.setVisibility(View.GONE);
+        }
+
+        return view;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.mainpage_menu, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_menu_button:
+                startSettingsActivity();
+                return true;
+            case R.id.logout_menu_button:
+                System.out.println("::logout::");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void startSettingsActivity() {
+        Intent settings_intent = new Intent(mActivity, SettingsoverviewActivity.class);
+        settings_intent.putExtra("clientInfo", mActivity.getExtras().getString("clientInfo"));
+        startActivity(settings_intent);
+    }
+}
