@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.deuce.me.matura.mainpage_activity">
+    tools:context="com.deuce.me.matura.activities.MainpageActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -95,7 +95,7 @@
                     android:id="@+id/mainpageact_aboutme_textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="24dp"
                     android:text="@string/aboutme_string"
                     android:textSize="16sp"
@@ -252,7 +252,7 @@
             app:layout_constraintHorizontal_bias="0.95"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/mainpageact_notificationsbutton_floatingactionbutton"
-            app:srcCompat="?android:attr/actionModeWebSearchDrawable" />
+            app:srcCompat="@android:drawable/ic_menu_search" />
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/mainpageact_notificationsbutton_floatingactionbutton"

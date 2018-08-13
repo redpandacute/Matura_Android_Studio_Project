@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.deuce.me.matura.login_activity">
+    tools:context="com.deuce.me.matura.activities.LoginActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/login_toolbar"
@@ -50,7 +50,8 @@
         android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/loginact_password_textview"
         app:layout_constraintEnd_toEndOf="@+id/loginact_password_edittext"
-        app:layout_constraintStart_toStartOf="@+id/loginact_password_edittext" />
+        app:layout_constraintStart_toStartOf="@+id/loginact_password_edittext"
+        android:layout_marginRight="8dp" />
 
     <TextView
         android:id="@+id/loginact_username_textview"
