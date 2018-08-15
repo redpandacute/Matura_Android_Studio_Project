@@ -1,7 +1,7 @@
 package com.deuce.me.matura.fragments.openchat;
 
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -15,12 +15,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.activities.ChatActivity;
 import com.deuce.me.matura.activities.MainActivity;
-import com.deuce.me.matura.activities.MainpageActivity;
-import com.deuce.me.matura.activities.UserprofileActivity;
-import com.deuce.me.matura.adapter.FirebaseCustomAdapter;
-import com.deuce.me.matura.models.ChatMessageModel;
 import com.deuce.me.matura.models.ChatModel;
 import com.deuce.me.matura.models.UserModel;
 
@@ -41,7 +36,12 @@ public class OpenchatFragment extends Fragment {
 
     public OpenchatFragment() {
         // Required empty public constructor
-        this.mActivity = (MainActivity)getActivity();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
     }
 
 
@@ -53,17 +53,20 @@ public class OpenchatFragment extends Fragment {
         Toolbar toolbar = view.findViewById(R.id.chat_toolbar);
         mActivity.setSupportActionBar(toolbar);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true);
 
         recyclerView = view.findViewById(R.id.chat_recyclerview);
         textInput_et = view.findViewById(R.id.chat_message_edittext);
         sendButton_fab = view.findViewById(R.id.chat_sendbutton_floatingactionbutton);
-        sendButton_fab.setOnClickListener(new OnSendListener());
+        sendButton_fab.setOnClickListener(new OnSendListener(view, this));
 
         mChatModel = mActivity.getOpenChat();
         mMainprofileModel = mChatModel.getMainprofileModel();
         mUserprofileModel = mChatModel.getUserprofileModel();
 
         mActivity.getSupportActionBar().setTitle(getString(R.string.chat_title) + " " + mUserprofileModel.getName());
+
+        setHasOptionsMenu(true);
 
         //RecView Layout
         recyclerView.setHasFixedSize(true);
@@ -83,7 +86,7 @@ public class OpenchatFragment extends Fragment {
                 R.layout.message_right,
                 ChatMessageHolder.class,
                 mChatModel.getChatRef().child("Messages"),
-                mUserprofileModel.getFirstname()
+                mMainprofileModel
         );
 
         recyclerView.setAdapter(firebaseAdapter);
@@ -95,18 +98,22 @@ public class OpenchatFragment extends Fragment {
         switch (item.getItemId()) {
             case android.R.id.home:
                 if (mActivity.getNavigation().getSelectedItemId() == R.id.searchoverview_botnav) {
-                    mActivity.setFragment(mActivity.getSearchresultsFragment());
+                    mActivity.setFragment(mActivity.getOpenprofileFragment());
                     mActivity.setOpenChat(null);
                     mActivity.setOpenchatFragment(null);
+                    return true;
                 } else {
                     mActivity.setFragment(mActivity.getChatoverviewFragment());
                     mActivity.setOpenchatFragment(null);
                     mActivity.setOpenChat(null);
+                    return true;
                 }
-                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
+    public ChatModel getOpenChatModel() {
+        return mChatModel;
+    }
 }

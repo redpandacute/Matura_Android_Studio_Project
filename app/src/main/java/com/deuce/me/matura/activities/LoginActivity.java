@@ -126,7 +126,8 @@ public class LoginActivity extends AppCompatActivity {
                     json_response.remove("blob_profilepicture_big");
                     json_response.put("temp_profilepicture_path", tempPath);
                     System.out.println("TEST::: " + json_response);
-                    Intent login_intent = new Intent(LoginActivity.this, MainpageActivity.class);
+                    //Intent login_intent = new Intent(LoginActivity.this, MainpageActivity.class);
+                    Intent login_intent = new Intent(LoginActivity.this, MainActivity.class);
                     login_intent.putExtra("clientInfo", json_response.toString());
                     //Starting activity
                     startActivity(login_intent);

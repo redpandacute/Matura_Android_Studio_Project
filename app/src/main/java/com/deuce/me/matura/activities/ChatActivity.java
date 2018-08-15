@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.deuce.me.matura.models.ChatMessageModel;
+import com.deuce.me.matura.fragments.openchat.ChatMessageModel;
 import com.deuce.me.matura.adapter.FirebaseCustomAdapter;
 import com.deuce.me.matura.R;
 import com.google.firebase.database.DatabaseReference;
@@ -64,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
         //Pushing the Chats
 
         //RecView
-        ChatRecView = findViewById(R.id.message_recyclerview);
+        //ChatRecView = findViewById(R.id.chat_recyclerview);
         ChatRecView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true);

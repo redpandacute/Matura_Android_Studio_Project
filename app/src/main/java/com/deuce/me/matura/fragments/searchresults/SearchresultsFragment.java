@@ -1,6 +1,7 @@
 package com.deuce.me.matura.fragments.searchresults;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,9 @@ import android.view.ViewGroup;
 
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
+import com.deuce.me.matura.models.ProfilePictureModel;
+
+import java.io.File;
 
 
 /**
@@ -25,16 +29,21 @@ public class SearchresultsFragment extends Fragment {
     private RecyclerView recyclerView;
     private SearchResultsAdapter recAdapter;
     private static final int heapsize = 20;
+    private boolean readyState;
 
     public SearchresultsFragment() {
         // Required empty public constructor
-        this.mActivity = (MainActivity) getActivity();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_searchresults_fragment, container, false);
 
@@ -49,9 +58,21 @@ public class SearchresultsFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         recAdapter = new SearchResultsAdapter(mActivity.getSearchResultDataset(), this);
         recyclerView.setAdapter(recAdapter);
-        recyclerView.addOnScrollListener(new OnScrollResultsListener());
+        recyclerView.addOnScrollListener(new OnScrollResultsListener(layoutManager, this));
+
+        setHasOptionsMenu(true);
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (mActivity.getSearchResultDataset().length >= heapsize) {
+            new ProfilePictureLoader(this).load(0, heapsize, new OnProfilePicturesResponseListener(this));
+        } else {
+            new ProfilePictureLoader(this).load(0, mActivity.getSearchResultDataset().length, new OnProfilePicturesResponseListener(this));
+        }
     }
 
     @Override
@@ -69,4 +90,23 @@ public class SearchresultsFragment extends Fragment {
         }
     }
 
+    public int getHeapsize() {
+        return heapsize;
+    }
+
+    public boolean isReadyToLoad() {
+        return this.readyState;
+    }
+
+    public void setReadyToLoad(boolean readyState) {
+        this.readyState = readyState;
+    }
+
+    public LinearLayoutManager getLayoutManager() {
+        return this.layoutManager;
+    }
+
+    public void refreshList() {
+        recAdapter.notifyDataSetChanged();
+    }
 }

@@ -19,7 +19,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/message_recyclerview"
+            android:id="@+id/chat_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
@@ -39,7 +39,7 @@
                 android:id="@+id/chat_message_edittext"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/inputbarheight"
-            android:paddingLeft="20dp"
+                android:paddingLeft="20dp"
                 android:background="@drawable/inputbar"
                 android:hint="Type a message"
                 android:layout_weight="40" />

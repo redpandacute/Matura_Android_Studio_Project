@@ -1,5 +1,6 @@
 package com.deuce.me.matura.fragments.searchresults;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.deuce.me.matura.adapter.searchresult_recycleradapter;
@@ -10,30 +11,34 @@ import com.deuce.me.matura.adapter.searchresult_recycleradapter;
 
 class OnScrollResultsListener extends RecyclerView.OnScrollListener {
 
-    public OnScrollResultsListener() {
+    private SearchresultsFragment mFragment;
+    private LinearLayoutManager mLayoutManager;
 
+    public OnScrollResultsListener(LinearLayoutManager mLayoutManager, SearchresultsFragment mFragment) {
+        this.mLayoutManager = mLayoutManager;
+        this.mFragment = mFragment;
     }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
-        int totalItemCount = layoutManager.getItemCount();
+        int totalItemCount = mLayoutManager.getItemCount();
 
-        firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-        childCount = layoutManager.getChildCount();
+        int firstVisibleItemPosition = mLayoutManager.findFirstVisibleItemPosition();
+        int childCount = mLayoutManager.getChildCount();
 
-        for(loop = 0; loop < childCount; loop++) {
-            searchresult_recycleradapter.ViewHolder holder = (searchresult_recycleradapter.ViewHolder) recyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition + loop);
-            if(holder.getInfo().getTempProfilePicturePath() == null && !isLoading) {
-                if(totalItemCount - firstVisibleItemPosition - 1 >= heapsize) {
-                    int amount = heapsize;
+        for(int loop = 0; loop < childCount; loop++) {
+            ResultViewHolder holder = (ResultViewHolder) recyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition + loop);
+            if(holder.getModel().getTempProfilePicturePath() == null && mFragment.isReadyToLoad()) {
+                if(totalItemCount - firstVisibleItemPosition - 1 >= mFragment.getHeapsize()) {
+                    int amount = mFragment.getHeapsize();
                     int start = firstVisibleItemPosition + loop;
-                    getProfilePictures(start, amount);
+                    new ProfilePictureLoader(mFragment).load(start, amount, new OnProfilePicturesResponseListener(mFragment));
                     break;
                 } else {
                     int amount = totalItemCount - firstVisibleItemPosition - loop;
                     int start = firstVisibleItemPosition + loop;
-                    getProfilePictures(start, amount);
+                    new ProfilePictureLoader(mFragment).load(start, amount, new OnProfilePicturesResponseListener(mFragment));
                     break;
                 }
             }

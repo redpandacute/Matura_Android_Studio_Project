@@ -8,6 +8,8 @@ import android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 /**
  * Created by Flo on 18.02.2018.
  */
@@ -119,6 +121,32 @@ public class UserModel {
 
     public void setJSON(String JSON) {
         this.JSON = JSON;
+    }
+
+    public Object getCleanJSON() throws JSONException {
+        JSONObject jsn = new JSONObject();
+
+        jsn.put("user_username", username);
+        jsn.put("user_firstname", firstname);
+        jsn.put("user_name", name);
+        jsn.put("user_school", school);
+        jsn.put("user_yearofbirth", yearofbirth);
+        jsn.put("user_description", description);
+        jsn.put("user_id", id);
+
+        if(german){jsn.put("subj_german",1);} else {jsn.put("subj_german",0);}
+        if(spanish){jsn.put("subj_spanish",1);} else {jsn.put("subj_spanish",0);}
+        if(english){jsn.put("subj_english",1);} else {jsn.put("subj_english",0);}
+        if(french){jsn.put("subj_french",1);} else {jsn.put("subj_french",0);}
+        if(biology){jsn.put("subj_biology",1);} else {jsn.put("subj_biology",0);}
+        if(chemistry){jsn.put("subj_chemistry",1);} else {jsn.put("subj_chemistry",0);}
+        if(music){jsn.put("subj_music",1);} else {jsn.put("subj_music",0);}
+        if(physics){jsn.put("subj_physics",1);} else {jsn.put("subj_physics",0);}
+        if(maths){jsn.put("subj_maths",1);} else {jsn.put("subj_maths",0);}
+
+        jsn.put("temp_profilepicture_path", null);
+
+        return jsn.toString();
     }
 
     public void updateJSON() throws JSONException {

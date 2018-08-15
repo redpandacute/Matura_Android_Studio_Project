@@ -37,21 +37,21 @@ public class OnSearchListener implements View.OnClickListener {
         this.mActivity = (MainActivity)mFragment.getActivity();
     }
 
-    EditText name_et = view.findViewById(R.id.searchactivity_searchforname_edittext);
-
-    //Spinner school_sp = findViewById(R.id.searchactivity_filterbyschool_spinner);
-    CheckBox german_cb = view.findViewById(R.id.searchactivity_german_checkbox);
-    CheckBox spanish_cb = view.findViewById(R.id.searchactivity_spanish_checkbox);
-    CheckBox french_cb = view.findViewById(R.id.searchactivity_french_checkbox);
-    CheckBox music_cb = view.findViewById(R.id.searchactivity_music_checkbox);
-    CheckBox english_cb = view.findViewById(R.id.searchactivity_english_checkbox);
-    CheckBox maths_cb = view.findViewById(R.id.searchactivity_maths_checkbox);
-    CheckBox physics_cb = view.findViewById(R.id.searchactivity_physics_checkbox);
-    CheckBox chemistry_cb = view.findViewById(R.id.searchactivity_chemistry_checkbox);
-    CheckBox biology_cb = view.findViewById(R.id.searchactivity_biology_checkbox);
-
     @Override
     public void onClick(View view) {
+
+        EditText name_et = this.view.findViewById(R.id.searchoverview_searchforname_edittext);
+
+        //Spinner school_sp = findViewById(R.id.searchoverview_filterbyschool_spinner);
+        CheckBox german_cb = this.view.findViewById(R.id.searchoverview_german_checkbox);
+        CheckBox spanish_cb = this.view.findViewById(R.id.searchoverview_spanish_checkbox);
+        CheckBox french_cb = this.view.findViewById(R.id.searchoverview_french_checkbox);
+        CheckBox music_cb = this.view.findViewById(R.id.searchoverview_music_checkbox);
+        CheckBox english_cb = this.view.findViewById(R.id.searchoverview_english_checkbox);
+        CheckBox maths_cb = this.view.findViewById(R.id.searchoverview_maths_checkbox);
+        CheckBox physics_cb = this.view.findViewById(R.id.searchoverview_physics_checkbox);
+        CheckBox chemistry_cb = this.view.findViewById(R.id.searchoverview_chemistry_checkbox);
+        CheckBox biology_cb = this.view.findViewById(R.id.searchoverview_biology_checkbox);
 
         String name = name_et.getText().toString();
 

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.deuce.me.matura.adapter.BottomsheetFirebaseAdapter;
 import com.deuce.me.matura.util.JSONtoInfo;
-import com.deuce.me.matura.models.OpenChatModel;
+import com.deuce.me.matura.adapter.OldOpenChatModel;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
@@ -167,7 +167,7 @@ public class MainpageActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseRecyclerAdapter FCBA = new BottomsheetFirebaseAdapter(
-                OpenChatModel.class,
+                OldOpenChatModel.class,
                 R.layout.openchat,
                 OpenChatViewHolder.class,
                 databaseReference,

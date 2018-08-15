@@ -9,6 +9,8 @@ import com.deuce.me.matura.models.UserModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.json.JSONException;
+
 /**
  * Created by ingli on 12.08.2018.
  */
@@ -29,25 +31,35 @@ class OnOpenChatListener implements View.OnClickListener {
     @Override
     public void onClick(View view) {
 
-        DatabaseReference databaseSenderReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mMainprofileModel.getId()));
-        DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", mOpenuserModel.getId(), mOpenuserModel.getId(), mOpenuserModel.getId()));
+        //DatabaseReference databaseSenderReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mMainprofileModel.getId()));
+        //DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/%d>>%d", mOpenuserModel.getId(), mOpenuserModel.getId(), mOpenuserModel.getId()));
 
-        databaseSenderReference.child("receiverName").setValue(String.format("%s %s",mOpenuserModel.getFirstname(), mOpenuserModel.getName()));
+        DatabaseReference databaseSenderReference = mActivity.getMainProfileFirebaseRef().child(String.format("chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+        DatabaseReference databaseReceiverReference = FirebaseDatabase.getInstance().getReference(String.format("Users/%d/chats/%d->%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
+
         databaseSenderReference.child("receiverID").setValue(mOpenuserModel.getId());
-        databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
-        databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
-        databaseReceiverReference.child("senderName").setValue(String.format("%s %s",mMainprofileModel.getFirstname(), mMainprofileModel.getName()));
-        databaseReceiverReference.child("receiverID").setValue(mMainprofileModel.getId());
-        databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/%d>>%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
-        databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/%d>>%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
-        databaseSenderReference.child("chatPath").setValue(String.format("Chats/%d>>%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
-        databaseReceiverReference.child("chatPath").setValue(String.format("Chats/%d>>%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+        try {
+            databaseSenderReference.child("receiverJSON").setValue(mActivity.getOpenprofileModel().getCleanJSON());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/chats/%d->%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/chats/%d->%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseSenderReference.child("chatRef").setValue(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
 
-        DatabaseReference openChatReference = FirebaseDatabase.getInstance().getReference(String.format("Chats/%d>>%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseReceiverReference.child("receiverID").setValue(mMainprofileModel.getId());
+        try {
+            databaseReceiverReference.child("receiverJSON").setValue(mActivity.getMainprofileModel().getCleanJSON());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/chats/%d->%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/chats/%d->%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseReceiverReference.child("chatRef").setValue(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+
+        DatabaseReference openChatReference = FirebaseDatabase.getInstance().getReference(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
 
         mActivity.setOpenChat(new ChatModel(mMainprofileModel, mOpenuserModel, databaseSenderReference, databaseReceiverReference, openChatReference));
-        mActivity.setOpenchatFragment(new OpenchatFragment());
-        mActivity.setFragment(mActivity.getOpenchatFragment());
-
+        mActivity.setFragment(new OpenchatFragment());
     }
 }

@@ -1,19 +1,22 @@
-package com.deuce.me.matura.models;
+package com.deuce.me.matura.fragments.openchat;
 
 /**
  * Created by Flo on 09.03.2018.
  */
 
 public class ChatMessageModel {
+
+    private int messageUserId;
     private String messageText;
     private String messageUser;
     private String messageTime;
 
 
-    public ChatMessageModel(String messageUser, String messageText, String messageTime) {
+    public ChatMessageModel(int messageUserId, String messageUser, String messageText, String messageTime) {
         this.messageUser = messageUser;
         this.messageText = messageText;
         this.messageTime = messageTime;
+        this.messageUserId = messageUserId;
 
     }
 
@@ -41,5 +44,9 @@ public class ChatMessageModel {
 
     public void setMessageTime(String messageTime) {
         this.messageTime = messageTime;
+    }
+
+    public int getMessageUserId() {
+        return messageUserId;
     }
 }

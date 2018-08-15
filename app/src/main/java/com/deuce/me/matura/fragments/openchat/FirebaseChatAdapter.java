@@ -1,13 +1,11 @@
 package com.deuce.me.matura.fragments.openchat;
 
-import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.activities.ChatActivity;
-import com.deuce.me.matura.models.ChatMessageModel;
+import com.deuce.me.matura.models.UserModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
@@ -19,16 +17,16 @@ class FirebaseChatAdapter extends FirebaseRecyclerAdapter<ChatMessageModel, Chat
 
     private static final int LAYOUT_ONE = 1;
     private static final int LAYOUT_TWO = 2;
-    private String senderUsername;
+    private UserModel mMainuserModel;
 
 
     public FirebaseChatAdapter(Class<ChatMessageModel> chatMessageClass,
                                  int modelLayout,
                                  Class<ChatMessageHolder> viewHolderClass,
-                                 Query reference, String senderUsername
+                                 Query reference, UserModel mMainuserModel
     ) {
         super(chatMessageClass, modelLayout, viewHolderClass, reference);
-        this.senderUsername = senderUsername;
+        this.mMainuserModel = mMainuserModel;
     }
 
     @Override
@@ -51,7 +49,7 @@ class FirebaseChatAdapter extends FirebaseRecyclerAdapter<ChatMessageModel, Chat
         ChatMessageModel model = getItem(position);
         if(model == null) {return 0;}
 
-        if(!model.getMessageUser().equals(senderUsername)) {
+        if(model.getMessageUserId() == mMainuserModel.getId()) {
             return LAYOUT_ONE;
         }
         return LAYOUT_TWO;

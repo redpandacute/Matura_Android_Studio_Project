@@ -1,5 +1,7 @@
 package com.deuce.me.matura.fragments.mainprofile;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,7 +29,13 @@ public class MainprofileFragment extends Fragment {
     private UserModel mainprofileModel;
 
     public MainprofileFragment() {
-        this.mActivity = (MainActivity) this.getActivity();
+
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
         mainprofileModel = mActivity.getMainprofileModel();
     }
 
@@ -38,7 +46,7 @@ public class MainprofileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_mainprofile_fragment, container, false);
 
-        Toolbar toolbar = view.findViewById(R.id.mainpage_toolbar);
+        Toolbar toolbar = view.findViewById(R.id.mainprofile_toolbar);
         toolbar.setTitle(R.string.mainpage_title);
         mActivity.setSupportActionBar(toolbar);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -52,7 +60,7 @@ public class MainprofileFragment extends Fragment {
         final TextView school_tv = view.findViewById(R.id.mainprofile_school_textview);
         school_tv.setText(mainprofileModel.getSchool() + ", " + mainprofileModel.getGrade());
 
-        final ImageView profilepicture_iv = view.findViewById(R.id.mainpageact_profilepicture_imageview);
+        final ImageView profilepicture_iv = view.findViewById(R.id.mainprofile_profilepicture_imageview);
         profilepicture_iv.setImageBitmap(mActivity.getMainprofilePicture().getImageBitmap());
 
         //EMBLEMS::

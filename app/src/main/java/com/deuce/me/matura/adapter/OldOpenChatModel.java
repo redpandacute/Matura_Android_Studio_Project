@@ -1,16 +1,16 @@
-package com.deuce.me.matura.models;
+package com.deuce.me.matura.adapter;
 
 /**
- * Created by Flo on 12.03.2018.
+ * Created by ingli on 13.08.2018.
  */
 
-public class OpenChatModel {
+public class OldOpenChatModel {
 
-    private String subject, receiverName, latestMessage, chatPath, senderRef, receiverRef, profilePicturePath;
+    private String subject, receiverName, latestMessage, chatPath, senderRef, receiverRef;
     private int receiverID;
 
 
-    public OpenChatModel(String subject, String receiverName, String latestMessage, String chatPath, String receiverRef, String senderRef, int receiverID) {
+    public OldOpenChatModel(String subject, String receiverName, String latestMessage, String chatPath, String receiverRef, String senderRef, int receiverID) {
         this.subject = subject;
         this.receiverName = receiverName;
         this.receiverID = receiverID;
@@ -18,22 +18,13 @@ public class OpenChatModel {
         this.chatPath = chatPath;
         this.senderRef = senderRef;
         this.receiverRef = receiverRef;
-        this.profilePicturePath = null;
-    }
-
-    public String getProfilePicturePath() {
-        return profilePicturePath;
-    }
-
-    public void setProfilePicturePath(String profilePicturePath) {
-        this.profilePicturePath = profilePicturePath;
     }
 
     public String getSenderRef() {
         return senderRef;
     }
 
-    public OpenChatModel() {}
+    public OldOpenChatModel() {}
 
     public void setSenderRef(String senderRef) {
         this.senderRef = senderRef;

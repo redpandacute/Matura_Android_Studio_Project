@@ -1,5 +1,6 @@
 package com.deuce.me.matura.fragments.openprofile;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
@@ -37,16 +38,21 @@ public class OpenprofileFragment extends Fragment {
     private ImageView profilePicture_iv;
 
     public OpenprofileFragment() {
-        this.mActivity = (MainActivity)getActivity();
+        //empty constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
         mUserModel = mActivity.getOpenprofileModel();
-        mPicture = new ProfilePictureModel(mActivity.getBaseContext(), new File(mUserModel.getTempProfilePicturePath()));
-        mActivity.setOpenprofilePicture(mPicture);
+        mPicture = mActivity.getOpenprofilePicture();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_mainprofile_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_openprofile_fragment, container, false);
 
         Toolbar toolbar = view.findViewById(R.id.openprofile_toolbar);
         toolbar.setTitle(mUserModel.getFirstname() + " " + mUserModel.getName());
@@ -65,6 +71,7 @@ public class OpenprofileFragment extends Fragment {
         Button openChatButton = view.findViewById(R.id.openprofile_openchatbutton_button);
         openChatButton.setOnClickListener(new OnOpenChatListener(this));
 
+        setHasOptionsMenu(true);
 
         //EMBLEMS::
         ImageView math_medal = view.findViewById(R.id.openprofile_math_imageview);
@@ -112,7 +119,7 @@ public class OpenprofileFragment extends Fragment {
             english_medal.setVisibility(View.GONE);
         }
 
-        profilePicture_iv = view.findViewById(R.id.userprofileact_profilepicture_imageview);
+        profilePicture_iv = view.findViewById(R.id.openprofile_profilepicture_imageview);
         profilePicture_iv.setImageBitmap(mPicture.getImageBitmap());
 
         return view;
@@ -125,14 +132,11 @@ public class OpenprofileFragment extends Fragment {
     }
 
     private void getBigProfilePicture() {
-        if (mUserModel.getTempProfilePicturePath().equals("0")) {
-            BigProfilePictureRequest request = new BigProfilePictureRequest(mUserModel.getId(), new OnBigPictureResponseListener(this));
-            RequestQueue queue = Volley.newRequestQueue(mActivity);
-            queue.add(request);
-        } else {
-            mPicture = new ProfilePictureModel(mActivity.getBaseContext(), mUserModel.getTempProfilePicturePath());
-            profilePicture_iv.setImageBitmap(mPicture.getImageBitmap());
-        }
+
+        BigProfilePictureRequest request = new BigProfilePictureRequest(mUserModel.getId(), new OnBigPictureResponseListener(this));
+        RequestQueue queue = Volley.newRequestQueue(mActivity);
+        queue.add(request);
+
     }
 
     @Override
@@ -140,6 +144,7 @@ public class OpenprofileFragment extends Fragment {
 
         switch (item.getItemId()) {
             case android.R.id.home:
+                System.out.println("back button:: " + mActivity.getSearchresultsFragment());
                 mActivity.setFragment(mActivity.getSearchresultsFragment());
                 mActivity.setOpenprofileFragment(null);
                 mActivity.setOpenprofileModel(null);
@@ -161,7 +166,6 @@ public class OpenprofileFragment extends Fragment {
         }
 
         profilePicture_iv.setImageBitmap(mPicture.getImageBitmap());
-        mActivity.setOpenprofilePicture(mPicture);
         mActivity.setOpenprofileModel(mUserModel);
     }
 }

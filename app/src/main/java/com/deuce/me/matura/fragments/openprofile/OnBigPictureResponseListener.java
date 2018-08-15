@@ -34,17 +34,15 @@ class OnBigPictureResponseListener implements Response.Listener<String> {
 
         try {
 
-            System.out.println("my_response" + response);
             JSONObject jsn = new JSONObject(response);
             boolean success = jsn.getBoolean("success");
             System.out.println(success);
 
-
             if (success) {
                 String tempPath = new tempFileGenerator().getTempFilePath(mActivity.getBaseContext(), jsn.getString("blob_profilepicture_big"));
-                System.out.println("Path: " + tempPath);
                 mFragment.validate(tempPath);
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

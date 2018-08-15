@@ -31,7 +31,7 @@ class SearchResultsAdapter extends RecyclerView.Adapter<ResultViewHolder> {
         this.mFragment = mFragment;
         this.mActivity = (MainActivity) mFragment.getActivity();
 
-        this.placeholderBitmap = new ProfilePictureModel(mActivity.getBaseContext(),new File(new tempFileGenerator().getTempFilePath(mActivity.getBaseContext(), null))).getImageBitmap();
+        this.placeholderBitmap = new ProfilePictureModel(mActivity.getBaseContext(),new File(new tempFileGenerator().getTempFilePath(mActivity.getBaseContext(), "0"))).getImageBitmap();
     }
 
     @Override

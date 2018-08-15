@@ -23,9 +23,8 @@ class OnOpenProfileListener implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        mHolder.getModel().setTempProfilePicturePath("0");
         mActivity.setOpenprofileModel(mHolder.getModel());
         mActivity.setOpenprofileFragment(new OpenprofileFragment());
-        mActivity.setFragment(mActivity.getOpenprofileFragment());
+        mActivity.changeFragmentwithBackstack(mActivity.getOpenprofileFragment(), "search");
     }
 }

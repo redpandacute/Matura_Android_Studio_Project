@@ -4,6 +4,7 @@ import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.deuce.me.matura.activities.MainActivity;
+import com.deuce.me.matura.fragments.searchresults.SearchresultsFragment;
 import com.deuce.me.matura.models.UserModel;
 import com.deuce.me.matura.util.JSONtoInfo;
 
@@ -40,9 +41,10 @@ class OnSearchResponseListener implements Response.Listener<String> {
                 for(int n = 0; n < rawDataset.length(); n++) {
                     userModels[n] = jsn.createNewItem(rawDataset.getJSONObject(n));
                 }
-                mActivity.setSearchResultsDataset(userModels);
-                mActivity.setSerchoverviewFragment(new SearchoverviewFragment());
-                mActivity.setFragment(mActivity.getSearchoverviewFragment());
+                mActivity.setSearchResultDataset(userModels);
+                mActivity.setSearchresultsFragment(new SearchresultsFragment());
+                mActivity.setFragment(mActivity.getSearchresultsFragment());
+                mActivity.changeFragmentwithBackstack(mActivity.getSearchresultsFragment(), "search");
             } else {
                 Toast.makeText(mActivity.getBaseContext(), "There was an issue with the search request (Maybe no results :3)", Toast.LENGTH_LONG);
             }

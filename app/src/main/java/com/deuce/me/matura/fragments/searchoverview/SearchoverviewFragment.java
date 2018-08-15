@@ -1,6 +1,7 @@
 package com.deuce.me.matura.fragments.searchoverview;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,9 @@ import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.activities.MainpageActivity;
 import com.deuce.me.matura.activities.SearchfilterActivity;
+import com.deuce.me.matura.models.ProfilePictureModel;
+
+import java.io.File;
 
 
 /**
@@ -27,9 +31,13 @@ public class SearchoverviewFragment extends Fragment {
 
     public SearchoverviewFragment() {
         // Required empty public constructor
-        this.mActivity = (MainActivity)getActivity();
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.mActivity = (MainActivity) context;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,14 +45,16 @@ public class SearchoverviewFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_searchoverview_fragment, container, false);
 
-        Toolbar toolbar = view.findViewById(R.id.mainpage_toolbar);
+        Toolbar toolbar = view.findViewById(R.id.searchoverview_toolbar);
         toolbar.setTitle(R.string.search_title);
         mActivity.setSupportActionBar(toolbar);
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
-        ImageButton searchbutton = view.findViewById(R.id.searchactivity_searchbutton_imagebutton);
+        ImageButton searchbutton = view.findViewById(R.id.searchoverview_searchbutton_imagebutton);
 
         searchbutton.setOnClickListener(new OnSearchListener(view, this));
+
+        setHasOptionsMenu(true);
 
         return view;
     }

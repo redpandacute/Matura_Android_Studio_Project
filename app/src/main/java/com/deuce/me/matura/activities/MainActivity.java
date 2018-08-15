@@ -1,5 +1,6 @@
 package com.deuce.me.matura.activities;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,7 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.fragments.ChatoverviewFragment;
+import com.deuce.me.matura.fragments.chatoverview.ChatoverviewFragment;
 import com.deuce.me.matura.fragments.openchat.OpenchatFragment;
 import com.deuce.me.matura.fragments.openprofile.OpenprofileFragment;
 import com.deuce.me.matura.fragments.searchresults.SearchresultsFragment;
@@ -40,10 +41,11 @@ public class MainActivity extends AppCompatActivity {
     private Bundle extras;
 
     private UserModel mainprofileModel, openprofileModel;
-    private ProfilePictureModel mainprofilePicture, openprofilePicture;
+    //private ProfilePictureModel mainprofilePicture, openprofilePicture;
     private ChatModel openChat;
     private UserModel[] searchResultDataset;
 
+    private DatabaseReference mainprofileFirebaseRef;
     private DatabaseReference chatoverviewDBReference;
 
     private BottomNavigationView navigation;
@@ -56,10 +58,22 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
 
                 case R.id.searchoverview_botnav:
+                    if(openprofileFragment != null) {
+                        setFragment(openprofileFragment);
+                        return true;
+                    }
+                    if(searchresultsFragment != null) {
+                        setFragment(searchresultsFragment);
+                        return true;
+                    }
                     setFragment(searchoverviewFragment);
                     return true;
 
                 case R.id.chatoverview_botnav:
+                    if(openchatFragment != null) {
+                        setFragment(openchatFragment);
+                        return true;
+                    }
                     setFragment(chatoverviewFragment);
                     return true;
 
@@ -85,11 +99,8 @@ public class MainActivity extends AppCompatActivity {
         mainprofileModel = null;
         openprofileModel = null;
 
-        chatoverviewDBReference = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d", mainprofileModel.getId()));
         openChat = null;
 
-        mainprofilePicture = new ProfilePictureModel(getBaseContext(), new File(extras.getString("temp_profilepicture_path")));
-        openprofilePicture = null;
 
         try {
             mainprofileModel = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extras.getString("clientInfo")));
@@ -98,6 +109,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getBaseContext(), LoginActivity.class);
             startActivity(intent);
         }
+
+        mainprofileFirebaseRef = FirebaseDatabase.getInstance().getReference().child(String.format("Users/%d", mainprofileModel.getId()));
+        ProfilePictureModel mainprofilePicture = new ProfilePictureModel(getBaseContext(), new File(mainprofileModel.getTempProfilePicturePath()));
 
         //Initialize all fragments
         mainprofileFragment = new MainprofileFragment();
@@ -109,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
         openchatFragment = null;
 
         setFragment(mainprofileFragment);
+        navigation.setSelectedItemId(R.id.mainprofile_botnav);
     }
 
     public void setFragment(Fragment fragment) {
@@ -116,6 +131,23 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_frame, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void changeFragmentwithBackstack(Fragment fragment, String tag){
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_frame, fragment);
+        fragmentTransaction.addToBackStack(tag);
+        fragmentTransaction.commit();
+    }
+
+    public void popBackstack(String tag) {
+        getFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    public void refreshDataset(int start, int amount, String[] paths) {
+        for (int i = 0; i < amount; i++) {
+            searchResultDataset[i + start].setTempProfilePicturePath(paths[i]);
+        }
     }
 
     public SearchoverviewFragment getSearchoverviewFragment() {
@@ -179,26 +211,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public ProfilePictureModel getMainprofilePicture() {
-        return mainprofilePicture;
-    }
-
-    public void setMainprofilePicture(ProfilePictureModel mainprofilePicture) {
-        this.mainprofilePicture = mainprofilePicture;
+        return new ProfilePictureModel(getBaseContext(), new File(mainprofileModel.getTempProfilePicturePath()));
     }
 
     public ProfilePictureModel getOpenprofilePicture() {
-        return openprofilePicture;
+        return new ProfilePictureModel(getBaseContext(), new File(openprofileModel.getTempProfilePicturePath()));
     }
 
-    public void setOpenprofilePicture(ProfilePictureModel openprofilePicture) {
-        this.openprofilePicture = openprofilePicture;
+    public DatabaseReference getMainProfileFirebaseRef() {
+        return mainprofileFirebaseRef;
     }
 
-    public DatabaseReference getChatoverviewDBReference() {
-        return chatoverviewDBReference;
-    }
-
-    public void setChatoverviewDBReference(DatabaseReference chatoverviewDBReference) {
+    public void setMainprofileFirebaseRef(DatabaseReference chatoverviewDBReference) {
         this.chatoverviewDBReference = chatoverviewDBReference;
     }
 
@@ -237,6 +261,5 @@ public class MainActivity extends AppCompatActivity {
     public BottomNavigationView getNavigation() {
         return navigation;
     }
-
 
 }
