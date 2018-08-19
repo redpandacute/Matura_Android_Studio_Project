@@ -46,7 +46,6 @@ public class OpenprofileFragment extends Fragment {
         super.onAttach(context);
         this.mActivity = (MainActivity) context;
         mUserModel = mActivity.getOpenprofileModel();
-        mPicture = mActivity.getOpenprofilePicture();
     }
 
     @Override
@@ -120,7 +119,7 @@ public class OpenprofileFragment extends Fragment {
         }
 
         profilePicture_iv = view.findViewById(R.id.openprofile_profilepicture_imageview);
-        profilePicture_iv.setImageBitmap(mPicture.getImageBitmap());
+        profilePicture_iv.setImageBitmap(mActivity.getMainprofilePicture().getImageBitmap());
 
         return view;
     }

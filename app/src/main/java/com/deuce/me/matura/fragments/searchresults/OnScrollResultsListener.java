@@ -3,7 +3,8 @@ package com.deuce.me.matura.fragments.searchresults;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.deuce.me.matura.adapter.searchresult_recycleradapter;
+import com.deuce.me.matura.activities.MainActivity;
+import com.deuce.me.matura.util.ProfilePictureLoader;
 
 /**
  * Created by ingli on 12.08.2018.
@@ -12,11 +13,13 @@ import com.deuce.me.matura.adapter.searchresult_recycleradapter;
 class OnScrollResultsListener extends RecyclerView.OnScrollListener {
 
     private SearchresultsFragment mFragment;
+    private MainActivity mActivity;
     private LinearLayoutManager mLayoutManager;
 
     public OnScrollResultsListener(LinearLayoutManager mLayoutManager, SearchresultsFragment mFragment) {
         this.mLayoutManager = mLayoutManager;
         this.mFragment = mFragment;
+        this.mActivity = (MainActivity)mFragment.getActivity();
     }
 
     @Override
@@ -29,16 +32,16 @@ class OnScrollResultsListener extends RecyclerView.OnScrollListener {
 
         for(int loop = 0; loop < childCount; loop++) {
             ResultViewHolder holder = (ResultViewHolder) recyclerView.findViewHolderForAdapterPosition(firstVisibleItemPosition + loop);
-            if(holder.getModel().getTempProfilePicturePath() == null && mFragment.isReadyToLoad()) {
+            if(holder.getModel().getTempProfilePicturePath() == null && mFragment.getReadyState()) {
                 if(totalItemCount - firstVisibleItemPosition - 1 >= mFragment.getHeapsize()) {
                     int amount = mFragment.getHeapsize();
                     int start = firstVisibleItemPosition + loop;
-                    new ProfilePictureLoader(mFragment).load(start, amount, new OnProfilePicturesResponseListener(mFragment));
+                    new ProfilePictureLoader(mFragment).load(start, amount, mActivity.getSearchResultDataset(), new OnProfilePicturesResponseListener(mFragment));
                     break;
                 } else {
                     int amount = totalItemCount - firstVisibleItemPosition - loop;
                     int start = firstVisibleItemPosition + loop;
-                    new ProfilePictureLoader(mFragment).load(start, amount, new OnProfilePicturesResponseListener(mFragment));
+                    new ProfilePictureLoader(mFragment).load(start, amount, mActivity.getSearchResultDataset(), new OnProfilePicturesResponseListener(mFragment));
                     break;
                 }
             }

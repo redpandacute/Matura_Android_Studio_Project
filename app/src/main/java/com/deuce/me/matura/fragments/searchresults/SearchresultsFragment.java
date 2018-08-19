@@ -14,15 +14,14 @@ import android.view.ViewGroup;
 
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
-import com.deuce.me.matura.models.ProfilePictureModel;
-
-import java.io.File;
+import com.deuce.me.matura.interfaces.LoaderFragment;
+import com.deuce.me.matura.util.ProfilePictureLoader;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchresultsFragment extends Fragment {
+public class SearchresultsFragment extends Fragment implements LoaderFragment{
 
     private MainActivity mActivity;
     private LinearLayoutManager layoutManager;
@@ -69,9 +68,9 @@ public class SearchresultsFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (mActivity.getSearchResultDataset().length >= heapsize) {
-            new ProfilePictureLoader(this).load(0, heapsize, new OnProfilePicturesResponseListener(this));
+            new ProfilePictureLoader(this).load(0, heapsize, mActivity.getSearchResultDataset(), new OnProfilePicturesResponseListener(this));
         } else {
-            new ProfilePictureLoader(this).load(0, mActivity.getSearchResultDataset().length, new OnProfilePicturesResponseListener(this));
+            new ProfilePictureLoader(this).load(0, mActivity.getSearchResultDataset().length, mActivity.getSearchResultDataset(), new OnProfilePicturesResponseListener(this));
         }
     }
 
@@ -94,11 +93,14 @@ public class SearchresultsFragment extends Fragment {
         return heapsize;
     }
 
-    public boolean isReadyToLoad() {
+
+    @Override
+    public boolean getReadyState() {
         return this.readyState;
     }
 
-    public void setReadyToLoad(boolean readyState) {
+    @Override
+    public void setReadyState(boolean readyState) {
         this.readyState = readyState;
     }
 

@@ -94,7 +94,8 @@ public class SettingsoverviewActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                Intent intent = new Intent(SettingsoverviewActivity.this, MainpageActivity.class);
+                //Intent intent = new Intent(SettingsoverviewActivity.this, MainpageActivity.class);
+                Intent intent = new Intent(SettingsoverviewActivity.this, MainActivity.class);
                 intent.putExtra("clientInfo", getIntent().getExtras().getString("clientInfo"));
                 startActivity(intent);
                 System.out.println("::BACK BUTTON::");
