@@ -37,7 +37,7 @@ class ChatoverviewAdapterV2 extends RecyclerView.Adapter<OpenChatViewHolderV2>{
     public void onBindViewHolder(OpenChatViewHolderV2 holder, int position) {
         OpenChatModelV2 model = mDataset.get(mDataset.keySet().toArray()[position]);
         holder.initialize(model);
-
+        holder.getView().setOnClickListener(new OnOpenChatListenerV2(mFragment, model));
         holder.setProfilePicture(new ProfilePictureModel(mFragment.getActivity().getBaseContext(), new File(model.getUserModel().getTempProfilePicturePath())));
     }
 

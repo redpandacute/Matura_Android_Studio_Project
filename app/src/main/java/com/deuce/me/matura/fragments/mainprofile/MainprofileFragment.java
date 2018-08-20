@@ -54,8 +54,8 @@ public class MainprofileFragment extends Fragment {
         final TextView nameandfirstname_tv = view.findViewById(R.id.mainprofile_name_textview);
         nameandfirstname_tv.setText(mainprofileModel.getFirstname() + " " + mainprofileModel.getName());
 
-        final TextView description_tv = view.findViewById(R.id.mainprofile_aboutme_textview);
-        description_tv.setText(mainprofileModel.getDescription());
+        final TextView description_et = view.findViewById(R.id.mainprofile_description_textview);
+        description_et.setText(mainprofileModel.getDescription());
 
         final TextView school_tv = view.findViewById(R.id.mainprofile_school_textview);
         school_tv.setText(mainprofileModel.getSchool() + ", " + mainprofileModel.getGrade());

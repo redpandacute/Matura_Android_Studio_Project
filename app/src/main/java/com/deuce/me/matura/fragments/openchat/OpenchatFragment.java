@@ -103,9 +103,12 @@ public class OpenchatFragment extends Fragment {
                     mActivity.setOpenchatFragment(null);
                     return true;
                 } else {
+
                     mActivity.setFragment(mActivity.getChatoverviewFragment());
+                    mActivity.getChatoverviewFragment().onResume();
                     mActivity.setOpenchatFragment(null);
                     mActivity.setOpenChat(null);
+
                     return true;
                 }
             default:

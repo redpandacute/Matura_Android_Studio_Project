@@ -40,11 +40,10 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
 
     private RecyclerView mRecyclerView;
     private MainActivity mActivity;
-    private Map<Integer, String> mPaths;
-    private Map<Integer, OpenChatModelV2> mDataset;
     private boolean readyState;
 
     public static final int HEAPSIZE = 10;
+    private ChatsValueEventListener mValueListener;
 
     public ChatoverviewFragment() {
         // Required empty public constructor
@@ -88,14 +87,12 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
                 this
         );
         */
-        mPaths = new HashMap<>();
-        mDataset = new LinkedHashMap<>();
 
         ChatoverviewAdapterV2 mAdapter = new ChatoverviewAdapterV2(this);
         mRecyclerView.setHasFixedSize(false);
         mRecyclerView.setAdapter(mAdapter);
         //mRecyclerView.addOnScrollListener(new OnScrollListener(this, (LinearLayoutManager) mRecyclerView.getLayoutManager()));
-
+        mValueListener = new ChatsValueEventListener(this);
         mActivity.getMainProfileFirebaseRef().child("chats/").addValueEventListener(new ChatsValueEventListener(this));
 
         /*
@@ -142,7 +139,27 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
         */
     }
 
-    public void refreshList(String[] paths,int start, int amount) {
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        mActivity.getMainProfileFirebaseRef().child("chats/").removeEventListener(mValueListener);
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mActivity.getMainProfileFirebaseRef().child("chats/").removeEventListener(mValueListener);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mActivity.getMainProfileFirebaseRef().child("chats/").addValueEventListener(mValueListener);
+    }
+
+    public void refreshList(String[] paths, int start, int amount) {
         for(int n = 0; n < amount; n++) {
             OpenChatViewHolder holder = (OpenChatViewHolder) mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(start + n));
             holder.getUserModel().setTempProfilePicturePath(paths[n]);
@@ -162,11 +179,11 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
     }
 
     public Map<Integer, OpenChatModelV2> getDataset() {
-        return mDataset;
+        return mActivity.getOpenChatsDataset();
     }
 
     public void setDataset(Map<Integer, OpenChatModelV2> mDataset) {
-        this.mDataset = mDataset;
+        mActivity.getOpenChatsDataset();
     }
 
     public RecyclerView getRecyclerView() {
@@ -174,10 +191,10 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
     }
 
     public void setPaths(Map<Integer, String> map) {
-        this.mPaths = map;
+        mActivity.setOpenChatsPaths(map);
     }
 
     public Map<Integer,String> getPaths() {
-        return mPaths;
+        return mActivity.getOpenChatsPaths();
     }
 }

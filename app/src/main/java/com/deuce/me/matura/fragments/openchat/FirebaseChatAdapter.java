@@ -15,8 +15,8 @@ import com.google.firebase.database.Query;
 
 class FirebaseChatAdapter extends FirebaseRecyclerAdapter<ChatMessageModel, ChatMessageHolder> {
 
-    private static final int LAYOUT_ONE = 1;
-    private static final int LAYOUT_TWO = 2;
+    private static final int LAYOUT_PARTNER = 1;
+    private static final int LAYOUT_LOCAL = 2;
     private UserModel mMainuserModel;
 
 
@@ -34,7 +34,7 @@ class FirebaseChatAdapter extends FirebaseRecyclerAdapter<ChatMessageModel, Chat
 
         View view;
 
-        if (viewType == LAYOUT_ONE) {
+        if (viewType == LAYOUT_PARTNER) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.message_left, parent, false);
             return new ChatMessageHolder(view);
         } else {
@@ -50,9 +50,9 @@ class FirebaseChatAdapter extends FirebaseRecyclerAdapter<ChatMessageModel, Chat
         if(model == null) {return 0;}
 
         if(model.getMessageUserId() == mMainuserModel.getId()) {
-            return LAYOUT_ONE;
+            return LAYOUT_LOCAL;
         }
-        return LAYOUT_TWO;
+        return LAYOUT_PARTNER;
     }
 
     @Override

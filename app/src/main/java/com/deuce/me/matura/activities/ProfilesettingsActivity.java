@@ -321,6 +321,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
             String name = name_et.getText().toString();
             String firstname = firstname_et.getText().toString();
             String description = description_et.getText().toString();
+            System.out.println("DESC: " + description);
 
             // String school = school_sp.getSelectedItem().toString();
             String school = "";

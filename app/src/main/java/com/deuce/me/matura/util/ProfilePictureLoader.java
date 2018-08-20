@@ -37,7 +37,7 @@ public class ProfilePictureLoader {
         }
 
         SmallProfilePicturesRequest request = new SmallProfilePicturesRequest(ids, mResponseListener);
-        RequestQueue queue = Volley.newRequestQueue(mActivity);
+        RequestQueue queue = Volley.newRequestQueue(mActivity.getBaseContext());
         queue.add(request);
     }
 }

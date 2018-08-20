@@ -19,19 +19,14 @@ public class OpenChatModelV2 {
 
     private UserModel mUserModel;
     private String mLatestMessage, mProfilePicturePath;
-    private DatabaseReference mReceiverReference, mChatRef;
-
-    public OpenChatModelV2(UserModel mUserModel, String mLatestMessage, String mDatabasePath) {
-        this.mUserModel = mUserModel;
-        this.mLatestMessage = mLatestMessage;
-        this.mReceiverReference = FirebaseDatabase.getInstance().getReference(mDatabasePath);
-    }
+    private DatabaseReference mReceiverReference, mChatRef, mSenderReference;
 
     public OpenChatModelV2(Context mContext, DataSnapshot mSnapshot) throws JSONException {
         this.mUserModel = new JSONtoInfo(mContext).createNewItem(new JSONObject(mSnapshot.child("receiverJSON").getValue().toString()));
         this.mLatestMessage = mSnapshot.child("latestMessage").getValue().toString();
         this.mReceiverReference = FirebaseDatabase.getInstance().getReference(mSnapshot.child("receiverRef").getValue().toString());
         this.mChatRef = FirebaseDatabase.getInstance().getReference(mSnapshot.child("chatRef").getValue().toString());
+        this.mSenderReference = FirebaseDatabase.getInstance().getReference(mSnapshot.child("senderRef").getValue().toString());
     }
 
     public UserModel getUserModel() {
@@ -72,5 +67,13 @@ public class OpenChatModelV2 {
 
     public void setChatRef(DatabaseReference mChatRef) {
         this.mChatRef = mChatRef;
+    }
+
+    public DatabaseReference getSenderRef() {
+        return mSenderReference;
+    }
+
+    public void setSenderReference(DatabaseReference mSenderReference) {
+        this.mSenderReference = mSenderReference;
     }
 }

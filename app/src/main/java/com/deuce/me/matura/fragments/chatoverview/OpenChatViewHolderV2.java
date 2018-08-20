@@ -50,4 +50,8 @@ class OpenChatViewHolderV2 extends RecyclerView.ViewHolder {
     public UserModel getUserModel(){
             return this.userModel;
     }
+
+    public View getView() {
+        return view;
+    }
 }

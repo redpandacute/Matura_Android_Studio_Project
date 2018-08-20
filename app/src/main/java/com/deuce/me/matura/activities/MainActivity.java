@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.fragments.chatoverview.ChatoverviewFragment;
+import com.deuce.me.matura.fragments.chatoverview.OpenChatModelV2;
 import com.deuce.me.matura.fragments.openchat.OpenchatFragment;
 import com.deuce.me.matura.fragments.openprofile.OpenprofileFragment;
 import com.deuce.me.matura.fragments.searchresults.SearchresultsFragment;
@@ -28,6 +29,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private SearchresultsFragment searchresultsFragment;
     private OpenprofileFragment openprofileFragment;
     private OpenchatFragment openchatFragment;
+
+    private Map<Integer, String> openChatsPaths;
+    private Map<Integer, OpenChatModelV2> openChatsDataset;
 
     private Bundle extras;
 
@@ -100,6 +107,9 @@ public class MainActivity extends AppCompatActivity {
         openprofileModel = null;
 
         openChat = null;
+
+        openChatsPaths = new HashMap<>();
+        openChatsDataset = new LinkedHashMap<>();
 
 
         try {
@@ -262,4 +272,19 @@ public class MainActivity extends AppCompatActivity {
         return navigation;
     }
 
+    public Map<Integer, String> getOpenChatsPaths() {
+        return openChatsPaths;
+    }
+
+    public void setOpenChatsPaths(Map<Integer, String> openChatsPaths) {
+        this.openChatsPaths = openChatsPaths;
+    }
+
+    public Map<Integer, OpenChatModelV2> getOpenChatsDataset() {
+        return openChatsDataset;
+    }
+
+    public void setOpenChatsDataset(Map<Integer, OpenChatModelV2> openChatsDataset) {
+        this.openChatsDataset = openChatsDataset;
+    }
 }
