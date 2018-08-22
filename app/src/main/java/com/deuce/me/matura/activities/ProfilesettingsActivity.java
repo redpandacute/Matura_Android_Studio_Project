@@ -34,6 +34,7 @@ import com.deuce.me.matura.R;
 import com.deuce.me.matura.trash.chooseImage_activity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.requests.SaveSettingsRequest;
+import com.deuce.me.matura.util.SchoolMapper;
 import com.deuce.me.matura.util.tempFileGenerator;
 import com.deuce.me.matura.models.UserModel;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -62,7 +63,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
 
     private EditText firstname_et, name_et, description_et;
     private CheckBox german_cb, spanish_cb, french_cb, english_cb, biology_cb, music_cb, chemistry_cb, maths_cb, physics_cb;
-    private Spinner school_sp;
+    private Spinner school_sp, grade_sp;
     private Button save_bt;
     private FloatingActionButton changeprofilepicture_bt;
     private Bundle extras;
@@ -97,6 +98,9 @@ public class ProfilesettingsActivity extends AppCompatActivity {
         description_et = findViewById(R.id.profsettings_description_edittext);
 
         school_sp = findViewById(R.id.profsettings_school_spinner);
+        grade_sp = findViewById(R.id.profsettings_grade_spinner);
+
+        new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt");
 
         german_cb = findViewById(R.id.profsettings_german_checkbox);
         spanish_cb = findViewById(R.id.profsettings_spanish_checkbox);
@@ -192,6 +196,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
                         clientInfo.getName(),
                         clientInfo.getEmail(),
                         clientInfo.getSchool(),
+                        clientInfo.getGrade(),
                         clientInfo.getDescription(),
                         clientInfo.getPassword(),
                         clientInfo.getPassword(),
@@ -323,8 +328,8 @@ public class ProfilesettingsActivity extends AppCompatActivity {
             String description = description_et.getText().toString();
             System.out.println("DESC: " + description);
 
-            // String school = school_sp.getSelectedItem().toString();
-            String school = "";
+            String school = school_sp.getSelectedItem().toString();
+            int grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
 
             boolean german = german_cb.isChecked();
             boolean spanish = spanish_cb.isChecked();
@@ -347,6 +352,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
                         name,
                         clientInfo.getEmail(),
                         school,
+                        grade,
                         description,
                         clientInfo.getPasswordHash(),
                         clientInfo.getPasswordHash(),

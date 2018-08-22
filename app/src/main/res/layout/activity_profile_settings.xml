@@ -53,10 +53,26 @@
                 android:id="@+id/profsettings_school_spinner"
                 android:layout_width="0dp"
                 android:layout_height="34dp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/profsettings_grade_spinner"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/profsettings_school_textview"
                 app:layout_constraintTop_toBottomOf="@+id/profsettings_school_textview" />
+
+            <Spinner
+                android:id="@+id/profsettings_grade_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="34dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/profsettings_school_spinner"
+                app:layout_constraintTop_toBottomOf="@id/profsettings_school_textview"></Spinner>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/grade"
+                app:layout_constraintStart_toStartOf="@id/profsettings_grade_spinner"
+                app:layout_constraintTop_toTopOf="@id/profsettings_school_textview"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/profsettings_firstname_textview"

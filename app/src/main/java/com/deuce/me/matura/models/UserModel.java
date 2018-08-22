@@ -15,18 +15,17 @@ import java.io.IOException;
  */
 
 public class UserModel {
-    // private ?? pb;
 
     private Context context;
     private String JSON;
 
     private int id;
-    private int grade = 2;
+    private int grade;
     private String username;
     private String name;
     private String firstname;
     private String school;
-    private int yearofbirth;
+    private int yearofbirth = 0;
     private String description;
     private String email = null;
 
@@ -45,18 +44,18 @@ public class UserModel {
     private boolean physics;
     private boolean german;
 
-    public UserModel(int id, String username, String name, String firstname, int yearofbirth, String description,
+    public UserModel(int id, String username, String name, String firstname, String school, int grade, String description,
                      boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                      String temp_profilepicture_path, String JSON
     ) {
-        this.context = context;
         this.JSON = JSON;
 
         this.id = id;
         this.username = username;
         this.name = name;
         this.firstname = firstname;
-        this.yearofbirth = yearofbirth;
+        this.school = school;
+        this.grade = grade;
         this.description = description;
 
         this.french = french;
@@ -72,7 +71,7 @@ public class UserModel {
         this.temp_profilepicture_path = temp_profilepicture_path;
     }
 
-    public UserModel(int id, String username, String name, String firstname, int yearofbirth, String description, String email,
+    public UserModel(int id, String username, String name, String firstname, String school, int grade, String description, String email,
                      boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                      String passwordHash, String salt,
                      String temp_profilepicture_path, String JSON
@@ -83,7 +82,8 @@ public class UserModel {
         this.username = username;
         this.name = name;
         this.firstname = firstname;
-        this.yearofbirth = yearofbirth;
+        this.school = school;
+        this.grade = grade;
         this.description = description;
         this.email = email;
 
@@ -210,7 +210,7 @@ public class UserModel {
     }
 
     public String getSchool() {
-        return "KSA Pfäffikon SZ";
+        return this.school;
         //return school;
     }
 
@@ -346,7 +346,11 @@ public class UserModel {
         this.passwordHash = password;
     }
 
-    public String getGrade() {
+    public int getGrade() {
+        return grade;
+    }
+
+    public String getStringGrade() {
 
         String grade_str;
 

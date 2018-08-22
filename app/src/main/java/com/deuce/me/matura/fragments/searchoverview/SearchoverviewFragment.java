@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.activities.MainpageActivity;
 import com.deuce.me.matura.activities.SearchfilterActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
+import com.deuce.me.matura.util.SchoolMapper;
 
 import java.io.File;
 
@@ -51,6 +53,11 @@ public class SearchoverviewFragment extends Fragment {
         mActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         ImageButton searchbutton = view.findViewById(R.id.searchoverview_searchbutton_imagebutton);
+
+        Spinner schoolSpinner = view.findViewById(R.id.searchoverview_filterbyschool_spinner);
+        Spinner gradeSpinner = view.findViewById(R.id.searchoverview_grade_spinner);
+
+        new SchoolMapper(mActivity.getBaseContext(), schoolSpinner, gradeSpinner).startDisplay("schoollist.txt");
 
         searchbutton.setOnClickListener(new OnSearchListener(view, this));
 
