@@ -130,7 +130,7 @@ public class UserModel {
         jsn.put("user_firstname", firstname);
         jsn.put("user_name", name);
         jsn.put("user_school", school);
-        jsn.put("user_yearofbirth", yearofbirth);
+        jsn.put("user_grade", grade);
         jsn.put("user_description", description);
         jsn.put("user_id", id);
 
@@ -155,7 +155,7 @@ public class UserModel {
         jsn.put("user_firstname", firstname);
         jsn.put("user_name", name);
         jsn.put("user_school", school);
-        jsn.put("user_yearofbirth", yearofbirth);
+        jsn.put("user_grade", grade);
         jsn.put("user_description", description);
         jsn.put("user_email", email);
         jsn.put("user_id", id);
@@ -354,12 +354,16 @@ public class UserModel {
 
         String grade_str;
 
-        if(grade == 1) {
-            grade_str = grade + "st grade";
+        if(grade == 0) {
+            return "";
+        } else if(grade == 1) {
+            grade_str = ", " + grade + "st grade";
         } else if(grade == 2) {
-            grade_str = grade + "nd grade";
+            grade_str = ", " + grade + "nd grade";
+        } else if(grade == 3) {
+           grade_str = ", " + grade + "rd grade";
         } else {
-            grade_str = grade + "th grade";
+            grade_str = ", " + grade + "th grade";
         }
         return grade_str;
     }

@@ -140,14 +140,30 @@
                 app:layout_constraintStart_toStartOf="@+id/registeract_name_edittext"
                 app:layout_constraintTop_toBottomOf="@+id/registeract_username_textview" />
 
+            <TextView
+                android:id="@+id/registeract_school_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/school_string"
+                app:layout_constraintTop_toBottomOf="@+id/registeract_username_edittext"
+                app:layout_constraintStart_toStartOf="@id/registeract_username_edittext"/>
+
+            <TextView
+                android:id="@+id/registeract_grade_textview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/grade"
+                app:layout_constraintStart_toStartOf="@id/registeract_grade_spinner"
+                app:layout_constraintBottom_toTopOf="@+id/registeract_school_spinner"/>
             <Spinner
-                android:id="@+id/registeract_yearofbirth_spinner"
-                android:layout_width="106dp"
-                android:layout_height="0dp"
-                android:layout_marginRight="8dp"
+                android:id="@+id/registeract_grade_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="0dp"
                 app:layout_constraintBottom_toBottomOf="@+id/registeract_school_spinner"
-                app:layout_constraintEnd_toEndOf="@+id/registeract_username_edittext"
-                app:layout_constraintTop_toTopOf="@+id/registeract_school_spinner" />
+                app:layout_constraintEnd_toEndOf="@id/registeract_username_edittext"
+                app:layout_constraintTop_toBottomOf="@+id/registeract_school_textview" />
 
             <Spinner
                 android:id="@+id/registeract_school_spinner"
@@ -155,9 +171,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toStartOf="@+id/registeract_yearofbirth_spinner"
+                app:layout_constraintEnd_toStartOf="@+id/registeract_grade_spinner"
                 app:layout_constraintStart_toStartOf="@+id/registeract_username_edittext"
-                app:layout_constraintTop_toBottomOf="@+id/registeract_username_edittext" />
+                app:layout_constraintTop_toBottomOf="@+id/registeract_school_textview" />
 
             <TextView
                 android:id="@+id/registeract_email_textview"

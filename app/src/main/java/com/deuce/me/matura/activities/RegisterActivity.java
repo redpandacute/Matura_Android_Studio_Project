@@ -42,14 +42,13 @@ public class RegisterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final Spinner grade_sp = findViewById(R.id.registeract_yearofbirth_spinner);
+        final Spinner grade_sp = findViewById(R.id.registeract_grade_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
 
         new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt");
 
         final Button registerbutton_bu = findViewById(R.id.registeract_signup_button);
 
-        //SpinnerYears(yearofbirth_sp);
 
         registerbutton_bu.setOnClickListener(new onRegisterListener());
 
@@ -116,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText password_et = findViewById(R.id.registeract_password_edittext);
         final EditText confpassword_et = findViewById(R.id.registeract_confpassword_edittext);
 
-        final Spinner grade_sp = findViewById(R.id.registeract_yearofbirth_spinner);
+        final Spinner grade_sp = findViewById(R.id.registeract_grade_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
 
         final CheckBox termsofservice_cb = findViewById(R.id.registeract_termsofservice_checkbox);
@@ -141,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             if (password.equals(confpassword)) {
-                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty()){
+                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0){
 
                     passwordHasher hasher = new passwordHasher();
                     byte[] saltBytes = hasher.generateSalt();

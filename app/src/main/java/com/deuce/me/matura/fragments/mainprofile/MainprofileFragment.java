@@ -58,7 +58,7 @@ public class MainprofileFragment extends Fragment {
         description_et.setText(mainprofileModel.getDescription());
 
         final TextView school_tv = view.findViewById(R.id.mainprofile_school_textview);
-        school_tv.setText(mainprofileModel.getSchool() + ", " + mainprofileModel.getGrade());
+        school_tv.setText(mainprofileModel.getSchool() + mainprofileModel.getStringGrade());
 
         final ImageView profilepicture_iv = view.findViewById(R.id.mainprofile_profilepicture_imageview);
         profilepicture_iv.setImageBitmap(mActivity.getMainprofilePicture().getImageBitmap());

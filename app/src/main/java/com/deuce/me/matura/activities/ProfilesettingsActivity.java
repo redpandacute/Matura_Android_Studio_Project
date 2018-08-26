@@ -100,8 +100,6 @@ public class ProfilesettingsActivity extends AppCompatActivity {
         school_sp = findViewById(R.id.profsettings_school_spinner);
         grade_sp = findViewById(R.id.profsettings_grade_spinner);
 
-        new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt");
-
         german_cb = findViewById(R.id.profsettings_german_checkbox);
         spanish_cb = findViewById(R.id.profsettings_spanish_checkbox);
         english_cb = findViewById(R.id.profsettings_english_checkbox);
@@ -138,6 +136,8 @@ public class ProfilesettingsActivity extends AppCompatActivity {
 
             picture_big = new ProfilePictureModel(getBaseContext(), new File(clientInfo.getTempProfilePicturePath()));
             profilePicture_iv.setImageBitmap(picture_big.getImageBitmap());
+
+            new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt", clientInfo);
         } catch(JSONException e) {
             e.printStackTrace();
         }

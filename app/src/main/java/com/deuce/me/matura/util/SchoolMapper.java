@@ -6,6 +6,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.deuce.me.matura.models.UserModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -50,6 +52,7 @@ public class SchoolMapper {
         String[] keySet = mMap.keySet().toArray(new String[mMap.size()]);
 
         ArrayList<String> mSchools = new ArrayList<>();
+
         for(int n = 0; n < mMap.size(); n++) {
             mSchools.add(keySet[n]);
         }
@@ -84,5 +87,74 @@ public class SchoolMapper {
 
             }
         });
+    }
+
+    public void startDisplay(String path, UserModel mModel){
+
+        MyReader mReader = new MyReader(mContext);
+
+        mMap = map(mReader.read(path));
+
+        String[] keySet = mMap.keySet().toArray(new String[mMap.size()]);
+
+        ArrayList<String> mSchools = new ArrayList<>();
+
+        mSchools.add(mModel.getSchool());
+        System.out.println("model school: " + mModel.getSchool());
+
+        for(int n = 1; n < mMap.size(); n++) {
+            System.out.println("School keySet: " + keySet[n]);
+            if(!keySet[n].equals(mModel.getSchool())) {
+                mSchools.add(keySet[n]);
+            }
+        }
+
+        ArrayAdapter<String> schoolAdapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_spinner_item, mSchools);
+        schoolAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        int mGrades = mMap.get(mModel.getSchool());
+        ArrayList<Integer> mGradesList = new ArrayList<>();
+
+        mGradesList.add(mModel.getGrade());
+
+        for(int n = 1; n <= mGrades; n++) {
+            if(n != mModel.getGrade()){
+                mGradesList.add(n);
+            }
+        }
+
+        ArrayAdapter<Integer> gradeAdapter = new ArrayAdapter<Integer>(mContext, android.R.layout.simple_spinner_item, mGrades);
+        gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        gradeSpinner.setAdapter(gradeAdapter);
+
+        schoolSpinner.setAdapter(schoolAdapter);
+        schoolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                int mGrades = mMap.get(adapterView.getAdapter().getItem(i));
+
+                ArrayList<Integer> mGradesList = new ArrayList<>();
+
+                for(int n = 1; n <= mGrades; n++) {
+                    mGradesList.add(n);
+                }
+
+                ArrayAdapter<Integer> gradeAdapter = new ArrayAdapter<Integer>(mContext, android.R.layout.simple_spinner_item, mGradesList);
+                gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                gradeSpinner.setAdapter(gradeAdapter);
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                gradeSpinner.clearFocus();
+                gradeSpinner.setAdapter(null);
+
+            }
+        });
+
     }
 }

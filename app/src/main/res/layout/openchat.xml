@@ -5,13 +5,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/open_chat" >
+    android:background="@drawable/listelementborder" >
 
     <ImageView
         android:id="@+id/openchat_profilepicture_imageView"
-        android:padding="@dimen/profilepicture_list_padding"
         android:layout_width="@dimen/profilepicture_list_size"
         android:layout_height="@dimen/profilepicture_list_size"
+        android:layout_marginBottom="15dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
@@ -22,6 +27,7 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         android:textColor="#000000"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/openchat_profilepicture_imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +38,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="12dp"
+        android:textSize="13dp"
         app:layout_constraintStart_toEndOf="@+id/openchat_profilepicture_imageView"
         app:layout_constraintTop_toBottomOf="@+id/openchat_name_textview" />
 

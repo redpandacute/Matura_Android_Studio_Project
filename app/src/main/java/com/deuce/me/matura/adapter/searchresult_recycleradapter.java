@@ -81,7 +81,7 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
         holder.setInfo(mDataset[position]);
         System.out.println("SWUGG!");
         TextView name_tv = holder.itemView.findViewById(R.id.result_name_textview);
-        TextView school_yob_tv = holder.itemView.findViewById(R.id.result_school_yob_textview);
+        TextView school_yob_tv = holder.itemView.findViewById(R.id.result_school_textview);
 
         ImageView pb_imageview = holder.itemView.findViewById(R.id.result_profilepicture_imageview);
 

@@ -46,7 +46,7 @@ class OnSendListener implements View.OnClickListener {
 
             final DatabaseReference syncSender = mChatModel.getMainprofileRef();
             syncSender.child("latestMessage").setValue(messageText);
-            final DatabaseReference syncRec = mChatModel.getMainprofileRef();
+            final DatabaseReference syncRec = mChatModel.getUserprofileRef();
             syncRec.child("latestMessage").setValue(messageText);
 
             textInput.setText("");

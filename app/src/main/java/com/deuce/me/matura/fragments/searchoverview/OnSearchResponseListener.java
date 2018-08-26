@@ -28,7 +28,6 @@ class OnSearchResponseListener implements Response.Listener<String> {
     @Override
     public void onResponse(String response) {
         try {
-
             System.out.println("Received response: " + response);
             JSONObject json_resp = new JSONObject(response);
             boolean success = json_resp.getBoolean("success");

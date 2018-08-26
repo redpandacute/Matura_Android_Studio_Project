@@ -25,7 +25,7 @@ class ResultViewHolder extends RecyclerView.ViewHolder{
     
     public void validate() {
         TextView name_tv = view.findViewById(R.id.result_name_textview);
-        TextView school_yob_tv = view.findViewById(R.id.result_school_yob_textview);
+        TextView school_tv = view.findViewById(R.id.result_school_textview);
 
         ImageView pb_imageview = view.findViewById(R.id.result_profilepicture_imageview);
 
@@ -50,8 +50,7 @@ class ResultViewHolder extends RecyclerView.ViewHolder{
         if(!model.isChemistry()) { chemistry_medal.setVisibility(View.GONE); }
 
         name_tv.setText(model.getFirstname() + " " + model.getName());
-        school_yob_tv.setText(model.getYearofbirth() + "");
-
+        school_tv.setText(model.getSchool() + model.getStringGrade());
     }
 
     public void setModel(UserModel model) {

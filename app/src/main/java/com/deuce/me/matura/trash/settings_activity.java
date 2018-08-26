@@ -124,6 +124,8 @@ public class settings_activity extends AppCompatActivity {
         final EditText newconfpassword_et = (EditText) findViewById(R.id.settingsact_confnewpassword_edittext);
 
         final Spinner school_sp = (Spinner) findViewById(R.id.settingsact_school_spinner);
+        //final Spinner grade_sp = (Spinner) findViewById(R.id.settingsact_grade_spinner);
+
 
         final CheckBox german_cb = (CheckBox) findViewById(R.id.settingsact_german_checkbox);
         final CheckBox spanish_cb = (CheckBox) findViewById(R.id.settingsact_spanish_checkbox);
@@ -143,8 +145,8 @@ public class settings_activity extends AppCompatActivity {
             String email = email_et.getText().toString();
             String description = description_et.getText().toString();
 
-            // String school = school_sp.getSelectedItem().toString();
-            String school = "";
+            String school = school_sp.getSelectedItem().toString();
+            int grade = 2;
 
             boolean german = german_cb.isChecked();
             boolean spanish = spanish_cb.isChecked();
@@ -172,7 +174,7 @@ public class settings_activity extends AppCompatActivity {
 
                 System.out.println("Making save request");
 
-                SaveSettingsRequest save_request = new SaveSettingsRequest(id, firstname, name, email, school, description, oldpassword, newpassword, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
+                SaveSettingsRequest save_request = new SaveSettingsRequest(id, firstname, name, email, school, grade, description, oldpassword, newpassword, german, spanish, english, french, biology, chemistry, music, maths, physics, new onResponseListener());
                 RequestQueue request_queue = Volley.newRequestQueue(settings_activity.this); //Request Queue
                 request_queue.add(save_request);
 

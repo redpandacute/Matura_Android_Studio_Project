@@ -62,7 +62,7 @@ public class OpenprofileFragment extends Fragment {
         name_tv.setText(mUserModel.getFirstname() + " " + mUserModel.getName());
 
         TextView school_tv = view.findViewById(R.id.openprofile_school_textview);
-        school_tv.setText(mUserModel.getSchool() + ", " + mUserModel.getGrade());
+        school_tv.setText(mUserModel.getSchool() + mUserModel.getStringGrade());
 
         TextView desc_tv = view.findViewById(R.id.openprofile_description_textview);
         desc_tv.setText(mUserModel.getDescription());
@@ -119,7 +119,7 @@ public class OpenprofileFragment extends Fragment {
         }
 
         profilePicture_iv = view.findViewById(R.id.openprofile_profilepicture_imageview);
-        profilePicture_iv.setImageBitmap(mActivity.getMainprofilePicture().getImageBitmap());
+        profilePicture_iv.setImageBitmap(mActivity.getOpenprofilePicture().getImageBitmap());
 
         return view;
     }

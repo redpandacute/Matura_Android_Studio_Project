@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -42,7 +43,9 @@ public class OnSearchListener implements View.OnClickListener {
 
         EditText name_et = this.view.findViewById(R.id.searchoverview_searchforname_edittext);
 
-        //Spinner school_sp = findViewById(R.id.searchoverview_filterbyschool_spinner);
+        Spinner school_sp = this.view.findViewById(R.id.searchoverview_filterbyschool_spinner);
+        Spinner grade_sp = this.view.findViewById(R.id.searchoverview_grade_spinner);
+
         CheckBox german_cb = this.view.findViewById(R.id.searchoverview_german_checkbox);
         CheckBox spanish_cb = this.view.findViewById(R.id.searchoverview_spanish_checkbox);
         CheckBox french_cb = this.view.findViewById(R.id.searchoverview_french_checkbox);
@@ -67,13 +70,20 @@ public class OnSearchListener implements View.OnClickListener {
         map.put("subj_english", english_cb.isChecked());
         map.put("subj_chemistry",chemistry_cb.isChecked());
 
-        //String school = school_sp.getSelectedItem();
+
+        String school = "";
+        int grade = 0;
+
+        if(school_sp.getSelectedItemPosition() != 0) {
+            school = school_sp.getSelectedItem().toString();
+            grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
+        }
 
         System.out.println("Making searchrequest");
         try {
             UserModel clientInfo = new JSONtoInfo(mActivity.getBaseContext()).createNewItem(new JSONObject(mActivity.getIntent().getExtras().getString("clientInfo")));
-            SearchRequest search_request = new SearchRequest(clientInfo.getId(), name /*,School*/, map, new OnSearchResponseListener(mFragment));
-            RequestQueue request_queue = Volley.newRequestQueue(mActivity); //Request Queue
+            SearchRequest search_request = new SearchRequest(clientInfo.getId(), name , school, grade, map, new OnSearchResponseListener(mFragment));
+            RequestQueue request_queue = Volley.newRequestQueue(mActivity.getBaseContext()); //Request Queue
             request_queue.add(search_request);
         } catch (JSONException e) { e.printStackTrace(); }
     }

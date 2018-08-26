@@ -140,6 +140,7 @@ public class chooseImage_activity extends AppCompatActivity {
                         clientInfo.getName(),
                         clientInfo.getEmail(),
                         clientInfo.getSchool(),
+                        clientInfo.getGrade(),
                         clientInfo.getDescription(),
                         clientInfo.getPassword(),
                         clientInfo.getPassword(),
