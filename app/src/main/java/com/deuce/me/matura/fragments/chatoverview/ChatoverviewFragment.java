@@ -183,7 +183,7 @@ public class ChatoverviewFragment extends Fragment implements LoaderFragment{
     }
 
     public void setDataset(Map<Integer, OpenChatModelV2> mDataset) {
-        mActivity.getOpenChatsDataset();
+        mActivity.setOpenChatsDataset(mDataset);
     }
 
     public RecyclerView getRecyclerView() {

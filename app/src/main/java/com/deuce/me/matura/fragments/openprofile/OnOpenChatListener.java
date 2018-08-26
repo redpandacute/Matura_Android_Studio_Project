@@ -46,6 +46,7 @@ class OnOpenChatListener implements View.OnClickListener {
         databaseSenderReference.child("senderRef").setValue(String.format("Users/%d/chats/%d->%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
         databaseSenderReference.child("receiverRef").setValue(String.format("Users/%d/chats/%d->%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
         databaseSenderReference.child("chatRef").setValue(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseSenderReference.child("latestMessage").setValue("");
 
         databaseReceiverReference.child("receiverID").setValue(mMainprofileModel.getId());
         try {
@@ -56,6 +57,7 @@ class OnOpenChatListener implements View.OnClickListener {
         databaseReceiverReference.child("senderRef").setValue(String.format("Users/%d/chats/%d->%d", mOpenuserModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
         databaseReceiverReference.child("receiverRef").setValue(String.format("Users/%d/chats/%d->%d", mMainprofileModel.getId(), mMainprofileModel.getId(), mOpenuserModel.getId()));
         databaseReceiverReference.child("chatRef").setValue(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
+        databaseReceiverReference.child("latestMessage").setValue("");
 
         DatabaseReference openChatReference = FirebaseDatabase.getInstance().getReference(String.format("Chats/%d->%d", mMainprofileModel.getId(), mOpenuserModel.getId()));
 

@@ -44,25 +44,28 @@ class ChatsValueEventListener implements ValueEventListener {
         // TODO: show the count in the UI
         Iterator<DataSnapshot> mSnapshots = dataSnapshot.getChildren().iterator();
         if(mFragment.isResumed()) {
-            try {
+            tempFileGenerator gen = new tempFileGenerator();
 
-                tempFileGenerator gen = new tempFileGenerator();
-                while (mSnapshots.hasNext()) {
-                    OpenChatModelV2 mChatModel = new OpenChatModelV2(mActivity.getBaseContext(), mSnapshots.next());
+            while (mSnapshots.hasNext()) {
+                try {
+                    DataSnapshot mSnapshot = mSnapshots.next();
 
-                    if (mPaths.containsKey(mChatModel.getUserModel().getId())) {
-                        mChatModel.getUserModel().setTempProfilePicturePath(mPaths.get(mChatModel.getUserModel().getId()));
-                    } else {
-                        mChatModel.getUserModel().setTempProfilePicturePath(gen.getTempFilePath(mActivity.getBaseContext(), "0"));
+                    if (mSnapshot.hasChild("latestMessage")) {
+                        OpenChatModelV2 mChatModel = new OpenChatModelV2(mActivity.getBaseContext(), mSnapshot);
+                        if (mPaths.containsKey(mChatModel.getUserModel().getId())) {
+                            mChatModel.getUserModel().setTempProfilePicturePath(mPaths.get(mChatModel.getUserModel().getId()));
+                        } else {
+                            mChatModel.getUserModel().setTempProfilePicturePath(gen.getTempFilePath(mActivity.getBaseContext(), "0"));
+                        }
+
+                        mDataset.put(mChatModel.getUserModel().getId(), mChatModel);
                     }
-                    mDataset.put(mChatModel.getUserModel().getId(), mChatModel);
+                } catch(JSONException e){
+                    e.printStackTrace();
                 }
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
 
             mAdapter.notifyDataSetChanged();
-
             loadProfilePictures();
         }
     }
