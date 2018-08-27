@@ -1,13 +1,9 @@
 package com.deuce.me.matura.fragments.chatoverview;
 
-import android.support.v7.widget.RecyclerView;
-
 import com.deuce.me.matura.activities.MainActivity;
-import com.deuce.me.matura.fragments.searchresults.OnProfilePicturesResponseListener;
 import com.deuce.me.matura.models.UserModel;
-import com.deuce.me.matura.util.JSONtoInfo;
 import com.deuce.me.matura.util.ProfilePictureLoader;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -44,7 +40,7 @@ class ChatsValueEventListener implements ValueEventListener {
         // TODO: show the count in the UI
         Iterator<DataSnapshot> mSnapshots = dataSnapshot.getChildren().iterator();
         if(mFragment.isResumed()) {
-            tempFileGenerator gen = new tempFileGenerator();
+            TempFileGenerator gen = new TempFileGenerator();
 
             while (mSnapshots.hasNext()) {
                 try {

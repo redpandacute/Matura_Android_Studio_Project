@@ -30,7 +30,7 @@ import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
 import com.deuce.me.matura.requests.SaveSettingsRequest;
 import com.deuce.me.matura.util.JSONtoInfo;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -129,7 +129,7 @@ public class chooseImage_activity extends AppCompatActivity {
                 picture_big.compress(QUALITY_BIG);
                 picture_big.downscale(SCALE_BIG);
                 profileImage_iv.setImageBitmap(picture_big.getImageBitmap());
-                String small_temp_path = new tempFileGenerator().getTempFilePath(getBaseContext(), picture_big.getBASE64());
+                String small_temp_path = new TempFileGenerator().getTempFilePath(getBaseContext(), picture_big.getBASE64());
                 picture_small = new ProfilePictureModel(getBaseContext(), new File(small_temp_path));
                 picture_small.compress(QUALITY_SMALL);
                 picture_small.downscale(SCALE_SMALL);

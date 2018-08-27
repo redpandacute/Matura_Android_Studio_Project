@@ -11,7 +11,7 @@ import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import java.io.File;
 
@@ -31,7 +31,7 @@ class SearchResultsAdapter extends RecyclerView.Adapter<ResultViewHolder> {
         this.mFragment = mFragment;
         this.mActivity = (MainActivity) mFragment.getActivity();
 
-        this.placeholderBitmap = new ProfilePictureModel(mActivity.getBaseContext(),new File(new tempFileGenerator().getTempFilePath(mActivity.getBaseContext(), "0"))).getImageBitmap();
+        this.placeholderBitmap = new ProfilePictureModel(mActivity.getBaseContext(),new File(new TempFileGenerator().getTempFilePath(mActivity.getBaseContext(), "0"))).getImageBitmap();
     }
 
     @Override

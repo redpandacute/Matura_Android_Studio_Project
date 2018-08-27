@@ -1,9 +1,8 @@
 package com.deuce.me.matura.fragments.searchresults;
 
-import com.android.volley.Response;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.interfaces.ProfilePicturesOnResponseListener;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -37,7 +36,7 @@ public class OnProfilePicturesResponseListener implements ProfilePicturesOnRespo
             if(jsn.getBoolean("success")) {
                 JSONArray data = jsn.getJSONArray("data");
                 String[] paths = new String[data.length()];
-                tempFileGenerator gen = new tempFileGenerator();
+                TempFileGenerator gen = new TempFileGenerator();
                 for(int n = 0; n < data.length(); n++) {
                     paths[n] = gen.getTempFilePath(mActivity.getBaseContext(), data.getJSONObject(n).getString("blob_profilepicture_small"));
                 }

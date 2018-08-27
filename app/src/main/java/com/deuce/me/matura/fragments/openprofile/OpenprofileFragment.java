@@ -2,7 +2,6 @@ package com.deuce.me.matura.fragments.openprofile;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -18,11 +17,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.MainActivity;
-import com.deuce.me.matura.activities.UserprofileActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
 import com.deuce.me.matura.requests.BigProfilePictureRequest;
-import com.deuce.me.matura.util.tempFileGenerator;
 
 import org.json.JSONException;
 

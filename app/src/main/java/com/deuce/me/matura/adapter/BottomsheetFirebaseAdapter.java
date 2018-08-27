@@ -6,9 +6,8 @@ import android.view.View;
 
 import com.deuce.me.matura.activities.ChatActivity;
 import com.deuce.me.matura.activities.MainpageActivity;
-import com.deuce.me.matura.fragments.chatoverview.OpenChatModel;
 import com.deuce.me.matura.models.ProfilePictureModel;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
@@ -41,7 +40,7 @@ public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OldOpenC
     protected void populateViewHolder(MainpageActivity.OpenChatViewHolder viewHolder, final OldOpenChatModel model, int position) {
         viewHolder.setChat(model.getReceiverName(), model.getLatestMessage());
         viewHolder.setReceiverID(model.getReceiverID());
-        viewHolder.setProfilePicture(new ProfilePictureModel(mContext, new tempFileGenerator().getTempFilePath(mContext, null)));
+        viewHolder.setProfilePicture(new ProfilePictureModel(mContext, new TempFileGenerator().getTempFilePath(mContext, null)));
         System.out.println("RECEIVER: " + model.getReceiverName());
         viewHolder.setReceiverID(model.getReceiverID());
         viewHolder.view.setOnClickListener(new View.OnClickListener() {

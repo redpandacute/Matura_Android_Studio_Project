@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.deuce.me.matura.R;
+import com.deuce.me.matura.activities.LoginActivity;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.activities.MainpageActivity;
 import com.deuce.me.matura.activities.SettingsoverviewActivity;
@@ -133,10 +134,16 @@ public class MainprofileFragment extends Fragment {
                 return true;
             case R.id.logout_menu_button:
                 System.out.println("::logout::");
+                logout();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void logout() {
+        Intent logout_intent = new Intent(mActivity, LoginActivity.class);
+        startActivity(logout_intent);
     }
 
     private void startSettingsActivity() {

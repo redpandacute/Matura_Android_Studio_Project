@@ -19,13 +19,13 @@ import javax.crypto.spec.PBEKeySpec;
 
 //https://nelenkov.blogspot.com/2012/04/using-password-based-encryption-on.html
 
-public class passwordHasher {
+public class PasswordHasher {
 
     private static final int ITERATIONS = 1000;
     private static final int saltlength = 32;
 
 
-    public passwordHasher() {}
+    public PasswordHasher() {}
 
     public byte[] generateSalt() {
 

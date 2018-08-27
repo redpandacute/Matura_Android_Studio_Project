@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -122,14 +122,14 @@ public class SettingsoverviewActivity extends AppCompatActivity {
                 boolean success = JSON.getBoolean("success");
                 System.out.println("CODE ONE::" + response);
                 if(success && responseCode == 0) {
-                    String tempPath = new tempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
+                    String tempPath = new TempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
                     JSON.remove("blob_profilepicture_big");
                     JSON.put("temp_profilepicture_path", tempPath);
                     Intent settingsOverview = new Intent(mContext, SettingsoverviewActivity.class);
                     settingsOverview.putExtra("clientInfo", JSON.toString());
                     mContext.startActivity(settingsOverview);
                 } else if(success && responseCode == 1) {
-                    String tempPath = new tempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
+                    String tempPath = new TempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
                     JSON.remove("blob_profilepicture_big");
                     JSON.put("temp_profilepicture_path", tempPath);
                     Intent profileSettings = new Intent(mContext, ProfilesettingsActivity.class);

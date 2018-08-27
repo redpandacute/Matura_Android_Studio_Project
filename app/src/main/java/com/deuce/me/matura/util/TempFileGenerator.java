@@ -11,7 +11,7 @@ import com.deuce.me.matura.models.ProfilePictureModel;
  * Created by ingli on 10.07.2018.
  */
 
-public class tempFileGenerator {
+public class TempFileGenerator {
 
     public String getTempFilePath(Context mContext, String blob) {
         if(!blob.equals("0") && !blob.equals("") && blob != null) {

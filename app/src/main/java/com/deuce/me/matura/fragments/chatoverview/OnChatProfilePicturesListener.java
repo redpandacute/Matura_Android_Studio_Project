@@ -3,7 +3,7 @@ package com.deuce.me.matura.fragments.chatoverview;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.interfaces.ProfilePicturesOnResponseListener;
 import com.deuce.me.matura.models.UserModel;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,7 +38,7 @@ public class OnChatProfilePicturesListener implements ProfilePicturesOnResponseL
             JSONObject jsn = new JSONObject(response);
             if(jsn.getBoolean("success")) {
                 JSONArray data = jsn.getJSONArray("data");
-                tempFileGenerator gen = new tempFileGenerator();
+                TempFileGenerator gen = new TempFileGenerator();
                 for(int n = 0; n < data.length(); n++) {
 
                     mFragment.getPaths().put(

@@ -18,7 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.util.SchoolMapper;
-import com.deuce.me.matura.util.passwordHasher;
+import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.RegisterRequest;
 
 import org.json.JSONException;
@@ -52,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         registerbutton_bu.setOnClickListener(new onRegisterListener());
 
-        passwordHasher hasher = new passwordHasher();
+        PasswordHasher hasher = new PasswordHasher();
 
         byte[] saltBytes = hasher.generateSalt();
         System.out.println(saltBytes.toString());
@@ -142,7 +142,7 @@ public class RegisterActivity extends AppCompatActivity {
             if (password.equals(confpassword)) {
                 if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0){
 
-                    passwordHasher hasher = new passwordHasher();
+                    PasswordHasher hasher = new PasswordHasher();
                     byte[] saltBytes = hasher.generateSalt();
                     byte[] passwordBytes = hasher.hashPassword(password, saltBytes);
                     String passwordHash = hasher.byteArrayToHexString(passwordBytes);

@@ -3,13 +3,9 @@ package com.deuce.me.matura.fragments.chatoverview;
 import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
-import com.deuce.me.matura.util.JSONtoInfo;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.File;
 
@@ -44,7 +40,7 @@ class ChatOverviewFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChatModel,
         System.out.println("Latest Message: " + model.getLatestMessage());
 
         viewHolder.initialize(userModel, model.getLatestMessage());
-        viewHolder.setProfilePicture(new ProfilePictureModel(mActivity, new File(new tempFileGenerator().getTempFilePath(mActivity, "0"))));
+        viewHolder.setProfilePicture(new ProfilePictureModel(mActivity, new File(new TempFileGenerator().getTempFilePath(mActivity, "0"))));
         viewHolder.view.setOnClickListener(new OnOpenChatListener(mFragment, model));
     }
 
