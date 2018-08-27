@@ -13,7 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.util.JSONtoInfo;
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.util.passwordHasher;
+import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.SaveSettingsRequest;
 import com.deuce.me.matura.models.UserModel;
 
@@ -89,6 +89,7 @@ public class SecuritysettingsActivity extends AppCompatActivity {
                         clientInfo.getName(),
                         email,
                         clientInfo.getSchool(),
+                        clientInfo.getGrade(),
                         clientInfo.getDescription(),
                         clientInfo.getPassword(),
                         clientInfo.getPassword(),
@@ -109,7 +110,7 @@ public class SecuritysettingsActivity extends AppCompatActivity {
             } else if(!email.isEmpty() && !oldPW.isEmpty() && !newPW.isEmpty() && !confPW.isEmpty() && (newPW.equals(confPW)) && email.contains(".") && email.contains("@")) {
                 //WITH PW
 
-                passwordHasher pwH = new passwordHasher();
+                PasswordHasher pwH = new PasswordHasher();
                 String oldPasswordHash = pwH.hashPassword(oldPW, clientInfo.getSalt());
                 String newPasswordHash = pwH.hashPassword(newPW, clientInfo.getSalt());
 
@@ -120,6 +121,7 @@ public class SecuritysettingsActivity extends AppCompatActivity {
                         clientInfo.getName(),
                         email,
                         clientInfo.getSchool(),
+                        clientInfo.getGrade(),
                         clientInfo.getDescription(),
                         oldPasswordHash,
                         newPasswordHash,

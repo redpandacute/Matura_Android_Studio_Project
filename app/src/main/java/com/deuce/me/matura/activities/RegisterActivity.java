@@ -17,7 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.util.passwordHasher;
+import com.deuce.me.matura.util.SchoolMapper;
+import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.RegisterRequest;
 
 import org.json.JSONException;
@@ -29,7 +30,7 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final int SALT_LENGHT = 32;
+    private static final int SALT_LENGTH = 32;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,16 +42,17 @@ public class RegisterActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        final Spinner yearofbirth_sp = findViewById(R.id.registeract_yearofbirth_spinner);
+        final Spinner grade_sp = findViewById(R.id.registeract_grade_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
+
+        new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt");
 
         final Button registerbutton_bu = findViewById(R.id.registeract_signup_button);
 
-        SpinnerYears(yearofbirth_sp);
 
         registerbutton_bu.setOnClickListener(new onRegisterListener());
 
-        passwordHasher hasher = new passwordHasher();
+        PasswordHasher hasher = new PasswordHasher();
 
         byte[] saltBytes = hasher.generateSalt();
         System.out.println(saltBytes.toString());
@@ -113,7 +115,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText password_et = findViewById(R.id.registeract_password_edittext);
         final EditText confpassword_et = findViewById(R.id.registeract_confpassword_edittext);
 
-        final Spinner yearofbirth_sp = findViewById(R.id.registeract_yearofbirth_spinner);
+        final Spinner grade_sp = findViewById(R.id.registeract_grade_spinner);
         final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
 
         final CheckBox termsofservice_cb = findViewById(R.id.registeract_termsofservice_checkbox);
@@ -128,19 +130,19 @@ public class RegisterActivity extends AppCompatActivity {
             String password = password_et.getText().toString();
             String confpassword = confpassword_et.getText().toString();
             String school = "";
-            int yearofbirth = (int) yearofbirth_sp.getSelectedItem();
+            int grade = 0;
 
             try {
-                yearofbirth = Integer.parseInt(yearofbirth_sp.getSelectedItem().toString());
-                //school = school_sp.getSelectedItem().toString();
+                grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
+                school = school_sp.getSelectedItem().toString();
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
             if (password.equals(confpassword)) {
-                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty()){
+                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0){
 
-                    passwordHasher hasher = new passwordHasher();
+                    PasswordHasher hasher = new PasswordHasher();
                     byte[] saltBytes = hasher.generateSalt();
                     byte[] passwordBytes = hasher.hashPassword(password, saltBytes);
                     String passwordHash = hasher.byteArrayToHexString(passwordBytes);
@@ -149,7 +151,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     System.out.println("Creating request");
                     //Creating Request
-                    RegisterRequest reg_request = new RegisterRequest(username, name, firstname, school, yearofbirth,email, passwordHash, saltHex, new onResponseListener());
+                    RegisterRequest reg_request = new RegisterRequest(username, name, firstname, school, grade,email, passwordHash, saltHex, new onResponseListener());
                     RequestQueue request_queue = Volley.newRequestQueue(RegisterActivity.this); //Makeing a Requestqueue
                     request_queue.add(reg_request);
 
@@ -181,6 +183,10 @@ public class RegisterActivity extends AppCompatActivity {
         year_spinner_adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         yearSpinner.setAdapter(year_spinner_adp);
         year_spinner_adp.notifyDataSetChanged();
+
+    }
+
+    private void Schoolspinners(Spinner schoolSpinner, Spinner gradeSpinner){
 
     }
 

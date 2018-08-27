@@ -6,9 +6,8 @@ import android.view.View;
 
 import com.deuce.me.matura.activities.ChatActivity;
 import com.deuce.me.matura.activities.MainpageActivity;
-import com.deuce.me.matura.models.OpenChatModel;
 import com.deuce.me.matura.models.ProfilePictureModel;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 
@@ -16,12 +15,12 @@ import com.google.firebase.database.Query;
  * Created by Flo on 12.03.2018.
  */
 
-public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChatModel, MainpageActivity.OpenChatViewHolder> {
+public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OldOpenChatModel, MainpageActivity.OpenChatViewHolder> {
 
     private Context mContext;
     private String clientName, clientInfo;
 
-    public BottomsheetFirebaseAdapter(Class<OpenChatModel> modelClass,
+    public BottomsheetFirebaseAdapter(Class<OldOpenChatModel> modelClass,
                                       int modelLayout,
                                       Class<MainpageActivity.OpenChatViewHolder> viewHolderClass,
                                       Query ref, Context context, String clientName, String clientInfo
@@ -33,15 +32,15 @@ public class BottomsheetFirebaseAdapter extends FirebaseRecyclerAdapter<OpenChat
     }
 
     @Override
-    public OpenChatModel getItem(int position) {
+    public OldOpenChatModel getItem(int position) {
         return super.getItem(position);
     }
 
     @Override
-    protected void populateViewHolder(MainpageActivity.OpenChatViewHolder viewHolder, final OpenChatModel model, int position) {
+    protected void populateViewHolder(MainpageActivity.OpenChatViewHolder viewHolder, final OldOpenChatModel model, int position) {
         viewHolder.setChat(model.getReceiverName(), model.getLatestMessage());
         viewHolder.setReceiverID(model.getReceiverID());
-        viewHolder.setProfilePicture(new ProfilePictureModel(mContext, new tempFileGenerator().getTempFilePath(mContext, null)));
+        viewHolder.setProfilePicture(new ProfilePictureModel(mContext, new TempFileGenerator().getTempFilePath(mContext, null)));
         System.out.println("RECEIVER: " + model.getReceiverName());
         viewHolder.setReceiverID(model.getReceiverID());
         viewHolder.view.setOnClickListener(new View.OnClickListener() {

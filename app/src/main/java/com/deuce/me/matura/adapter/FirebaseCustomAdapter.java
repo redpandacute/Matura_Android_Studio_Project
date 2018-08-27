@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.ChatActivity;
-import com.deuce.me.matura.models.ChatMessageModel;
+import com.deuce.me.matura.fragments.openchat.ChatMessageModel;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.Query;
 

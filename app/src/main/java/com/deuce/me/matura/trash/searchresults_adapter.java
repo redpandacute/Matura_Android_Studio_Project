@@ -61,7 +61,7 @@ public class searchresults_adapter extends BaseAdapter {
         //itemm = new item_view(mContext);
 
         TextView name_tv = item.findViewById(R.id.result_name_textview);
-        TextView school_yob_tv = item.findViewById(R.id.result_school_yob_textview);
+        TextView school_yob_tv = item.findViewById(R.id.result_school_textview);
 
         ImageView pb_imageview = item.findViewById(R.id.result_profilepicture_imageview);
 

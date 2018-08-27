@@ -14,9 +14,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.requests.LoginRequest;
-import com.deuce.me.matura.util.passwordHasher;
+import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.SaltRequest;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +47,11 @@ public class LoginActivity extends AppCompatActivity {
         //Change to Mainpageact on click ---------------------------------------------------------
 
         signin_button.setOnClickListener(new onLoginListener());
+    }
+
+    @Override
+    public void onBackPressed() {
+        //empty backfunction
     }
 
     private class onRegisterListener implements View.OnClickListener {
@@ -95,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                 boolean success = jsonResponse.getBoolean("success");
 
                 if(success) {
-                    passwordHasher pH = new passwordHasher();
+                    PasswordHasher pH = new PasswordHasher();
                     String passwordHash = pH.hashPassword(password, jsonResponse.getString("hash_salt"));
                     System.out.println(passwordHash);
                     LoginRequest login = new LoginRequest(username, passwordHash, new onLoginResponseListener());
@@ -121,12 +126,13 @@ public class LoginActivity extends AppCompatActivity {
                 System.out.println(json_response);
 
                 if (success) {
-                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), json_response.getString("blob_profilepicture_big"));
+                    String tempPath = new TempFileGenerator().getTempFilePath(getBaseContext(), json_response.getString("blob_profilepicture_big"));
                     System.out.println(tempPath);
                     json_response.remove("blob_profilepicture_big");
                     json_response.put("temp_profilepicture_path", tempPath);
                     System.out.println("TEST::: " + json_response);
-                    Intent login_intent = new Intent(LoginActivity.this, MainpageActivity.class);
+                    //Intent login_intent = new Intent(LoginActivity.this, MainpageActivity.class);
+                    Intent login_intent = new Intent(LoginActivity.this, MainActivity.class);
                     login_intent.putExtra("clientInfo", json_response.toString());
                     //Starting activity
                     startActivity(login_intent);

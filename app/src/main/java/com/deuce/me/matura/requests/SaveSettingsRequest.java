@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SaveSettingsRequest extends StringRequest {
 
-    private static final String savesettings_pw_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/savesettings_php_v2.php";
+    private static final String savesettings_pw_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/savesettings_php_v3.php";
     private Map<String, String> params;
 
     public SaveSettingsRequest(int id,
@@ -20,6 +20,7 @@ public class SaveSettingsRequest extends StringRequest {
                                String name,
                                String email,
                                String school,
+                               int grade,
                                String description,
                                String oldpassword,
                                String newpassword,
@@ -41,6 +42,7 @@ public class SaveSettingsRequest extends StringRequest {
         params.put("user_name", name);
         params.put("user_firstname", firstname);
         params.put("user_school", school);
+        params.put("user_grade", grade + "");
         params.put("user_description", description);
         params.put("user_email", email);
         params.put("hash_old_password", oldpassword);
@@ -63,6 +65,7 @@ public class SaveSettingsRequest extends StringRequest {
                                String name,
                                String email,
                                String school,
+                               int grade,
                                String description,
                                String oldpassword,
                                String newpassword,
@@ -86,6 +89,7 @@ public class SaveSettingsRequest extends StringRequest {
         params.put("user_name", name);
         params.put("user_firstname", firstname);
         params.put("user_school", school);
+        params.put("user_grade", grade + "");
         params.put("user_description", description);
         params.put("user_email", email);
         params.put("hash_old_password", oldpassword);

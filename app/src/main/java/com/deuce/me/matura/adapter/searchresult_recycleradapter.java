@@ -15,7 +15,7 @@ import com.deuce.me.matura.activities.UserprofileActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.models.UserModel;
 import com.deuce.me.matura.util.JSONtoInfo;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,7 +65,7 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
             System.out.println("ZAG!");
         }
 
-        this.placeholderBitmap = new ProfilePictureModel(mContext,new File(new tempFileGenerator().getTempFilePath(mContext, null))).getImageBitmap();
+        this.placeholderBitmap = new ProfilePictureModel(mContext,new File(new TempFileGenerator().getTempFilePath(mContext, null))).getImageBitmap();
     }
 
     @Override
@@ -81,7 +81,7 @@ public class searchresult_recycleradapter extends RecyclerView.Adapter<searchres
         holder.setInfo(mDataset[position]);
         System.out.println("SWUGG!");
         TextView name_tv = holder.itemView.findViewById(R.id.result_name_textview);
-        TextView school_yob_tv = holder.itemView.findViewById(R.id.result_school_yob_textview);
+        TextView school_yob_tv = holder.itemView.findViewById(R.id.result_school_textview);
 
         ImageView pb_imageview = holder.itemView.findViewById(R.id.result_profilepicture_imageview);
 

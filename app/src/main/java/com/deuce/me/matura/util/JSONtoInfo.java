@@ -29,7 +29,7 @@ public class JSONtoInfo {
 
             String user_name = json.getString("user_name");
             String user_firstname = json.getString("user_firstname");
-            //String user_school = current_res_user.get("user_school"); TODO: SCHOOOL!!!!!!!!!
+            String user_school = json.getString("user_school");
             String user_username = json.getString("user_username");
 
             String user_description = "No description";
@@ -40,7 +40,7 @@ public class JSONtoInfo {
                 System.out.println("NOTE: No description");
             }
 
-            int user_yearofbirth = json.getInt("user_yearofbirth");
+            int user_grade = json.getInt("user_grade");
 
 
             boolean subj_maths = 0 != json.getInt("subj_maths");
@@ -68,13 +68,13 @@ public class JSONtoInfo {
                 String hash_salt = json.getString("hash_salt");
 
                 item = new UserModel(
-                        json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description, user_email,
+                        json.getInt("user_id"), user_username, user_name, user_firstname, user_school, user_grade, user_description, user_email,
                         subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics,
                         hash_password, hash_salt,
                         temp_profilepicture_path, json.toString());
             } catch (Exception e) {
                 item = new UserModel(
-                        json.getInt("user_id"), user_username, user_name, user_firstname, user_yearofbirth, user_description,
+                        json.getInt("user_id"), user_username, user_name, user_firstname, user_school, user_grade, user_description,
                         subj_french, subj_spanish, subj_music, subj_english, subj_chemistry, subj_biology, subj_maths, subj_german, subj_physics,
                         temp_profilepicture_path, json.toString());
             }

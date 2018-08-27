@@ -8,22 +8,24 @@ import android.util.Base64;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 /**
  * Created by Flo on 18.02.2018.
  */
 
 public class UserModel {
-    // private ?? pb;
 
     private Context context;
     private String JSON;
 
     private int id;
+    private int grade;
     private String username;
     private String name;
     private String firstname;
     private String school;
-    private int yearofbirth;
+    private int yearofbirth = 0;
     private String description;
     private String email = null;
 
@@ -42,18 +44,18 @@ public class UserModel {
     private boolean physics;
     private boolean german;
 
-    public UserModel(int id, String username, String name, String firstname, int yearofbirth, String description,
+    public UserModel(int id, String username, String name, String firstname, String school, int grade, String description,
                      boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                      String temp_profilepicture_path, String JSON
     ) {
-        this.context = context;
         this.JSON = JSON;
 
         this.id = id;
         this.username = username;
         this.name = name;
         this.firstname = firstname;
-        this.yearofbirth = yearofbirth;
+        this.school = school;
+        this.grade = grade;
         this.description = description;
 
         this.french = french;
@@ -69,7 +71,7 @@ public class UserModel {
         this.temp_profilepicture_path = temp_profilepicture_path;
     }
 
-    public UserModel(int id, String username, String name, String firstname, int yearofbirth, String description, String email,
+    public UserModel(int id, String username, String name, String firstname, String school, int grade, String description, String email,
                      boolean french, boolean spanish, boolean music, boolean english, boolean chemistry, boolean biology, boolean maths, boolean german, boolean physics,
                      String passwordHash, String salt,
                      String temp_profilepicture_path, String JSON
@@ -80,7 +82,8 @@ public class UserModel {
         this.username = username;
         this.name = name;
         this.firstname = firstname;
-        this.yearofbirth = yearofbirth;
+        this.school = school;
+        this.grade = grade;
         this.description = description;
         this.email = email;
 
@@ -120,13 +123,39 @@ public class UserModel {
         this.JSON = JSON;
     }
 
+    public Object getCleanJSON() throws JSONException {
+        JSONObject jsn = new JSONObject();
+
+        jsn.put("user_username", username);
+        jsn.put("user_firstname", firstname);
+        jsn.put("user_name", name);
+        jsn.put("user_school", school);
+        jsn.put("user_grade", grade);
+        jsn.put("user_description", description);
+        jsn.put("user_id", id);
+
+        if(german){jsn.put("subj_german",1);} else {jsn.put("subj_german",0);}
+        if(spanish){jsn.put("subj_spanish",1);} else {jsn.put("subj_spanish",0);}
+        if(english){jsn.put("subj_english",1);} else {jsn.put("subj_english",0);}
+        if(french){jsn.put("subj_french",1);} else {jsn.put("subj_french",0);}
+        if(biology){jsn.put("subj_biology",1);} else {jsn.put("subj_biology",0);}
+        if(chemistry){jsn.put("subj_chemistry",1);} else {jsn.put("subj_chemistry",0);}
+        if(music){jsn.put("subj_music",1);} else {jsn.put("subj_music",0);}
+        if(physics){jsn.put("subj_physics",1);} else {jsn.put("subj_physics",0);}
+        if(maths){jsn.put("subj_maths",1);} else {jsn.put("subj_maths",0);}
+
+        jsn.put("temp_profilepicture_path", null);
+
+        return jsn.toString();
+    }
+
     public void updateJSON() throws JSONException {
         JSONObject jsn = new JSONObject();
         jsn.put("user_username", username);
         jsn.put("user_firstname", firstname);
         jsn.put("user_name", name);
         jsn.put("user_school", school);
-        jsn.put("user_yearofbirth", yearofbirth);
+        jsn.put("user_grade", grade);
         jsn.put("user_description", description);
         jsn.put("user_email", email);
         jsn.put("user_id", id);
@@ -181,7 +210,7 @@ public class UserModel {
     }
 
     public String getSchool() {
-        return "KSA Pfäffikon SZ";
+        return this.school;
         //return school;
     }
 
@@ -315,5 +344,27 @@ public class UserModel {
 
     public void setPassword(String password) {
         this.passwordHash = password;
+    }
+
+    public int getGrade() {
+        return grade;
+    }
+
+    public String getStringGrade() {
+
+        String grade_str;
+
+        if(grade == 0) {
+            return "";
+        } else if(grade == 1) {
+            grade_str = ", " + grade + "st grade";
+        } else if(grade == 2) {
+            grade_str = ", " + grade + "nd grade";
+        } else if(grade == 3) {
+           grade_str = ", " + grade + "rd grade";
+        } else {
+            grade_str = ", " + grade + "th grade";
+        }
+        return grade_str;
     }
 }

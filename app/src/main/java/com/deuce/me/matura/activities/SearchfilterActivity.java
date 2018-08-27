@@ -77,9 +77,12 @@ public class SearchfilterActivity extends AppCompatActivity {
 
             System.out.println("Making searchrequest");
             Bundle extrasBundle = getIntent().getExtras();
+
+            String school = "";
+            int grade = 1;
             try {
                 UserModel clientInfo = new JSONtoInfo(getBaseContext()).createNewItem(new JSONObject(extrasBundle.getString("clientInfo")));
-                SearchRequest search_request = new SearchRequest(clientInfo.getId(), name /*,School*/, map, new onResponseListener());
+                SearchRequest search_request = new SearchRequest(clientInfo.getId(), name , school, grade, map, new onResponseListener());
                 RequestQueue request_queue = Volley.newRequestQueue(SearchfilterActivity.this); //Request Queue
                 request_queue.add(search_request);
             } catch (JSONException e) { e.printStackTrace(); }

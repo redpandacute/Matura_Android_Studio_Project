@@ -18,7 +18,7 @@ import com.deuce.me.matura.R;
 import com.deuce.me.matura.trash.home_request;
 import com.deuce.me.matura.models.ProfilePictureModel;
 import com.deuce.me.matura.requests.BigProfilePictureRequest;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 import com.deuce.me.matura.models.UserModel;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -68,7 +68,7 @@ public class UserprofileActivity extends AppCompatActivity {
             openChatButton.setOnClickListener(new onRequestListener());
 
             profilePicture_iv = findViewById(R.id.userprofileact_profilepicture_imageview);
-            picture = new ProfilePictureModel(getBaseContext(), new File(new tempFileGenerator().getTempFilePath(getBaseContext(), "0")));
+            picture = new ProfilePictureModel(getBaseContext(), new File(new TempFileGenerator().getTempFilePath(getBaseContext(), "0")));
             profilePicture_iv.setImageBitmap(picture.getImageBitmap());
             //profilePicture_iv.setImageBitmap(findViewById(R.drawable.de_medal));
 //SubjectMedals
@@ -256,7 +256,7 @@ public class UserprofileActivity extends AppCompatActivity {
                 JSONObject jsn = new JSONObject(response);
 
                 if(jsn.getBoolean("success")) {
-                    String tempPath = new tempFileGenerator().getTempFilePath(getBaseContext(), jsn.getString("blob_profilepicture_big"));
+                    String tempPath = new TempFileGenerator().getTempFilePath(getBaseContext(), jsn.getString("blob_profilepicture_big"));
                     System.out.println("Path: " + tempPath);
                     picture = new ProfilePictureModel(getBaseContext(), new File(tempPath));
                     profileInfo.setTempProfilePicturePath(tempPath);

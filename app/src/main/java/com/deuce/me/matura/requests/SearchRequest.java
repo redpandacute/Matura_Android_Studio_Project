@@ -12,17 +12,18 @@ import java.util.Map;
 
 public class SearchRequest extends StringRequest{
 
-    private static final String search_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/search_php_v2.php";
+    private static final String search_URL = "http://ef-informatik.umbach.ch/students/hirtzf/PHP/search_php_v3.php";
     private Map<String, String> params;
 
-    public SearchRequest(int id, String name /*  *PLACEHOLDER*, String school*/, Map<String, Boolean> map, Response.Listener<String> listener) {
+    public SearchRequest(int id, String name, String school, int grade, Map<String, Boolean> map, Response.Listener<String> listener) {
         super(Method.POST, search_URL, listener, null /*Errorlistener*/);
         params = new HashMap<>();
         params.put("user_name", name);
         params.put("user_id" , id + "");
 
         //TODO IMPLEMENT THE SCHOOL SPINNER STUFF FLO !!
-        //params.put("user_school", school);
+        params.put("user_school", school);
+        params.put("user_grade", grade + "");
 
         params.put("subj_german", (map.get("subj_german")? 1 : 0) + "");
         params.put("subj_spanish", (map.get("subj_spanish")? 1 : 0) + "");

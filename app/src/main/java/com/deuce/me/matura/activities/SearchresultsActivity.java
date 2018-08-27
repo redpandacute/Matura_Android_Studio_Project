@@ -14,7 +14,7 @@ import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.adapter.searchresult_recycleradapter;
 import com.deuce.me.matura.requests.SmallProfilePicturesRequest;
-import com.deuce.me.matura.util.tempFileGenerator;
+import com.deuce.me.matura.util.TempFileGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,7 +138,7 @@ public class SearchresultsActivity extends AppCompatActivity {
                 if(jsn.getBoolean("success")) {
                     JSONArray data = jsn.getJSONArray("data");
                     String[] paths = new String[data.length()];
-                    tempFileGenerator gen = new tempFileGenerator();
+                    TempFileGenerator gen = new TempFileGenerator();
                     for(int n = 0; n < data.length(); n++) {
                         paths[n] = gen.getTempFilePath(getBaseContext(), data.getJSONObject(n).getString("blob_profilepicture_small"));
                     }
