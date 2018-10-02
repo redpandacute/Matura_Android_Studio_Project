@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS `user_archive`
   
 `user_grade` tinyint(1) NOT NULL,
   
-`user_email` varchar(30) NOT NULL,
+`user_email` varchar(254) NOT NULL,
   
 `user_description` text NOT NULL,
   
