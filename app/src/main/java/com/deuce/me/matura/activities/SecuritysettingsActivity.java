@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.deuce.me.matura.requests.BcryptSaveSettingsRequest;
 import com.deuce.me.matura.util.JSONtoInfo;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.util.PasswordHasher;
@@ -84,15 +85,14 @@ public class SecuritysettingsActivity extends AppCompatActivity {
 
                 System.out.println("Making save request");
 
-                SaveSettingsRequest save_request = new SaveSettingsRequest(clientInfo.getId(),
+                BcryptSaveSettingsRequest save_request = new BcryptSaveSettingsRequest(clientInfo.getId(),
                         clientInfo.getFirstname(),
                         clientInfo.getName(),
                         email,
                         clientInfo.getSchool(),
                         clientInfo.getGrade(),
                         clientInfo.getDescription(),
-                        clientInfo.getPassword(),
-                        clientInfo.getPassword(),
+                        clientInfo.getPasswordHash(),
                         clientInfo.isGerman(),
                         clientInfo.isSpanish(),
                         clientInfo.isEnglish(),
@@ -110,21 +110,21 @@ public class SecuritysettingsActivity extends AppCompatActivity {
             } else if(!email.isEmpty() && !oldPW.isEmpty() && !newPW.isEmpty() && !confPW.isEmpty() && (newPW.equals(confPW)) && email.contains(".") && email.contains("@")) {
                 //WITH PW
 
-                PasswordHasher pwH = new PasswordHasher();
-                String oldPasswordHash = pwH.hashPassword(oldPW, clientInfo.getSalt());
-                String newPasswordHash = pwH.hashPassword(newPW, clientInfo.getSalt());
+                String oldPassword = oldPW_et.getText().toString();
+                String newPassword = newPW_et.getText().toString();
 
                 System.out.println("Making save request");
 
-                SaveSettingsRequest save_request = new SaveSettingsRequest(clientInfo.getId(),
+                BcryptSaveSettingsRequest save_request = new BcryptSaveSettingsRequest(clientInfo.getId(),
                         clientInfo.getFirstname(),
                         clientInfo.getName(),
                         email,
                         clientInfo.getSchool(),
                         clientInfo.getGrade(),
                         clientInfo.getDescription(),
-                        oldPasswordHash,
-                        newPasswordHash,
+                        clientInfo.getPasswordHash(),
+                        oldPassword,
+                        newPassword,
                         clientInfo.isGerman(),
                         clientInfo.isSpanish(),
                         clientInfo.isEnglish(),

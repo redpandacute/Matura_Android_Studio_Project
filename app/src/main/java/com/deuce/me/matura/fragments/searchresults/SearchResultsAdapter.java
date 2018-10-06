@@ -45,8 +45,7 @@ class SearchResultsAdapter extends RecyclerView.Adapter<ResultViewHolder> {
     @Override
     public void onBindViewHolder(ResultViewHolder holder, int position) {
         UserModel model = mDataset[position];
-        holder.setModel(model);
-        holder.validate();
+        holder.validate(model);
 
         ImageView profilepicture_iv = holder.getView().findViewById(R.id.result_profilepicture_imageview);
 

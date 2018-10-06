@@ -13,6 +13,7 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:titleTextColor="#ffffff"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Dark" />
 
     <android.support.v7.widget.RecyclerView

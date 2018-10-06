@@ -118,9 +118,9 @@ public class SettingsoverviewActivity extends AppCompatActivity {
         @Override
         public void onResponse(String response) {
             try {
+                System.out.println("CODE ONE::" + response);
                 JSONObject JSON = new JSONObject(response);
                 boolean success = JSON.getBoolean("success");
-                System.out.println("CODE ONE::" + response);
                 if(success && responseCode == 0) {
                     String tempPath = new TempFileGenerator().getTempFilePath(mContext, JSON.getString("blob_profilepicture_big"));
                     JSON.remove("blob_profilepicture_big");

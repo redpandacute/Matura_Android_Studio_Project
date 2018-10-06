@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.deuce.me.matura.R;
-import com.deuce.me.matura.activities.MainActivity;
 import com.deuce.me.matura.models.ProfilePictureModel;
 
 import java.io.File;
@@ -36,7 +35,7 @@ class ChatoverviewAdapterV2 extends RecyclerView.Adapter<OpenChatViewHolderV2>{
     @Override
     public void onBindViewHolder(OpenChatViewHolderV2 holder, int position) {
         OpenChatModelV2 model = mDataset.get(mDataset.keySet().toArray()[position]);
-        holder.initialize(model);
+        holder.validate(model);
         holder.getView().setOnClickListener(new OnOpenChatListenerV2(mFragment, model));
         holder.setProfilePicture(new ProfilePictureModel(mFragment.getActivity().getBaseContext(), new File(model.getUserModel().getTempProfilePicturePath())));
     }

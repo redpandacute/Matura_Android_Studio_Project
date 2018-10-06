@@ -22,8 +22,8 @@ class ChatMessageHolder extends RecyclerView.ViewHolder {
     public void setMessage(String messageUser, String messageText, String messageTime) {
         TextView mText_tv = view.findViewById(R.id.message_textview);
         mText_tv.setText(messageText);
-        TextView mUser_tv = view.findViewById(R.id.messagesender_textview);
-        mUser_tv.setText(messageUser);
+        //TextView mUser_tv = view.findViewById(R.id.messagesender_textview);
+        //mUser_tv.setText(messageUser);
         TextView mTime_tv = view.findViewById(R.id.sendingtime_textview);
         mTime_tv.setText(messageTime);
     }

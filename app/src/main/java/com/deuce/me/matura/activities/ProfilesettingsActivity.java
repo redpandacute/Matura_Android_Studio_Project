@@ -29,6 +29,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.BuildConfig;
+import com.deuce.me.matura.requests.BcryptSaveSettingsRequest;
 import com.deuce.me.matura.util.JSONtoInfo;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.trash.chooseImage_activity;
@@ -138,6 +139,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
             profilePicture_iv.setImageBitmap(picture_big.getImageBitmap());
 
             new SchoolMapper(getBaseContext(), school_sp, grade_sp).startDisplay("schoollist.txt", clientInfo);
+            grade_sp.setSelection(clientInfo.getGrade());
         } catch(JSONException e) {
             e.printStackTrace();
         }
@@ -190,7 +192,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
                 picture_small.downscale(SCALE_SMALL);
                 //System.out.println("BASE64" + picture_big.getBASE64());
 
-                SaveSettingsRequest request = new SaveSettingsRequest(
+                BcryptSaveSettingsRequest request = new BcryptSaveSettingsRequest(
                         clientInfo.getId(),
                         clientInfo.getFirstname(),
                         clientInfo.getName(),
@@ -198,8 +200,7 @@ public class ProfilesettingsActivity extends AppCompatActivity {
                         clientInfo.getSchool(),
                         clientInfo.getGrade(),
                         clientInfo.getDescription(),
-                        clientInfo.getPassword(),
-                        clientInfo.getPassword(),
+                        clientInfo.getPasswordHash(),
                         clientInfo.isGerman(),
                         clientInfo.isSpanish(),
                         clientInfo.isEnglish(),
@@ -329,7 +330,11 @@ public class ProfilesettingsActivity extends AppCompatActivity {
             System.out.println("DESC: " + description);
 
             String school = school_sp.getSelectedItem().toString();
-            int grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
+
+            int grade = 0;
+            if(!grade_sp.getSelectedItem().toString().isEmpty()) {
+                grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
+            }
 
             boolean german = german_cb.isChecked();
             boolean spanish = spanish_cb.isChecked();
@@ -345,16 +350,15 @@ public class ProfilesettingsActivity extends AppCompatActivity {
 
                 System.out.println("Making save request");
 
-                SaveSettingsRequest save_request;
+                BcryptSaveSettingsRequest save_request;
 
-                save_request = new SaveSettingsRequest(clientInfo.getId(),
+                save_request = new BcryptSaveSettingsRequest(clientInfo.getId(),
                         firstname,
                         name,
                         clientInfo.getEmail(),
                         school,
                         grade,
                         description,
-                        clientInfo.getPasswordHash(),
                         clientInfo.getPasswordHash(),
                         german,
                         spanish,
