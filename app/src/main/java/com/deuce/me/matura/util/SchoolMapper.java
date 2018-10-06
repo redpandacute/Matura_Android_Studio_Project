@@ -89,7 +89,7 @@ public class SchoolMapper {
         });
     }
 
-    public void startDisplay(String path, UserModel mModel){
+    public void startDisplay(String path, final UserModel mModel){
 
         MyReader mReader = new MyReader(mContext);
 
@@ -115,20 +115,16 @@ public class SchoolMapper {
         int mGrades = mMap.get(mModel.getSchool());
         ArrayList<Integer> mGradesList = new ArrayList<>();
 
-        mGradesList.add(mModel.getGrade());
+        //mGradesList.add(mModel.getGrade());
 
         for(int n = 1; n <= mGrades; n++) {
-            if(n != mModel.getGrade()){
-                mGradesList.add(n);
-            }
+            mGradesList.add(n);
         }
 
-        ArrayAdapter<Integer> gradeAdapter = new ArrayAdapter<Integer>(mContext, android.R.layout.simple_spinner_item, mGrades);
+        final ArrayAdapter<Integer> gradeAdapter = new ArrayAdapter<Integer>(mContext, android.R.layout.simple_spinner_item, mGradesList);
         gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        gradeSpinner.setAdapter(gradeAdapter);
 
-        schoolSpinner.setAdapter(schoolAdapter);
         schoolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -137,15 +133,18 @@ public class SchoolMapper {
 
                 ArrayList<Integer> mGradesList = new ArrayList<>();
 
-                for(int n = 1; n <= mGrades; n++) {
+                for (int n = 1; n <= mGrades; n++) {
                     mGradesList.add(n);
                 }
 
                 ArrayAdapter<Integer> gradeAdapter = new ArrayAdapter<Integer>(mContext, android.R.layout.simple_spinner_item, mGradesList);
                 gradeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-                gradeSpinner.setAdapter(gradeAdapter);
 
+                gradeSpinner.setAdapter(gradeAdapter);
+                if (i == 0) {
+                    gradeSpinner.setSelection(mModel.getGrade() - 1, false);
+                }
             }
 
             @Override
@@ -156,5 +155,8 @@ public class SchoolMapper {
             }
         });
 
+        //gradeSpinner.setAdapter(gradeAdapter);
+        //gradeSpinner.setSelection(mModel.getGrade() - 1, false);
+        schoolSpinner.setAdapter(schoolAdapter);
     }
 }

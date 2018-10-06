@@ -23,7 +23,8 @@ class ResultViewHolder extends RecyclerView.ViewHolder{
         this.view = view;
     }
     
-    public void validate() {
+    public void validate(UserModel model) {
+        this.model = model;
         TextView name_tv = view.findViewById(R.id.result_name_textview);
         TextView school_tv = view.findViewById(R.id.result_school_textview);
 

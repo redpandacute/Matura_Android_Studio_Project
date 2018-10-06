@@ -12,11 +12,13 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
+import com.deuce.me.matura.requests.BcryptRegisterRequest;
 import com.deuce.me.matura.util.SchoolMapper;
 import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.RegisterRequest;
@@ -30,7 +32,7 @@ import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    private static final int SALT_LENGTH = 32;
+    //private static final int SALT_LENGTH = 32;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
         final Button registerbutton_bu = findViewById(R.id.registeract_signup_button);
 
 
-        registerbutton_bu.setOnClickListener(new onRegisterListener());
-
-        PasswordHasher hasher = new PasswordHasher();
-
-        byte[] saltBytes = hasher.generateSalt();
-        System.out.println(saltBytes.toString());
-        String saltHex = hasher.byteArrayToHexString(saltBytes);
-        System.out.println(saltHex);
-        byte[] second = hasher.hexStringToByteArray(saltHex);
-        System.out.println(hasher.byteArrayToHexString(second));
-
+        registerbutton_bu.setOnClickListener(new BcryptOnRegisterListener());
     }
 
     @Override
@@ -92,9 +84,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class); //if success, change to login screen
                     RegisterActivity.this.startActivity(intent);
                 } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("Ooops, something went wrong with your registration. Retry?").setNegativeButton("Retry", null).create().show(); //Error Message if something went
-                    // wrong with JSON Object, with
+                    Toast.makeText(RegisterActivity.this, "Ooops, something went wrong with your registration, retry?", Toast.LENGTH_LONG).show();
                 }                                                                                                                                                   // retry button.
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -103,6 +93,55 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    private class BcryptOnRegisterListener implements  View.OnClickListener {
+
+        //Objects
+        final EditText username_et = findViewById(R.id.registeract_username_edittext);
+        final EditText name_et = findViewById(R.id.registeract_name_edittext);
+        final EditText firstname_et = findViewById(R.id.registeract_firstname_edittext);
+        final EditText email_et = findViewById(R.id.registeract_email_edittext);
+        final EditText password_et = findViewById(R.id.registeract_password_edittext);
+        final EditText confpassword_et = findViewById(R.id.registeract_confpassword_edittext);
+
+        final Spinner grade_sp = findViewById(R.id.registeract_grade_spinner);
+        final Spinner school_sp = findViewById(R.id.registeract_school_spinner);
+
+        final CheckBox termsofservice_cb = findViewById(R.id.registeract_termsofservice_checkbox);
+
+        @Override
+        public void onClick(View view) {
+
+            String username = username_et.getText().toString();
+            String name = name_et.getText().toString();
+            String firstname = firstname_et.getText().toString();
+            String email = email_et.getText().toString();
+            String password = password_et.getText().toString();
+            String confpassword = confpassword_et.getText().toString();
+            String school = "";
+            int grade = 0;
+
+            try {
+                if(!grade_sp.getSelectedItem().toString().isEmpty()) {
+                    grade = Integer.parseInt(grade_sp.getSelectedItem().toString());
+                }
+                school = school_sp.getSelectedItem().toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            if (password.equals(confpassword)) {
+                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0) {
+
+                    System.out.println("Creating request");
+                    //Creating Request
+                    BcryptRegisterRequest reg_request = new BcryptRegisterRequest(username, name, firstname, school, grade, email, password, new onResponseListener());
+                    RequestQueue request_queue = Volley.newRequestQueue(RegisterActivity.this); //Makeing a Requestqueue
+                    request_queue.add(reg_request);
+
+                }
+            }
+        }
+    }
 
     //OnClickListener Register ---------------------------------------------------------------------
     private class onRegisterListener implements View.OnClickListener {
@@ -140,7 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
 
             if (password.equals(confpassword)) {
-                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0){
+                if (termsofservice_cb.isChecked() && !username.isEmpty() && !name.isEmpty() && !firstname.isEmpty() /*&& !school.isEmpty() */ && !email.isEmpty() && !password.isEmpty() && school_sp.getSelectedItemPosition() != 0) {
 
                     PasswordHasher hasher = new PasswordHasher();
                     byte[] saltBytes = hasher.generateSalt();
@@ -151,12 +190,12 @@ public class RegisterActivity extends AppCompatActivity {
 
                     System.out.println("Creating request");
                     //Creating Request
-                    RegisterRequest reg_request = new RegisterRequest(username, name, firstname, school, grade,email, passwordHash, saltHex, new onResponseListener());
+                    RegisterRequest reg_request = new RegisterRequest(username, name, firstname, school, grade, email, passwordHash, saltHex, new onResponseListener());
                     RequestQueue request_queue = Volley.newRequestQueue(RegisterActivity.this); //Makeing a Requestqueue
                     request_queue.add(reg_request);
 
                 } else {
-                    System.out.println("not accepting termsoS");
+                    System.out.println("Empty Fields");
                     //Error not accepting Terms o Service
                 }
             } else {
@@ -167,28 +206,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         }
     }
-
-    //Adding years function ------------------------------------------------------------------------
-    private void SpinnerYears (Spinner yearSpinner) {
-
-
-        List years = new ArrayList();
-        for (int i = Calendar.getInstance().get(Calendar.YEAR); i > Calendar.getInstance().get(Calendar.YEAR) - 100; i--){
-            years.add(i);
-        }
-
-        final ArrayList<Integer> yearlist = new ArrayList<>();
-        yearlist.addAll(years);
-        final ArrayAdapter<Integer> year_spinner_adp = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, yearlist);
-        year_spinner_adp.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        yearSpinner.setAdapter(year_spinner_adp);
-        year_spinner_adp.notifyDataSetChanged();
-
-    }
-
-    private void Schoolspinners(Spinner schoolSpinner, Spinner gradeSpinner){
-
-    }
+}
 
     /*
     private byte[] generateSalt(int bytes) {
@@ -248,4 +266,4 @@ public class RegisterActivity extends AppCompatActivity {
         return output;
     }
     */
-}
+

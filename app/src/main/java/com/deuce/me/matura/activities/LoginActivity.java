@@ -13,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
+import com.deuce.me.matura.requests.BcryptLoginRequest;
 import com.deuce.me.matura.requests.LoginRequest;
 import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.SaltRequest;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.login_toolbar);
         toolbar.setTitle(R.string.login_title);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
         //Objects
         final TextView register_textview = findViewById(R.id.loginact_register_textview);
@@ -44,9 +45,9 @@ public class LoginActivity extends AppCompatActivity {
 
         register_textview.setOnClickListener(new onRegisterListener());
 
-        //Change to Mainpageact on click ---------------------------------------------------------
+        //Change to Login on click ---------------------------------------------------------
 
-        signin_button.setOnClickListener(new onLoginListener());
+        signin_button.setOnClickListener(new BcryptOnLoginListener());
     }
 
     @Override
@@ -61,6 +62,25 @@ public class LoginActivity extends AppCompatActivity {
 
             Intent register_intent = new Intent(LoginActivity.this, RegisterActivity.class);
             startActivity(register_intent);
+        }
+    }
+
+    private class BcryptOnLoginListener implements View.OnClickListener {
+
+        final EditText username_et = findViewById(R.id.loginact_username_edittext);
+        final EditText password_et = findViewById(R.id.loginact_password_edittext);
+
+        @Override
+        public void onClick(View view) {
+
+            String username = username_et.getText().toString();
+            String password = password_et.getText().toString();
+
+            if(!username.isEmpty() || !password.isEmpty()) {
+                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                BcryptLoginRequest login = new BcryptLoginRequest(username, password, new onLoginResponseListener());
+                queue.add(login);
+            }
         }
     }
 

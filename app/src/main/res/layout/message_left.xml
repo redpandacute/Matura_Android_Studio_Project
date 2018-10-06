@@ -10,19 +10,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/colorRed"
-        android:textStyle="bold"
-        android:text="SenderName"
-        android:padding="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:id="@+id/messagesender_textview"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:text="Message"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:textColor="#000000"
+        android:textColor="#ffff"
         android:layout_marginRight="15dp"
         android:id="@+id/message_textview"/>
     <TextView
@@ -32,8 +23,9 @@
         android:textSize="9dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
-        android:paddingBottom="3dp"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="7dp"
+        android:paddingBottom="0dp"
+        android:textColor="@color/colorLight"
         android:id="@+id/sendingtime_textview"/>
 
 </LinearLayout>

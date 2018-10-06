@@ -9,24 +9,14 @@
     android:background="@drawable/messagebubble_right">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/colorRedDarker"
-        android:textStyle="bold"
-        android:text="SenderName"
-        android:padding="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:id="@+id/messagesender_textview"/>
-
-    <TextView
         android:id="@+id/message_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="15dp"
         android:text="Message"
-        android:textColor="#000000" />
+        android:textColor="#ffffff" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,8 +24,8 @@
         android:textSize="9dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="5dp"
-        android:paddingBottom="3dp"
-        android:textColor="@color/colorPrimary"
+        android:layout_marginBottom="7dp"
+        android:textColor="@color/colorLight"
         android:id="@+id/sendingtime_textview"/>
 
 </LinearLayout>

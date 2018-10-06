@@ -28,7 +28,7 @@ class OpenChatViewHolderV2 extends RecyclerView.ViewHolder {
         view = itemView;
     }
 
-    public void initialize(OpenChatModelV2 model) {
+    public void validate(OpenChatModelV2 model) {
         this.mModel = model;
         this.userModel = mModel.getUserModel();
 
