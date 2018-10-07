@@ -59,8 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        AccountGenerator gen = new AccountGenerator(getBaseContext());
-        gen.generate();
+        //AccountGenerator gen = new AccountGenerator(getBaseContext());
+        //gen.generate();
     }
 
     private class onRegisterListener implements View.OnClickListener {
