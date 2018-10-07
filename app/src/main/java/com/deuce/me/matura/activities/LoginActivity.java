@@ -15,6 +15,7 @@ import com.android.volley.toolbox.Volley;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.requests.BcryptLoginRequest;
 import com.deuce.me.matura.requests.LoginRequest;
+import com.deuce.me.matura.util.AccountGenerator;
 import com.deuce.me.matura.util.PasswordHasher;
 import com.deuce.me.matura.requests.SaltRequest;
 import com.deuce.me.matura.util.TempFileGenerator;
@@ -53,6 +54,13 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         //empty backfunction
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        AccountGenerator gen = new AccountGenerator(getBaseContext());
+        gen.generate();
     }
 
     private class onRegisterListener implements View.OnClickListener {

@@ -1,0 +1,25 @@
+q:koppa:q:Kantonsschule Ausserschwyz Pfaeffikon:4:q@gmail.com:123
+mm:omega:mm:Kantonsschule Ausserschwyz Nuolen:2:mm@gmail.com:123
+h:heta:h:Kantonsschule Ausserschwyz Pfaeffikon:3:h@gmail.com:123
+w:digamma:w:Kantonsschule Ausserschwyz Pfaeffikon:2:w@gmail.com:123
+a:alpha:a:Kantonsschule Ausserschwyz Nuolen:3:a@gmail.com:123
+b:beta:b:Kantonsschule Ausserschwyz Nuolen:4:b@gmail.com:123
+c:chic:c:Kantonsschule Ausserschwyz Nuolen:1:c@gmail.com:123
+d:delta:d:Kantonsschule Ausserschwyz Nuolen:2:d@gmail.com:123
+e:epsilon:e:Kantonsschule Ausserschwyz Pfaeffikon:1:e@gmail.com:123
+ee:eta:ee:Kantonsschule Ausserschwyz Pfaeffikon:4:ee@gmail.com:123
+g:gamma:g:Kantonsschule Ausserschwyz Nuolen:3:g@gmail.com:123
+i:iota:i:Kantonsschule Ausserschwyz Nuolen:4:i@gmail.com:123
+k:kappa:k:Stiftschule Einsiedeln:6:k@gmail.com:123
+l:lamda:l:Kantonsschule Ausserschwyz Pfaeffikon:3:l@gmail.com:123
+m:mu:m:Stiftschule Einsiedeln:5:m@gmail.com:123
+n:nu:n:Stiftschule Einsiedeln:4:n@gmail.com:123
+o:omicron:o:Kantonsschule Ausserschwyz Pfaeffikon:2:o@gmail.com:123
+p:pi:p:Stiftschule Einsiedeln:3:p@gmail.com:123
+ph:phi:ph:Stiftschule Einsiedeln:2:ph@gmail.com:123
+r:rho:r:Stiftschule Einsiedeln:1:r@gmail.com:123
+s:sigma:s:Kantonsschule Ausserschwyz Pfaeffikon:1:s@gmail.com:123
+t:theta:t:Kantonsschule Ausserschwyz Pfaeffikon:4:t@gmail.com:123
+u:upsilon:u:Kantonsschule Ausserschwyz Pfaeffikon:3:u@gmail.com:123
+x:xi:x:Kantonsschule Ausserschwyz Pfaeffikon:2:x@gmail.com:123
+z:zeta:z:Kantonsschule Ausserschwyz Pfaeffikon:1:z@gmail.com:123

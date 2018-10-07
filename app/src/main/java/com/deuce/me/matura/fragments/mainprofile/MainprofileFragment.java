@@ -1,12 +1,10 @@
 package com.deuce.me.matura.fragments.mainprofile;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.deuce.me.matura.R;
 import com.deuce.me.matura.activities.LoginActivity;
 import com.deuce.me.matura.activities.MainActivity;
-import com.deuce.me.matura.activities.MainpageActivity;
 import com.deuce.me.matura.activities.SettingsoverviewActivity;
 import com.deuce.me.matura.models.UserModel;
 
